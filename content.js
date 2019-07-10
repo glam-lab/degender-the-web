@@ -1,10 +1,7 @@
-var dictionary = { "underage woman" : "child",
-                   //"underage women" : "children",
-                   "child prostitute": "rape victim",
-                   "sex with minors": "rape",
-                   "sex with children": "rape",
-                   "sex with girls": "rape",
-                   "non-consensual sex": "rape"};
+// Fill in words or phrases to replace
+//           "keyphrase": "replacement phrase"
+var dictionary = { "Bob": "Carol",
+                   "Ted": "Alice" };
 
 // TreeWalker did not behave as I expected, so we'll do it with explicit recursion.
 function textNodesUnder(node){
@@ -22,8 +19,11 @@ for (node of textNodes) {
     var text = node.nodeValue;
     for (phraseToReplace in dictionary) {
         var pattern = new RegExp('\\b(' + phraseToReplace + ')\\b', 'ig');
+        var tooltip = "Originally:"
+        var chars = Math.max(tooltip.length, phraseToReplace.length + 10);
         var replacement = '<span class="tooltip">' + dictionary[phraseToReplace] + 
-                              '<span class="tooltiptext">Was: "' + phraseToReplace + '"</span></span>';
+                              '<span class="tooltiptext" style="width:' + chars + 'ex;">' + 
+                              tooltip + '<br/>"' + phraseToReplace + '"</span></span>';
         var replacedText = text.replace(pattern, replacement);
 
         if ((replacedText !== text) && (node.parentNode !== null)) {

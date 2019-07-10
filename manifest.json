@@ -1,7 +1,7 @@
 {
 "manifest_version": 2,
-    "name": "[your extension name here]",
-    "description": "[your extension description here]",
+    "name": "[your text replacement extension name here]",
+    "description": "[your text replacement extension description here]",
     "version": "1.0",
     "content_scripts": [
         {
