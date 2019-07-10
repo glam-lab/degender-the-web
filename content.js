@@ -1,7 +1,9 @@
-// Fill in words or phrases to replace
+// Fill in words or phrases to replace.
 //           "keyphrase": "replacement phrase"
-var dictionary = { "Bob": "Carol",
-                   "Ted": "Alice" };
+var dictionary = { "kadigan": "thingamagig",
+                   "Person A": "Alice", 
+                   "Person B": "Bob",
+                   "East Cupcake": "Podunk"};
 
 // TreeWalker did not behave as I expected, so we'll do it with explicit recursion.
 function textNodesUnder(node){
@@ -31,7 +33,9 @@ for (node of textNodes) {
           text = replacedText;
         }
     }
-    if ((text !== originalText) && (node.parentNode !== null)) {
-        node.parentNode.innerHTML = text;
+    if ((text != originalText) && (node.parentNode !== null)) {
+       var element = document.createElement("span");
+       element.innerHTML = text;
+       node.parentNode.replaceChild(element, node);
     }
 }
