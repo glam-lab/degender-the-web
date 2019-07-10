@@ -16,7 +16,8 @@ function textNodesUnder(node){
 var textNodes = textNodesUnder(document.body);
 
 for (node of textNodes) {
-    var text = node.nodeValue;
+    var originalText = node.nodeValue;
+    var text = originalText;
     for (phraseToReplace in dictionary) {
         var pattern = new RegExp('\\b(' + phraseToReplace + ')\\b', 'ig');
         var tooltip = "Originally:"
@@ -27,7 +28,10 @@ for (node of textNodes) {
         var replacedText = text.replace(pattern, replacement);
 
         if ((replacedText !== text) && (node.parentNode !== null)) {
-          node.parentNode.innerHTML = replacedText;
+          text = replacedText;
         }
+    }
+    if ((text !== originalText) && (node.parentNode !== null)) {
+        node.parentNode.innerHTML = text;
     }
 }
