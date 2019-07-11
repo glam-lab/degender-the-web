@@ -12,7 +12,7 @@
                 "degender-the-web.css"
             ],
             "js": [
-                "content.js"
+                "src/content.js"
             ],
             "run_at": "document_idle"
         }
