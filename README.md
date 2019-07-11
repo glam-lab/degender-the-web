@@ -37,8 +37,8 @@ If you're a developer, you're welcome to submit a pull request.
   * Errors will show up in the console.
   
 ### Automated Tests
-Automated tests in Jasmine are (forthcoming)[https://github.com/janetlndavis/degender-the-web/issues/2].
-  
+Automated tests in Jasmine are [forthcoming](https://github.com/janetlndavis/degender-the-web/issues/2).
+
 ### To Publish a New Version to Chrome Webstore
   1. Make sure all the tests pass.
   1. Update the version number in `manifest.json` and commit the change to master.
