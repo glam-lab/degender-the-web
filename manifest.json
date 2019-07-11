@@ -9,7 +9,7 @@
                 "*://*/*"
             ],
             "css": [
-                "style.css"
+                "degender-the-web.css"
             ],
             "js": [
                 "content.js"
