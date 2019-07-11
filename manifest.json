@@ -1,7 +1,7 @@
 {
 "manifest_version": 2,
-    "name": "[your text replacement extension name here]",
-    "description": "[your text replacement extension description here]",
+    "name": "Degender the Web",
+    "description": "'Degender the Web' replaces all gendered pronouns on all Web pages with 'they/them/their'.",
     "version": "1.0",
     "content_scripts": [
         {
