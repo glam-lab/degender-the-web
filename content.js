@@ -1,9 +1,11 @@
-// Fill in words or phrases to replace.
-//           "keyphrase": "replacement phrase"
-var dictionary = { "kadigan": "thingamagig",
-                   "Person A": "Alice", 
-                   "Person B": "Bob",
-                   "East Cupcake": "Podunk"};
+var dictionary = { "she": "they",
+                   "her": "them",           // But: 'her book' -> 'their book'
+                   "hers": "theirs",
+                   "herself": "themself",
+                   "he": "they",
+                   "him": "them",
+                   "his": "their",          // But: 'the book is his' -> 'the book is theirs'
+                   "himself": "themself" };
 
 // TreeWalker did not behave as I expected, so we'll do it with explicit recursion.
 function textNodesUnder(node){
