@@ -1,41 +1,44 @@
+/* Source: https://www.w3schools.com/css/css_tooltip.asp */
+
+/* Tooltip container */
 .tooltip {
   position: relative;
   display: inline-block;
-  color: red;
-  font-weight: bold;
-  font-size: larger;
+  border-bottom: 1px dashed gray;
 }
 
+/* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
+  width: 8ex;
+  bottom: 100%;
+  left: 50%; 
+  margin-left: -5ex; /* Use half of the width to center the tooltip */
+  background-color: gray;
+  color: white;
   text-align: center;
-  border-radius: 6px;
   padding: 5px 0;
+  border-radius: 6px;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
+  font-size: normal;
+  font-weight: normal;
+  font-style: normal;
 }
 
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* Show a callout arrow at the bottom of the tooltip */
 .tooltip .tooltiptext::after {
-  content: "";
+  content: " ";
   position: absolute;
-  top: 100%;
+  top: 100%; /* At the bottom of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  border-color: gray transparent transparent transparent;
 }
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-

@@ -24,11 +24,9 @@ for (node of textNodes) {
     var text = originalText;
     for (phraseToReplace in dictionary) {
         var pattern = new RegExp('\\b(' + phraseToReplace + ')\\b', 'ig');
-        var tooltip = "Originally:"
-        var chars = Math.max(tooltip.length, phraseToReplace.length + 10);
         var replacement = '<span class="tooltip">' + dictionary[phraseToReplace] + 
-                              '<span class="tooltiptext" style="width:' + chars + 'ex;">' + 
-                              tooltip + '<br/>"' + phraseToReplace + '"</span></span>';
+                              '<span class="tooltiptext">' +
+                              phraseToReplace + '</span></span>';
         var replacedText = text.replace(pattern, replacement);
 
         if ((replacedText !== text) && (node.parentNode !== null)) {
