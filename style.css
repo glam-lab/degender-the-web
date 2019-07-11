@@ -4,7 +4,7 @@
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dashed gray;
+  border-bottom: 1px dashed lightgray;
 }
 
 /* Tooltip text */
@@ -24,6 +24,7 @@
   font-size: normal;
   font-weight: normal;
   font-style: normal;
+  opacity: 0.9;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
@@ -41,4 +42,5 @@
   border-width: 5px;
   border-style: solid;
   border-color: gray transparent transparent transparent;
+  opacity: 0.9;
 }
