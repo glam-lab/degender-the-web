@@ -8,8 +8,9 @@
             "matches": [
                 "*://*/*"
             ],
-            "css": 
-                ["style.css"],
+            "css": [
+                "style.css"
+            ],
             "js": [
                 "content.js"
             ],
