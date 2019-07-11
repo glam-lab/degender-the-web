@@ -40,7 +40,8 @@ Development Setup
   * If you make changes to the code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes.
   * Errors will show up in the console.
   
-### To Publish a New Version to Chrome Webstore
+To Publish a New Version to Chrome Webstore
+-----------------------------------------------
   1. Make sure all the tests pass.
   1. Update the version number in `manifest.json` and commit the change to master.
      Use [semantic versioning](http://semver.org/) to determine how to increment the version number
