@@ -33,10 +33,10 @@ If you're a developer, you're welcome to submit a pull request.
 
 Development Setup
 -----------------
-  * Fork this repository
-  * `git clone` the repo
-  * Follow the [instructions on the Chrome docs](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension
-  * Test on a web page such as [this list of pronouns](http://www.english-language-grammar-guide.com/list-of-pronouns.html)
+  * Fork this repository.
+  * `git clone`
+  * Follow the [instructions on the Chrome docs](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
+  * Test on a web page such as [this list of pronouns](http://www.english-language-grammar-guide.com/list-of-pronouns.html).
   * If you make changes to the code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes.
   * Errors will show up in the console.
   
