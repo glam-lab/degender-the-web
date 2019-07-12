@@ -1,4 +1,4 @@
-var dictionary = { "she": "they",
+var substitute = { "she": "they",
                    "her": "them",           // But: 'her book' -> 'their book'
                    "hers": "theirs",
                    "herself": "themself",
@@ -6,6 +6,12 @@ var dictionary = { "she": "they",
                    "him": "them",
                    "his": "their",          // But: 'the book is his' -> 'the book is theirs'
                    "himself": "themself" };
+
+// Preprocess adding tooltips to replacement text
+for (word in substitute) {
+    substitute[word] = '<span class="degendered-pronoun">' + substitute[word] + 
+                          '<span class="tooltiptext">' + word + '</span></span>';
+}
 
 // TreeWalker did not behave as I expected, so we'll do it with explicit recursion.
 function textNodesUnder(node){
@@ -21,19 +27,11 @@ var textNodes = textNodesUnder(document.body);
 
 for (node of textNodes) {
     var originalText = node.nodeValue;
-    var text = originalText;
-    for (phraseToReplace in dictionary) {
-        var pattern = new RegExp('\\b(' + phraseToReplace + ')\\b', 'ig');
-        var replacement = '<span class="degendered-pronoun">' + 
-                              dictionary[phraseToReplace] + 
-                              '<span class="tooltiptext">' +
-                              phraseToReplace + '</span></span>';
-        var replacedText = text.replace(pattern, replacement);
-
-        if ((replacedText !== text) && (node.parentNode !== null)) {
-          text = replacedText;
-        }
+    let doc = nlp(originalText);
+    for (word in substitute) {
+      doc.replace(word, substitute[word]);
     }
+    let text = doc.all().out('text');
     if ((text != originalText) && (node.parentNode !== null)) {
        var element = document.createElement("span");
        element.innerHTML = text;

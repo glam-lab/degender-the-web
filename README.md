@@ -32,7 +32,7 @@ If you're a developer, you're welcome to submit a pull request.
   * Fork this repository.
   * `git clone`
   * Follow the [instructions on the Chrome docs](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
-  * Test on a web page such as [this list of pronouns](http://www.english-language-grammar-guide.com/list-of-pronouns.html).
+  * Test on a web page such as [this list of pronouns](http://www.english-language-grammar-guide.com/list-of-pronouns.html), [her, determiner or pronoun?](https://english.stackexchange.com/questions/261843/her-a-determiner-or-a-pronoun), [5 examples of sentences using the pronoun 'his'](https://www.answers.com/Q/5_example_of_sentences_using_the_pronoun_his)
   * If you make changes to the code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes.
   * Errors will show up in the console.
   
