@@ -1,4 +1,4 @@
-var substitute = { "she": "they",
+var dictionary = { "she": "they",
                    "her": "them",           // But: 'her book' -> 'their book'
                    "hers": "theirs",
                    "herself": "themself",
@@ -7,10 +7,22 @@ var substitute = { "she": "they",
                    "his": "their",          // But: 'the book is his' -> 'the book is theirs'
                    "himself": "themself" };
 
-// Preprocess adding tooltips to replacement text
-for (word in substitute) {
-    substitute[word] = '<span class="degendered-pronoun">' + substitute[word] + 
-                          '<span class="tooltiptext">' + word + '</span></span>';
+function wrapWithTooltip(word, tooltip) {
+    return '<span class="degendered-pronoun">' + word +
+               '<span class="tooltiptext">' + tooltip + '</span></span>';
+}
+
+function titleCase(word) {
+    return word[0].toUpperCase() + word.slice(1);
+}
+
+// Preprocess adding tooltips to replacement text. with title case variants
+let substitute = {};
+for (word in dictionary) {
+    substitute[word] = wrapWithTooltip(dictionary[word], word);
+
+    let tc = titleCase(word);
+    substitute[tc] = wrapWithTooltip(titleCase(dictionary[word]), tc);
 }
 
 // TreeWalker did not behave as I expected, so we'll do it with explicit recursion.
@@ -28,8 +40,10 @@ var textNodes = textNodesUnder(document.body);
 for (node of textNodes) {
     var originalText = node.nodeValue;
     let doc = nlp(originalText);
-    for (word in substitute) {
-      doc.replace(word, substitute[word]);
+    for (word in dictionary) {
+      matches = doc.match(word);
+      matches.not("#TitleCase").replaceWith(substitute[word]);
+      matches.match("#TitleCase").replaceWith(substitute[titleCase(word)]);
     }
     let text = doc.all().out('text');
     if ((text != originalText) && (node.parentNode !== null)) {
