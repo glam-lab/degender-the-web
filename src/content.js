@@ -18,11 +18,11 @@ function titleCase(word) {
 
 // Preprocess adding tooltips to replacement text. with title case variants
 let substitute = {};
+let capitalizers = [ titleCase, str => str.toUpperCase(), x => x.toLowerCase() ];
 for (word in dictionary) {
-    substitute[word] = wrapWithTooltip(dictionary[word], word);
-
-    let tc = titleCase(word);
-    substitute[tc] = wrapWithTooltip(titleCase(dictionary[word]), tc);
+    for (f of capitalizers) {
+        substitute[f(word)] = wrapWithTooltip(f(dictionary[word]), f(word));
+    }
 }
 
 // TreeWalker did not behave as I expected, so we'll do it with explicit recursion.
@@ -42,8 +42,9 @@ for (node of textNodes) {
     let doc = nlp(originalText);
     for (word in dictionary) {
       matches = doc.match(word);
-      matches.not("#TitleCase").replaceWith(substitute[word]);
       matches.match("#TitleCase").replaceWith(substitute[titleCase(word)]);
+      matches.match("#Acronym").replaceWith(substitute[word.toUpperCase()]);
+      matches.not("#TitleCase").not("#Acronym").replaceWith(substitute[word]);
     }
     let text = doc.all().out('text');
     if ((text != originalText) && (node.parentNode !== null)) {
