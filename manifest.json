@@ -6,6 +6,7 @@
     "content_scripts": [
         {
             "matches": [
+                "file://*",
                 "*://*/*"
             ],
             "css": [
