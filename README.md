@@ -24,7 +24,7 @@ For a review of technology designed to influence language use, see this prior wo
 
 ## Acknowledgments
 
-Thanks to Kristen Peter Mork for sharing [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay.
+Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay.
 
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science.
 
