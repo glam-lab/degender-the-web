@@ -1,7 +1,7 @@
 # Degender the Web - a Chrome extension
 
 Inspired by [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay 
-[Call Me 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html), 
+[It's Time for 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html), 
 _Degender the Web_ is a Chrome web browser extension that replaces all gendered pronouns with "they/them/their".
 
 Gender-neutral pronouns added by this extension will appear with a faint dashed underline. Mouse over to see 
