@@ -3,7 +3,6 @@
 Inspired by [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay 
 [Call Me 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html), 
 _Degender the Web_ is a Chrome web browser extension that replaces all gendered pronouns with "they/them/their".
-Thanks to Kristen Peter Mork for sharing this essay.
 
 Gender-neutral pronouns added by this extension will appear with a faint dashed underline. Mouse over to see a tooltip containing the original, gendered pronoun.
 
@@ -21,6 +20,10 @@ For a review of technology designed to influence language use, see this prior wo
 >Emma Twersky and Janet Davis. 
 >["Don't say that!" An analysis of persuasive systems in the wild.](http://cs.whitman.edu/~davisj/pubs/Persuasive2017_031_final.pdf)
 >In de Vries, P.W., Oinas-Kukkonen, H., Siemons, L., Beerlage-de Jong, N., van Gemert-Pijnen, L. (Eds.), _Proceedings of the 12th International Conference on Persuasive Technology (PERSUASIVE 2017)_, Amsterdam, The Netherlands, April 4-6, 2017. Springer, LNCS 10171, pages 215-226.
+
+## Acknowledgments
+
+Thanks to Kristen Peter Mork for sharing [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay.
 
 ## Contributing
 
