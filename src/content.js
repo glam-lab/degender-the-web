@@ -7,9 +7,10 @@ var dictionary = { "she": "they",
                    "his": "their",          // But: 'the book is his' -> 'the book is theirs'
                    "himself": "themself" };
 
-function wrapWithTooltip(word, tooltip) {
-    return '<span class="degendered-pronoun">' + word +
-               '<span class="tooltiptext">' + tooltip + '</span></span>';
+function wrap(newWord, origWord) {
+    return '<span class="replacement" onmouseover="this.innerHTML=\'' + origWord + '\';"' +
+                                    ' onmouseout="this.innerHTML=\'' + newWord +  '\';">' +
+                  newWord + '</span>';
 }
 
 function titleCase(word) {
@@ -21,7 +22,7 @@ let substitute = {};
 let capitalizers = [ titleCase, str => str.toUpperCase(), x => x.toLowerCase() ];
 for (word in dictionary) {
     for (f of capitalizers) {
-        substitute[f(word)] = wrapWithTooltip(f(dictionary[word]), f(word));
+        substitute[f(word)] = wrap(f(dictionary[word]), f(word));
     }
 }
 
@@ -53,3 +54,14 @@ for (node of textNodes) {
        node.parentNode.replaceChild(element, node);
     }
 }
+
+// Fix the width of all "replacement" spans so the text does not reflow
+// when the node content is replaced. 
+// (This relies on the observation than "they/them/their" is longer than
+// "he/him/his" or "she/her/her".)
+let replacementNodes = document.getElementsByClassName("replacement");
+for (node of replacementNodes) {
+    let width = node.offsetWidth; // Find the node's width as rendered.
+    node.style.width = width; // Set the width explicitly in its style.
+}
+

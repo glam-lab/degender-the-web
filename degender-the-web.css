@@ -1,46 +1,6 @@
 /* Source: https://www.w3schools.com/css/css_tooltip.asp */
 
-/* Tooltip container */
-.degendered-pronoun {
-  position: relative;
+span.replacement {
   display: inline-block;
   border-bottom: 1px dashed lightgray;
-}
-
-/* Tooltip text */
-.degendered-pronoun .tooltiptext {
-  visibility: hidden;
-  width: 8ex;
-  bottom: 100%;
-  left: 50%; 
-  margin-left: -5ex; /* Use half of the width to center the tooltip */
-  background-color: gray;
-  color: white;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  font-size: normal;
-  font-weight: normal;
-  font-style: normal;
-  opacity: 0.9;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.degendered-pronoun:hover .tooltiptext {
-  visibility: visible;
-}
-
-/* Show a callout arrow at the bottom of the tooltip */
-.degendered-pronoun .tooltiptext::after {
-  content: " ";
-  position: absolute;
-  top: 100%; /* At the bottom of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: gray transparent transparent transparent;
-  opacity: 0.9;
 }
