@@ -61,7 +61,7 @@ for (node of textNodes) {
 // "he/him/his" or "she/her/her".)
 let replacementNodes = document.getElementsByClassName("replacement");
 for (node of replacementNodes) {
-    let width = node.offsetWidth; // Find the node's width as rendered.
-    node.style.width = width; // Set the width explicitly in its style.
+    let width = node.offsetWidth;    // Find the node's width as rendered.
+    node.style.width = width + "px"; // Set the width explicitly in its style.
 }
 
