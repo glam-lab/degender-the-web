@@ -26,6 +26,8 @@ For a review of technology designed to influence language use, see this prior wo
 
 Thanks to Kristen Peter Mork for sharing [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay.
 
+This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science.
+
 ## Contributing
 
 If you encounter a bug or think of a suggestion, please [create a GitHub issue](https://github.com/janetlndavis/degender-the-web/issues/new) with your request.
