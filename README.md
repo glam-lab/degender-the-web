@@ -11,7 +11,7 @@ Over time, the singular pronoun "they", which is used by many people, should fee
 
 ## Additional resources
 
-To learn more, you may wish to read:
+To learn more, you may wish to read some of the following contributed links:
 * [Understanding Non-Binary People: How to be Respectful and Supportive](https://transequality.org/issues/resources/understanding-non-binary-people-how-to-be-respectful-and-supportive) - A very concise guide provided by the National Center for Transgender Equality.
 * [I'm With 'They'](https://www.nytimes.com/2019/07/12/opinion/gender-neutral-pronouns.html) - Farhad Manjoo responds to reader comments, including many common objections.
 * [Why We Should All Use They/Them Pronouns](https://blogs.scientificamerican.com/voices/why-we-should-all-use-they-them-pronouns/) - An argument for the stronger claim that we should do away with gendered pronouns altogether.
