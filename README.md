@@ -9,7 +9,7 @@ the original, gendered pronoun.
 
 Over time, the singular pronoun "they", which is used by many people, should feel more natural in reading, writing, and speech.
 
-## Additional resources
+## Learning more
 
 To learn more, read some of the following contributed links:
 * [What is the Singular They, and Why Should I Use it?](https://www.grammarly.com/blog/use-the-singular-they/) - An accessible introduction published on the Grammarly Blog.
