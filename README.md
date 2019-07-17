@@ -43,7 +43,7 @@ If you encounter a bug or think of a suggestion, please [create a GitHub issue](
 
 If you're a developer, you're welcome to submit a pull request.
 
-### Development Setup
+### Development setup
   * Fork this repository.
   * `git clone`
   * Follow the [instructions on the Chrome docs](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
@@ -51,10 +51,11 @@ If you're a developer, you're welcome to submit a pull request.
   * Open the file ```test.html``` in a Web browser to review the provided test cases.
   * Errors will show up in the console.
   
-### Automated Tests
+### Automated tests
 Automated tests in Jasmine are [forthcoming](https://github.com/janetlndavis/degender-the-web/issues/2).
 
-### To Publish a New Version to Chrome Webstore
+### To publish a new version to the Chrome Webstore
+_Note: Version 1.0 has not been released. This extension has not yet been published._
   1. Make sure all the tests pass.
   1. Update the version number in `manifest.json` and commit the change to master.
      Use [semantic versioning](http://semver.org/) to determine how to increment the version number
