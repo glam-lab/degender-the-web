@@ -43,9 +43,7 @@ Developers are welcome to submit a pull request. See [information for developers
 
 Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks to many others for providing links (some names to appear soon). 
 
-This Chrome extension is inspired by earlier Web browser extensions such as 
-[HonestChrome](http://untitledscience.github.io/HonestChrome/), 
-which replaces the "body-shaming" words "skinny", "slim", and "thin" with body-positive words 
-"fit", "toned", and "healthy".
-
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
+
+This Chrome extension is inspired by earlier Web browser extensions such as 
+[HonestChrome](http://untitledscience.github.io/HonestChrome/).
