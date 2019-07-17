@@ -7,7 +7,7 @@ _Degender the Web_ is a Chrome web browser extension that replaces all gendered 
 Gender-neutral pronouns added by this extension will appear with a faint dashed underline. Mouse over to see 
 the original, gendered pronoun.
 
-Over time, the singular "they", which is preferred by many people, should feel more natural in reading, writing, and speech.
+Over time, the singular pronoun "they", which is used by many people, should feel more natural in reading, writing, and speech.
 
 ## Additional resources
 
