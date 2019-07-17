@@ -11,8 +11,19 @@ Over time, the singular "they", which is preferred by many people, should feel m
 
 ## Background
 
-This Chrome extension is also inspired by earlier word-replacement extensions such as 
-[Honest Chrome](http://untitledscience.github.io/HonestChrome/), 
+To learn more, you may wish to read:
+* [Understanding Non-Binary People: How to be Respectful and Supportive](https://transequality.org/issues/resources/understanding-non-binary-people-how-to-be-respectful-and-supportive) - A very concise guide provided by the National Center for Transgender Equality.
+* [It's Time for 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html) - Farhad Manjoo's essay.
+* [I'm With 'They'](https://www.nytimes.com/2019/07/12/opinion/gender-neutral-pronouns.html) - Farhad Manjoo responds to reader comments, including many common objections.
+* [Why We Should All Use They/Them Pronouns](https://blogs.scientificamerican.com/voices/why-we-should-all-use-they-them-pronouns/) - An argument for the stronger claim that we should do away with gendered pronouns altogether.
+* [Actually, We Should _Not_ All Use They/Them Pronouns](https://blogs.scientificamerican.com/voices/actually-we-should-not-all-use-they-them-pronouns/) - An argument that we should continue to use gendered pronouns.
+* [Pronoun Privilege](https://www.nytimes.com/2016/09/26/opinion/pronoun-privilege.html) - An essay on pronoun use in the classroom.
+* [A Quick and Easy Guide to They/Them Pronouns](https://www.archiebongiovanni.com/A-Quick-And-Easy-Guide-To-They-Them-Pronouns) - An educational comic book!
+* [They Is My Pronoun](http://www.theyismypronoun.com/) - "TIMP focuses on actually using singular they in real life, and on enabling the choice to use gender-neutral pronouns for yourself or for others."
+
+
+This Chrome extension is also inspired by earlier Web browser extensions such as 
+[HonestChrome](http://untitledscience.github.io/HonestChrome/), 
 which replaces the body-shaming words "skinny", "slim", and "thin" with body-positive words 
 "fit", "toned", and "healthy".
 
@@ -24,9 +35,9 @@ For a review of technology designed to influence language use, see this prior wo
 
 ## Acknowledgments
 
-Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay.
+Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks to many others for providing links (some names to appear soon). 
 
-This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science.
+This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
 
 ## Contributing
 
