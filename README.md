@@ -45,5 +45,5 @@ Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks to many o
 
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
 
-This Chrome extension is inspired by earlier Web browser extensions such as 
+This Chrome extension is inspired by earlier texxt replacement extensions such as 
 [HonestChrome](http://untitledscience.github.io/HonestChrome/).
