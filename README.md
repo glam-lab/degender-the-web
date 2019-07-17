@@ -24,7 +24,7 @@ To learn more, you may wish to read:
 
 This Chrome extension is also inspired by earlier Web browser extensions such as 
 [HonestChrome](http://untitledscience.github.io/HonestChrome/), 
-which replaces the body-shaming words "skinny", "slim", and "thin" with body-positive words 
+which replaces the "body-shaming" words "skinny", "slim", and "thin" with body-positive words 
 "fit", "toned", and "healthy".
 
 For a review of technology designed to influence language use, see this prior work:
