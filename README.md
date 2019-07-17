@@ -29,6 +29,16 @@ For a review of technology designed to influence language use, see this prior wo
 >["Don't say that!" An analysis of persuasive systems in the wild.](http://cs.whitman.edu/~davisj/pubs/Persuasive2017_031_final.pdf)
 >In de Vries, P.W., Oinas-Kukkonen, H., Siemons, L., Beerlage-de Jong, N., van Gemert-Pijnen, L. (Eds.), _Proceedings of the 12th International Conference on Persuasive Technology (PERSUASIVE 2017)_, Amsterdam, The Netherlands, April 4-6, 2017. Springer, LNCS 10171, pages 215-226.
 
+## Contributing
+
+Contributions from the community are welcome. Please [create a GitHub issue](https://github.com/janetlndavis/degender-the-web/issues/new):
+* if you identify a site on which this extension should not run (see [issue #20](https://github.com/ProfJanetDavis/degender-the-web/issues/20));
+* if you identify situations in which the singular pronoun 'they' is conjugated incorrectly;
+* if you encounter other unexpected behavior while using this extension;
+* if you have suggestions for additional features.
+
+Developers are welcome to submit a pull request. See [information for developers](DEVELOPMENT.md).
+
 ## Acknowledgments
 
 Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks to many others for providing links (some names to appear soon). 
@@ -39,7 +49,3 @@ which replaces the "body-shaming" words "skinny", "slim", and "thin" with body-p
 "fit", "toned", and "healthy".
 
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
-
-## Contributing
-
-If you encounter a bug or think of a suggestion, please [create a GitHub issue](https://github.com/janetlndavis/degender-the-web/issues/new) with your request.
