@@ -41,9 +41,9 @@ Developers are welcome to submit a pull request. See [information for developers
 
 ## Acknowledgments
 
-Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks to many others for providing links (some names to appear soon). 
+Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Kristen Peter Mork, Sarah Peterson, Ellie Poley, and Syd Ryan contributed to the links listed above. (Additional acknowledgments will be added as permission is obtained.)
 
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
 
-This Chrome extension is inspired by earlier texxt replacement extensions such as 
+This Chrome extension is inspired by earlier text replacement extensions such as 
 [HonestChrome](http://untitledscience.github.io/HonestChrome/).
