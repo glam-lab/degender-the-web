@@ -2,7 +2,7 @@
 "manifest_version": 2,
     "name": "Degender the Web",
     "description": "'Degender the Web' replaces all gendered pronouns on all Web pages with 'they/them/their'.",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "content_scripts": [
         {
             "matches": [

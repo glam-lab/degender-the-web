@@ -4,8 +4,9 @@ Inspired by [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay
 [It's Time for 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html), 
 _Degender the Web_ is a Chrome web browser extension that replaces all gendered pronouns with "they/them/their".
 
-Gender-neutral pronouns added by this extension will appear with a faint dashed underline. Mouse over to see 
-the original, gendered pronoun.
+Gender-neutral pronouns added by this extension will appear with a faint dashed underline. Mouse over to see the original, gendered pronoun. 
+
+Text that you write or edit, e.g., in a form or on Google Docs, should not be modified.
 
 Over time, the singular pronoun "they", which is used by many people, should feel more natural in reading, writing, and speech.
 
