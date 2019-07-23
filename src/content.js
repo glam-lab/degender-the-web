@@ -21,6 +21,29 @@ function wrap(newWord, origWord) {
                   newWord + '</span>';
 }
 
+// Heuristically and recursively determine whether the given node is editable:
+// Whether it has an ancestor that is a textarea, input, or form, 
+// or whether an ancestor has "edit" in its id or class.
+function isEditable(node) {
+    if (node == null) {
+        // Base case
+        return false;
+    } else if (node.nodeType === 1) {
+        // It's an element - check for real
+        return ((node != null) 
+            && ((node.tag == "textarea") 
+             || (node.tag == "input")
+             || (node.tag == "form")
+             || (node.className.includes("edit"))
+             || (("string" == typeof(node.id)) && (node.id.includes("edit")))
+             || isEditable(node.parentNode)));
+     } else {
+         // It's probably a text node - check the parent
+         return isEditable(node.parentNode);
+     } 
+
+}
+
 // Preprocess adding tooltips to replacement text, with title case variants
 let substitute = {};
 let capitalizers = [ titleCase, str => str.toUpperCase(), x => x.toLowerCase() ];
@@ -49,8 +72,9 @@ let textNodes = textNodesUnder(document.body);
 for (node of textNodes) {
     let originalText = node.nodeValue;
 
-    // Apply NLP only if the original text contains at least one keyword.
-    if (regexp.test(originalText)) {
+    // Apply NLP only if the original text contains at least one keyword
+    // and the node is not part of a form or other editable component.
+    if (regexp.test(originalText) && !(isEditable(node))) {
         let doc = nlp(originalText);
         for (word in dictionary) {
             if (doc.has(word)) {
