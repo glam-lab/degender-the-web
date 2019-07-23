@@ -8,7 +8,14 @@ Gender-neutral pronouns added by this extension will appear with a faint dashed 
 
 Text that you write or edit, e.g., in a form or on Google Docs, should not be modified.
 
-Over time, the singular pronoun "they", which is used by many people, should feel more natural in reading, writing, and speech.
+Over time, the singular pronoun "they", which is used by many people, should feel more natural in reading, writing, and speech. 
+
+Note that this extension runs the risk of misgendering persons, both trans and cis, 
+who have stated their use of "he/him" or "she/her" prounouns. 
+Though it can never be eliminated entirely, several design features will aim to mitigate that risk. 
+Those features are currently documented as [issues](https://github.com/ProfJanetDavis/degender-the-web/issues) 
+and will be documented here when they are implemented. 
+See also the invitation to contribute below.
 
 ## Learning more
 
