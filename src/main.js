@@ -1,19 +1,8 @@
-import { dictionary, titleCase } from './word-replacement.js';
-import { createWordReplacement, createHeader, createButton } 
-       from './dom-construction.js';
+import { dictionary, titleCase, substitute } 
+       from './word-replacement.js';
+import { createHeader, createButton } from './dom-construction.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
-
-// Preprocess adding tooltips to replacement text, with title case variants
-let substitute = {};
-let capitalizers = [ titleCase, str => str.toUpperCase(), x => x.toLowerCase() ];
-let word = '', f = null;
-for (word in dictionary) {
-    for (f of capitalizers) {
-        substitute[f(word)] = createWordReplacement(f(dictionary[word]), 
-                                                    f(word));
-    }
-}
 
 // Construct a regex to quickly tell if a text node contains any keywords.
 let regexp = new RegExp(Object.keys(dictionary).join('|'), "i");
@@ -31,14 +20,14 @@ function replacePronounsInBody() {
         // Apply NLP only if the original text contains at least one keyword
         // and the node is not part of a form or other editable component.
         if (regexp.test(originalText) && !(isEditable(node))) {
-            let doc = nlp(originalText);
+            let doc = nlp(originalText), word = null;
             for (word in dictionary) {
                 if (doc.has(word)) {
                     // Replace matching words while preserving text.
                     let matches = doc.match(word);
-                    matches.match("#TitleCase").replaceWith(substitute[titleCase(word)]);
-                    matches.match("#Acronym").replaceWith(substitute[word.toUpperCase()]);
-                    matches.not("#TitleCase").not("#Acronym").replaceWith(substitute[word]);
+                    matches.match("#TitleCase").replaceWith(substitute(titleCase(word)));
+                    matches.match("#Acronym").replaceWith(substitute(word.toUpperCase()));
+                    matches.not("#TitleCase").not("#Acronym").replaceWith(substitute(word));
                 }
             }
             
