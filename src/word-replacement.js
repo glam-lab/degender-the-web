@@ -16,6 +16,13 @@ function titleCase(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
 
+// Check if text includes any replaceable words.
+// Use a closure to preconstruct the regexp.
+let hasReplaceableWords = (function() {
+    let regexp = new RegExp(Object.keys(dictionary).join('|'), "i");
+    return function(text) { return regexp.exec(text); };
+})();
+
 // Find the subtitution for a given word (case-sensitive).
 // Use a closure to precompute adding tooltips to replacement text, 
 // with title case variants
@@ -51,4 +58,4 @@ function replacePronouns(text) {
     return doc.all().out('text');
 }
 
-export { dictionary, replacePronouns };
+export { hasReplaceableWords, replacePronouns };

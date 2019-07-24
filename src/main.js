@@ -1,10 +1,7 @@
-import { dictionary, replacePronouns } from './word-replacement.js';
+import { hasReplaceableWords, replacePronouns } from './word-replacement.js';
 import { createHeader, createButton } from './dom-construction.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
-
-// Construct a regex to quickly tell if a text node contains any keywords.
-let regexp = new RegExp(Object.keys(dictionary).join('|'), "i");
 
 // The core algorithm: If a text node contains one or more keywords, 
 // create new nodes containing the substitute text and the surrounding text.
@@ -18,7 +15,7 @@ function replacePronounsInBody() {
     
         // Apply NLP only if the original text contains at least one keyword
         // and the node is not part of a form or other editable component.
-        if (regexp.test(originalText) && !(isEditable(node))) {
+        if (hasReplaceableWords(originalText) && !(isEditable(node))) {
             let text = replacePronouns(originalText);
             let span = document.createElement("span");
             span.innerHTML = text;
