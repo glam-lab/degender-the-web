@@ -33,4 +33,22 @@ let substitute = (function () {
     return function(word) { return substitution[word]; }
 })();
 
-export { dictionary, titleCase, substitute };
+// Replace the pronouns in given text.
+function replacePronouns(text) {
+    let doc = nlp(text), word = null;
+    for (word in dictionary) {
+        if (doc.has(word)) {
+             // Replace matching words while preserving case.
+            let tc = substitute(titleCase(word));
+            let uc = substitute(word.toUpperCase());
+            let lc = substitute(word.toLowerCase());
+            let matches = doc.match(word);
+            matches.match("#TitleCase").replaceWith(tc);
+            matches.match("#Acronym").replaceWith(uc);
+            matches.not("#TitleCase").not("#Acronym").replaceWith(lc);
+        }
+    }
+    return doc.all().out('text');
+}
+
+export { dictionary, replacePronouns };

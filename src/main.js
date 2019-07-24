@@ -1,5 +1,4 @@
-import { dictionary, titleCase, substitute } 
-       from './word-replacement.js';
+import { dictionary, replacePronouns } from './word-replacement.js';
 import { createHeader, createButton } from './dom-construction.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
@@ -20,22 +19,10 @@ function replacePronounsInBody() {
         // Apply NLP only if the original text contains at least one keyword
         // and the node is not part of a form or other editable component.
         if (regexp.test(originalText) && !(isEditable(node))) {
-            let doc = nlp(originalText), word = null;
-            for (word in dictionary) {
-                if (doc.has(word)) {
-                    // Replace matching words while preserving text.
-                    let matches = doc.match(word);
-                    matches.match("#TitleCase").replaceWith(substitute(titleCase(word)));
-                    matches.match("#Acronym").replaceWith(substitute(word.toUpperCase()));
-                    matches.not("#TitleCase").not("#Acronym").replaceWith(substitute(word));
-                }
-            }
-            
-            // Glean and insert the replacement text.
-            let text = doc.all().out('text');
-            let element = document.createElement("span");
-            element.innerHTML = text;
-            node.parentNode.replaceChild(element, node);
+            let text = replacePronouns(originalText);
+            let span = document.createElement("span");
+            span.innerHTML = text;
+            node.parentNode.replaceChild(span, node);
         }
     }
     
