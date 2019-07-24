@@ -1,4 +1,4 @@
-import { inExcludedDomain } from './excluded-domains.js';
+import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
 
 var dictionary = { "she": "they",
                    "her": "them",           // But: 'her book' -> 'their book'
@@ -144,7 +144,7 @@ export function main() {
     if (inExcludedDomain(location)) {
         let domain = inExcludedDomain(location);
         message += ' does not run on ' + domain + 
-                   ' due to technical incompatibility.';
+                   ' due to ' + whyExcluded(domain) + '.';
     } else {
         replacePronounsInBody(); 
         changed = document.body.innerHTML.includes('class="dgtw-replacement"'); 
