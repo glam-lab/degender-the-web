@@ -18,8 +18,9 @@ function titleCase(word) {
 // We construct raw HTML rather than DOM nodes to enable text substitution using 
 // the match().replace() API provided by the Compromise NLP library
 function wrap(newWord, origWord) {
-    return '<span class="replacement" onmouseover="this.innerHTML=\'' + origWord + '\';"' +
-                                    ' onmouseout="this.innerHTML=\'' + newWord +  '\';">' +
+    return '<span class="dgtw-replacement"' +
+                  ' onmouseover="this.innerHTML=\'' + origWord + '\';"' +
+                  ' onmouseout="this.innerHTML=\'' + newWord +  '\';">' +
                   newWord + '</span>';
 }
 
@@ -60,7 +61,11 @@ for (word in dictionary) {
 // Returns the domain as a string, or null. 
 let domainRegExp = new RegExp('(' + excludedDomains.join('|') + ')', 'i');
 function inExcludedDomain(url) {
-    return domainRegExp.exec(url);
+    let result = domainRegExp.exec(url);
+    if (result != null) {
+        result = result[0];
+    } 
+    return result;
 }
 
 // Collect in a list all text nodes under an element el
@@ -117,12 +122,26 @@ function replacePronounsInBody() {
     }
 }
 
+// Add a header to the site indicating text replacement status.
+function addHeader(message) {
+    let element = document.createElement("div");
+    element.innerHTML = message;
+    element.classList.add("dgtw-header");
+    document.body.insertBefore(element, document.body.childNodes[0]);
+}
+
 // If this is not an excluded domain, replace the pronouns!
 export function main() {
+    let message = "";
     if (inExcludedDomain(location)) {
-        document.write("Excluded");
+        let domain = inExcludedDomain(location);
+        message = "<i>Degender the Web</i> does not run on " + domain +
+                  " due to technical incompatibility.";
     } else {
         replacePronounsInBody();
+        message = "<i>Degender the Web</i> may have replaced "+
+                  " gendered pronouns on this page.";
     }
+    addHeader(message);
 }
 
