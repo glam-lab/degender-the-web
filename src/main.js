@@ -1,8 +1,8 @@
-import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
-import { dictionary, titleCase } from './replacement.js';
+import { dictionary, titleCase } from './word-replacement.js';
 import { createWordReplacement, createHeader, createButton } 
-       from './construction.js';
-import { textNodesUnder, isEditable } from './traversal.js';
+       from './dom-construction.js';
+import { textNodesUnder, isEditable } from './dom-traversal.js';
+import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
 
 // Preprocess adding tooltips to replacement text, with title case variants
 let substitute = {};
