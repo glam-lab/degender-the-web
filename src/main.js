@@ -2,29 +2,7 @@ import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
 import { dictionary, titleCase } from './replacement.js';
 import { createWordReplacement, createHeader, createButton } 
        from './construction.js';
-
-// Heuristically and recursively determine whether the given node is editable:
-// Whether it has an ancestor that is a textarea, input, or form, 
-// or whether an ancestor has "edit" in its id or class.
-function isEditable(node) {
-    if (node == null) {
-        // Base case
-        return false;
-    } else if (node.nodeType === 1) {
-        // It's an element - check for real
-        return ((node != null) 
-            && ((node.tag == "textarea") 
-             || (node.tag == "input")
-             || (node.tag == "form")
-             || (node.className.includes("edit"))
-             || (("string" == typeof(node.id)) && (node.id.includes("edit")))
-             || isEditable(node.parentNode)));
-     } else {
-         // It's probably a text node - check the parent
-         return isEditable(node.parentNode);
-     } 
-
-}
+import { textNodesUnder, isEditable } from './traversal.js';
 
 // Preprocess adding tooltips to replacement text, with title case variants
 let substitute = {};
@@ -35,14 +13,6 @@ for (word in dictionary) {
         substitute[f(word)] = createWordReplacement(f(dictionary[word]), 
                                                     f(word));
     }
-}
-
-// Collect in a list all text nodes under an element el
-// Source: https://stackoverflow.com/questions/10730309/find-all-text-nodes-in-html-page
-function textNodesUnder(el){
-  let n=null, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
-  while(n=walk.nextNode()) a.push(n);
-  return a;
 }
 
 // Construct a regex to quickly tell if a text node contains any keywords.
