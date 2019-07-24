@@ -1,6 +1,16 @@
 /* Source: https://www.w3schools.com/css/css_tooltip.asp */
 
-span.replacement {
-  display: inline-block;
-  border-bottom: 1px dashed lightgray;
+div.dgtw-header {
+    padding: 1ex;
+    font-family: "Arial", sans-serif;
+    font-style: normal;
+    font-size: normal;
+    font-variant: normal;
+    color: white;
+    background-color: darkgray;
+}
+
+span.dgtw-replacement {
+    display: inline-block;
+    border-bottom: 1px dashed lightgray;
 }
