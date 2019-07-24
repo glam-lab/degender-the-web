@@ -1,28 +1,7 @@
 import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
-
-var dictionary = { "she": "they",
-                   "her": "them",           // But: 'her book' -> 'their book'
-                   "hers": "theirs",
-                   "herself": "themself",
-                   "he": "they",
-                   "him": "them",
-                   "his": "their",          // But: 'the book is his' -> 'the book is theirs'
-                   "himself": "themself" };
-
-// Capitalize the first letter of the given string
-function titleCase(word) {
-    return word[0].toUpperCase() + word.slice(1);
-}
-
-// Construct HTML to implement the given replacement.
-// We construct raw HTML rather than DOM nodes to enable text substitution using 
-// the match().replace() API provided by the Compromise NLP library
-function wrap(newWord, origWord) {
-    return '<span class="dgtw-replacement"' +
-                  ' onmouseover="this.innerHTML=\'' + origWord + '\';"' +
-                  ' onmouseout="this.innerHTML=\'' + newWord +  '\';">' +
-                  newWord + '</span>';
-}
+import { dictionary, titleCase } from './replacement.js';
+import { createWordReplacement, createHeader, createButton } 
+       from './construction.js';
 
 // Heuristically and recursively determine whether the given node is editable:
 // Whether it has an ancestor that is a textarea, input, or form, 
@@ -53,7 +32,8 @@ let capitalizers = [ titleCase, str => str.toUpperCase(), x => x.toLowerCase() ]
 let word = '', f = null;
 for (word in dictionary) {
     for (f of capitalizers) {
-        substitute[f(word)] = wrap(f(dictionary[word]), f(word));
+        substitute[f(word)] = createWordReplacement(f(dictionary[word]), 
+                                                    f(word));
     }
 }
 
@@ -110,23 +90,6 @@ function replacePronounsInBody() {
         node.style.width = width + "px"; // Set the width explicitly in its style.
     }
 
-}
-
-// Create a header indicating text replacement status.
-function createHeader(message) {
-    let element = document.createElement('div');
-    element.innerHTML = message;
-    element.classList.add('dgtw-header');
-    return element;
-}
-
-// Create a button with given text and onclick function.
-function createButton(text, onclick) {
-    let button = document.createElement("button");
-    button.innerHTML = text;
-    button.onclick = onclick;
-    button.classList.add('dgtw');
-    return button;
 }
 
 // If this is not an excluded domain, replace the pronouns!
