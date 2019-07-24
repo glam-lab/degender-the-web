@@ -10,7 +10,7 @@ function createWordReplacement(newWord, origWord) {
 
 // Create a header indicating text replacement status.
 function createHeader(message) {
-    let element = document.createElement('div');
+    const element = document.createElement('div');
     element.innerHTML = message;
     element.classList.add('dgtw-header');
     return element;
@@ -18,7 +18,7 @@ function createHeader(message) {
 
 // Create a button with given text and onclick function.
 function createButton(text, onclick) {
-    let button = document.createElement("button");
+    const button = document.createElement("button");
     button.innerHTML = text;
     button.onclick = onclick;
     button.classList.add('dgtw');

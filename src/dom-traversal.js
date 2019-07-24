@@ -1,11 +1,11 @@
 // Collect in a list all text nodes under an element elmnt
 // Source: https://stackoverflow.com/questions/10730309/find-all-text-nodes-in-html-page
 function textNodesUnder(elmnt){
-  let n = null; 
-  let a = [];
-  let walk = document.createTreeWalker(elmnt,NodeFilter.SHOW_TEXT,null,false);
-  while (n = walk.nextNode()) a.push(n);
-  return a;
+  const array = []; 
+  const walk = document.createTreeWalker(elmnt,NodeFilter.SHOW_TEXT,null,false);
+  let node = null;
+  while (node = walk.nextNode()) array.push(node);
+  return array;
 }
 
 // Heuristically and recursively determine whether the given node is editable:

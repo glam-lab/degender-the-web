@@ -2,8 +2,8 @@ let excludedDomains =
 #import "../excluded-domains.json"
 ;
 
-let list = Object.keys(excludedDomains);
-let regexp = new RegExp('(' + list.join('|') + ')', 'i');
+const list = Object.keys(excludedDomains);
+const regexp = new RegExp('(' + list.join('|') + ')', 'i');
 
 // Checks if this domain is an an excluded list.
 // Returns the domain as a string, or null. 
