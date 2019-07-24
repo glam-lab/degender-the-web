@@ -1,4 +1,4 @@
-import { excludedDomains } from './excluded-domains.js';
+import { inExcludedDomain } from './excluded-domains.js';
 
 var dictionary = { "she": "they",
                    "her": "them",           // But: 'her book' -> 'their book'
@@ -55,17 +55,6 @@ for (word in dictionary) {
     for (f of capitalizers) {
         substitute[f(word)] = wrap(f(dictionary[word]), f(word));
     }
-}
-
-// Checks if this domain is an an excluded list.
-// Returns the domain as a string, or null. 
-let domainRegExp = new RegExp('(' + excludedDomains.join('|') + ')', 'i');
-function inExcludedDomain(url) {
-    let result = domainRegExp.exec(url);
-    if (result != null) {
-        result = result[0];
-    } 
-    return result;
 }
 
 // Collect in a list all text nodes under an element el
