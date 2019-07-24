@@ -20,7 +20,7 @@ function titleCase(word) {
 // Use a closure to preconstruct the regexp.
 let hasReplaceableWords = (function() {
     let regexp = new RegExp(Object.keys(dictionary).join('|'), "i");
-    return function(text) { return regexp.exec(text); };
+    return (text) => regexp.exec(text);
 })();
 
 // Find the subtitution for a given word (case-sensitive).
@@ -37,7 +37,7 @@ let substitute = (function () {
                                                           f(word));
         }
     }
-    return function(word) { return substitution[word]; }
+    return (word) => substitution[word]; 
 })();
 
 // Replace the pronouns in given text.
