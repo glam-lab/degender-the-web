@@ -120,27 +120,32 @@ function replacePronounsInBody() {
         let width = node.offsetWidth;    // Find the node's width as rendered.
         node.style.width = width + "px"; // Set the width explicitly in its style.
     }
+
 }
 
 // Add a header to the site indicating text replacement status.
 function addHeader(message) {
-    let element = document.createElement("div");
+    let element = document.createElement('div');
     element.innerHTML = message;
-    element.classList.add("dgtw-header");
+    element.classList.add('dgtw-header');
     document.body.insertBefore(element, document.body.childNodes[0]);
 }
 
 // If this is not an excluded domain, replace the pronouns!
 export function main() {
-    let message = "";
+    let message = '<i>Degender the Web</i> ';
     if (inExcludedDomain(location)) {
         let domain = inExcludedDomain(location);
-        message = "<i>Degender the Web</i> does not run on " + domain +
-                  " due to technical incompatibility.";
+        message += ' does not run on ' + domain + 
+                   ' due to technical incompatibility.';
     } else {
-        replacePronounsInBody();
-        message = "<i>Degender the Web</i> may have replaced "+
-                  " gendered pronouns on this page.";
+       replacePronounsInBody(); 
+       if (document.body.innerHTML.includes('class="dgtw-replacement"')) {
+            message += ' has replaced gendered pronouns on this page.';
+        } else {
+            message += ' found no gendered pronouns in static content ' +
+                       ' on this page.';
+        }
     }
     addHeader(message);
 }
