@@ -3,14 +3,31 @@
 div.dgtw-header {
     padding: 1ex;
     font-family: "Arial", sans-serif;
-    font-style: normal;
     font-size: normal;
+    font-style: normal;
     font-variant: normal;
-    color: white;
-    background-color: darkgray;
+    color: black;
+    background-color: #eeeeee;
+}
+
+button.dgtw {
+    padding: 0.5ex;
+    margin-left: 1ex;
+    font-family: "Arial", sans-serif;
+    font-size: small;
+    font-style: normal;
+    font-variant: normal;
+    border: 1pt solid #cccccc;
+    border-radius: 3px;
+    color: blue;
+    background-color: #eeeeee;
+}
+
+button.dgtw:hover {
+    background-color: #dddddd;
 }
 
 span.dgtw-replacement {
     display: inline-block;
-    border-bottom: 1px dashed lightgray;
+    border-bottom: 1px dashed silver;
 }

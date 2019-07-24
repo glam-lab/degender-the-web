@@ -123,30 +123,62 @@ function replacePronounsInBody() {
 
 }
 
-// Add a header to the site indicating text replacement status.
-function addHeader(message) {
+// Create a header indicating text replacement status.
+function createHeader(message) {
     let element = document.createElement('div');
     element.innerHTML = message;
     element.classList.add('dgtw-header');
-    document.body.insertBefore(element, document.body.childNodes[0]);
+    return element;
+}
+
+// Create a button with given text and onclick function.
+function createButton(text, onclick) {
+    let button = document.createElement("button");
+    button.innerHTML = text;
+    button.onclick = onclick;
+    button.classList.add('dgtw');
+    return button;
 }
 
 // If this is not an excluded domain, replace the pronouns!
 export function main() {
+    let restoreOriginalContent = (function() {
+        let originalContent = document.body.innerHTML;
+        return function() {
+            document.body.innerHTML = originalContent;
+        };
+    })();
+
     let message = '<i>Degender the Web</i> ';
+    let changed = false;
+
     if (inExcludedDomain(location)) {
         let domain = inExcludedDomain(location);
         message += ' does not run on ' + domain + 
                    ' due to technical incompatibility.';
     } else {
-       replacePronounsInBody(); 
-       if (document.body.innerHTML.includes('class="dgtw-replacement"')) {
+        replacePronounsInBody(); 
+        changed = document.body.innerHTML.includes('class="dgtw-replacement"'); 
+        if (changed) {
             message += ' has replaced gendered pronouns on this page.';
         } else {
             message += ' found no gendered pronouns in static content ' +
                        ' on this page.';
-        }
+       }
     }
-    addHeader(message);
+
+    let header = createHeader(message);
+    let dismissHeader = (function(element) {
+                            return function() {
+                                element.style.display = 'none';
+                            };
+                        })(header);
+
+    header.appendChild(createButton('Restore original content', 
+                                    restoreOriginalContent));
+    header.appendChild(createButton('Dismiss this header', 
+                                    dismissHeader));
+
+    document.body.insertBefore(header, document.body.childNodes[0]);
 }
 
