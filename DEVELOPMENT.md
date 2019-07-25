@@ -7,8 +7,10 @@ Read about [trans-inclusive design](https://alistapart.com/article/trans-inclusi
 ## Development setup
   * Fork this repository.
   * `git clone`
+  * Run `make all` to produce generated files. 
   * Follow the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
-  * Run `make all` to produce generated files.
+      * If you forgot to run ```make``` before loading the extension, the extension will not run. You will see an error like this linked from the `chrome://extensions` page: <pre>Uncaught (in promise) TypeError: Failed to fetch dynamically imported module: 
+chrome-extension://abcdefghijklmnopqrstuvwxyz/src/main.js</pre>
   * If you make changes to the code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes.
   * Open the file ```test.html``` in a Web browser to review the provided end-to-end test cases.
   * Errors will show up in the console.
