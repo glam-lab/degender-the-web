@@ -54,7 +54,7 @@ Developers are welcome to submit a pull request. See [information for developers
 
 ## Acknowledgments
 
-Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks also to Sarah Peterson, Ellie Poley, and Syd Ryan for contributing to the links listed above. (Additional acknowledgments will be added as permissions are obtained.)
+Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks also to Sarah Peterson, Ellie Poley, and Syd Ryan for contributing to the links listed above. Thanks to all of the preceding for conversations about this project. (Additional acknowledgments will be added as permissions are obtained.)
 
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
 
