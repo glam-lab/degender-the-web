@@ -28,7 +28,6 @@ const hasReplaceableWords = (function() {
 // with title case variants
 const substitute = (function () {
     const capitalizers = [ titleCase, 
-                           str => str.toUpperCase(), 
                            x => x.toLowerCase() ];
     const substitution = {};
     let word = '', f = null;
@@ -47,13 +46,12 @@ function replacePronouns(text) {
     let word = null;
     for (word in dictionary) {
         if (doc.has(word)) {
-             // Replace matching words while preserving case.
+            // Replace matching words while preserving case.
+            // Do not change acronyms.
             const tc = substitute(titleCase(word));
-            const uc = substitute(word.toUpperCase());
             const lc = substitute(word.toLowerCase());
             const matches = doc.match(word);
             matches.match("#TitleCase").replaceWith(tc);
-            matches.match("#Acronym").replaceWith(uc);
             matches.not("#TitleCase").not("#Acronym").replaceWith(lc);
         }
     }
