@@ -19,7 +19,9 @@ function titleCase(word) {
 // Check if text includes any replaceable words.
 // Use a closure to preconstruct the regexp.
 const hasReplaceableWords = (function() {
-    const regexp = new RegExp(Object.keys(dictionary).join('|'), "i");
+    // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
+    const regexp = new RegExp('\\b('+Object.keys(dictionary).join('|')+')\\b', 
+                              'i');
     return (text) => regexp.exec(text);
 })();
 
