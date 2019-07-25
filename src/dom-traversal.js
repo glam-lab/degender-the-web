@@ -21,8 +21,10 @@ function isEditable(node) {
             && ((node.tag == "textarea") 
              || (node.tag == "input")
              || (node.tag == "form")
-             || (node.className.includes("edit"))
-             || (("string" == typeof(node.id)) && (node.id.includes("edit")))
+             || (("string" == typeof(node.className))
+                 && (node.className.includes("edit")))
+             || (("string" == typeof(node.id)) 
+                 && (node.id.includes("edit")))
              || isEditable(node.parentNode)));
      } else {
          // It's probably a text node - check the parent
