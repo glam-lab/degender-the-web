@@ -45,8 +45,8 @@ For a review of technology designed to influence language use, see this prior wo
 ## Contributing
 
 Contributions from the community are welcome. Please [create a GitHub issue](https://github.com/janetlndavis/degender-the-web/issues/new):
-* if you identify a site on which this extension should not run (see [issue #20](https://github.com/ProfJanetDavis/degender-the-web/issues/20));
 * if you identify situations in which the singular pronoun 'they' is conjugated incorrectly;
+* if you identify a site on which this extension should not run;
 * if you encounter other unexpected behavior (bugs) while using this extension;
 * if you have suggestions for additional features.
 
