@@ -1,24 +1,21 @@
 import { hasReplaceableWords, replacePronouns } from './word-replacement.js';
-import { createHeader, createButton } from './dom-construction.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
+import { createHeader, createButton } from './dom-construction.js';
 
 // The core algorithm: If a text node contains one or more keywords, 
 // create new nodes containing the substitute text and the surrounding text.
-// We collect all nodes in a list before processing them because modification 
-// in place seems to disrupt the TreeWalker traversal.
 function replacePronounsInBody() {
+    // We collect all text nodes in a list before processing them because 
+    // modification in place seems to disrupt a TreeWalker traversal.
     const textNodes = textNodesUnder(document.body);
     let node = null;
     for (node of textNodes) {
-        let originalText = node.nodeValue;
-    
-        // Apply NLP only if the original text contains at least one keyword
-        // and the node is not part of a form or other editable component.
+        const originalText = node.nodeValue;
         if (hasReplaceableWords(originalText) && !(isEditable(node))) {
-            const text = replacePronouns(originalText);
+            const newText = replacePronouns(originalText);
             const span = document.createElement("span");
-            span.innerHTML = text;
+            span.innerHTML = newText;
             node.parentNode.replaceChild(span, node);
         }
     }
@@ -29,13 +26,14 @@ function replacePronounsInBody() {
     // "he/him/his" or "she/her/her".)
     const replacementNodes = document.getElementsByClassName("replacement");
     for (node of replacementNodes) {
-        const width = node.offsetWidth;    // Find the node's width as rendered.
-        node.style.width = width + "px"; // Set the width explicitly in its style.
+        const width = node.offsetWidth;  // Find the node's width as rendered.
+        node.style.width = width + "px"; // Set the width explicitly.
     }
 }
 
-// If this is not an excluded domain, replace the pronouns!
+// Called in content.js
 export function main() {
+    // Use a closure to capture the original content before ANY changes.
     const restoreOriginalContent = (function() {
         const originalContent = document.body.innerHTML;
         return function() {
@@ -43,8 +41,8 @@ export function main() {
         };
     })();
 
+    // If this is not an excluded domain, replace the pronouns!
     let message = '<i>Degender the Web</i> ';
-
     const domain = inExcludedDomain(location);
     if (domain) {
         message += ' does not run on ' + domain + 
@@ -59,18 +57,15 @@ export function main() {
        }
     }
 
+    // Insert the header for Degender the Web, with the constructed message.
     const header = createHeader(message);
     const dismissHeader = (function(element) {
-                              return function() {
-                                  element.style.display = 'none';
-                              };
-                          })(header);
-
+        return function() { element.style.display = 'none'; };
+    })(header);
     header.appendChild(createButton('Restore original content', 
                                     restoreOriginalContent));
     header.appendChild(createButton('Dismiss this header', 
                                     dismissHeader));
-
     document.body.insertBefore(header, document.body.childNodes[0]);
 }
 
