@@ -48,7 +48,9 @@ export function main() {
         message += ' does not run on ' + domain + 
                    ' due to ' + whyExcluded(domain) + '.';
     } else {
-        replacePronounsInBody(); 
+        if (hasReplaceableWords(document.body.innerHTML)) {
+            replacePronounsInBody(); 
+        }
         if (document.body.innerHTML.includes('class="dgtw-replacement"')) { 
             message += ' has replaced gendered pronouns on this page.';
         } else {
