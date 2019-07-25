@@ -1,5 +1,5 @@
 let excludedDomains = 
-#import "../excluded-domains.json"
+#import "../data/excluded-domains.json"
 ;
 
 const list = Object.keys(excludedDomains);
