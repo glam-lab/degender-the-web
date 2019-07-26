@@ -2,7 +2,8 @@
 
 If you're a developer, you are welcome to submit a pull request. However, if you are not responding to an [existing issue](https://github.com/ProfJanetDavis/degender-the-web/issues), please [submit an issue](https://github.com/ProfJanetDavis/degender-the-web/issues/new) for discussion prior to implementation.
 
-Read about [trans-inclusive design](https://alistapart.com/article/trans-inclusive-design) before contributing.
+Read about [trans-inclusive design](https://alistapart.com/article/trans-inclusive-design) before contributing. 
+See the [wiki](https://github.com/ProfJanetDavis/degender-the-web/wiki) for additional technical and design notes.
 
 ## Development setup
   * Fork this repository.
@@ -11,7 +12,8 @@ Read about [trans-inclusive design](https://alistapart.com/article/trans-inclusi
   * Follow the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
       * If you forgot to run ```make``` before loading the extension, the extension will not run. You will see an error like this linked from the `chrome://extensions` page: <pre>Uncaught (in promise) TypeError: Failed to fetch dynamically imported module: 
 chrome-extension://abcdefghijklmnopqrstuvwxyz/src/main.js</pre>
-  * If you make changes to the code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes.
+  * If you make changes to ```.pp.js``` or ```.json``` files, run ```make``` again.
+  * If you make changes to any code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes.
   * Open the file ```test.html``` in a Web browser to review the provided end-to-end test cases.
   * Errors will show up in the console.
   
