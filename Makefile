@@ -1,6 +1,6 @@
 all: src/excluded-domains.js
 
-src/excluded-domains.js: src/excluded-domains.pp.js data/excluded-domains.json
+src/%.js: src/%.pp.js data/%.json
 	cpp -P $< > $@
 
 realclean: 
