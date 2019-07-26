@@ -2,7 +2,7 @@
 What if English had no gender pronouns? 
 Inspired by [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay 
 [It's Time for 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html), 
-_Degender the Web_ is a Chrome web browser extension that replaces gendered pronouns on most Web pages with "they/them/their".
+_Degender the Web_ is a Chrome web browser extension that replaces gendered personal pronouns on most Web pages with "they/them/their".
 
 _Degender the Web_ is both a thought experiment and a behavior change support system.
 When you install it, you will see how the singular "they" can function as a universal pronoun.
