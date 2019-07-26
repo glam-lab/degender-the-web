@@ -1,6 +1,6 @@
-export let replacementClass = 'dgtw-replacement';
-export let headerClass = 'dgtw-header';
-export let buttonClass = 'dgtw';
+export const replacementClass = 'dgtw-replacement';
+export const headerClass = 'dgtw-header';
+export const buttonClass = 'dgtw';
 
 // Construct HTML to implement the given replacement.
 // We construct raw HTML rather than DOM nodes to enable substitution using 

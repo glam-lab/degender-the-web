@@ -1,4 +1,4 @@
-let excludedDomains = 
+const excludedDomains = 
 #import "../data/excluded-domains.json"
 ;
 
