@@ -20,7 +20,7 @@ Those features are currently documented as [issues](https://github.com/ProfJanet
 and will be documented here when they are implemented. 
 See also the invitation to contribute below.
 
-[A few sites](excluded-domains.json) are excluded due to technical incompatibilities.
+[A few sites](data/excluded-domains.json) are excluded due to technical incompatibilities.
 
 ## Learning more
 
