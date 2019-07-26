@@ -1,7 +1,7 @@
 import { hasReplaceableWords, replacePronouns } from './word-replacement.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, getExcludedDomain, whyExcluded } from './excluded-domains.js';
-import { hasPersonalPronounSpec } from './personal-pronouns.js';
+import { hasPersonalPronounSpec, getPersonalPronounSpecs } from './personal-pronouns.js';
 import { replacementClass, createHeader, createButton } from './dom-construction.js';
 
 // The core algorithm: If a text node contains one or more keywords, 
@@ -49,7 +49,9 @@ export function main() {
         message += ' does not run on ' + domain + 
                    ' due to ' + whyExcluded(domain) + '.';
     } else if (hasPersonalPronounSpec(document.body.innerHTML)) {
-        message += ' found a personal pronoun specifier on this page.';
+        message += ' found personal pronoun specifiers (' +
+                   getPersonalPronounSpecs(document.body.innerHTML) +
+                   ') on this page.';
     } else {
         if (hasReplaceableWords(document.body.innerHTML)) {
             replacePronounsInBody(); 
