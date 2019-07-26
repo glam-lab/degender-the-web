@@ -1,5 +1,6 @@
 import { personalPronounSpecs } from './personal-pronoun-specs.js'
 import { createWordHighlight } from './dom-construction.js';
+import { titleCase } from './word-replacement.js';
 
 // Construct the regular expressions.
 const esc = (s) => s.replace('/','\/') ;
@@ -19,11 +20,14 @@ export function getPersonalPronounSpecs(text) {
 
 // Highlight all personal pronoun specifiers found in the given text.
 export function highlightPersonalPronounSpecs(text) {
-    // Note: This does not preserve case!
+    function highlightWithCase(text, word) {
+        const re = new RegExp(word, 'g');
+        return text.replace(re, createWordHighlight(word));
+    }
     let result = text, pp = null;
     for (pp of personalPronounSpecs) {
-        const re = new RegExp(pp, 'ig');
-        result = result.replace(re, createWordHighlight(pp));
+        result = highlightWithCase(result, pp);
+        result = highlightWithCase(result, titleCase(pp));
     }
     return result;
 }

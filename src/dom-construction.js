@@ -13,6 +13,18 @@ export function createWordReplacement(newWord, origWord) {
                   newWord + '</span>';
 }
 
+// Construct a span tag to implement the given replacement.
+export function getReplacementSpanTag(newWord, origWord) {
+    return '<span class="' + replacementClass + '"' +
+                  ' onmouseover="this.innerHTML=\'' + origWord + '\';"' +
+                  ' onmouseout="this.innerHTML=\'' + newWord +  '\';">';
+}
+
+// Construct a span tag to implement the given highlight.
+export function getHighlightSpanTag(word) {
+    return '<span class ="'+highlightClass+'">';
+}
+
 // Construct HTML to implement the given highlight.
 export function createWordHighlight(word) {
     return '<span class ="'+highlightClass+'">'+word+'</span>';
