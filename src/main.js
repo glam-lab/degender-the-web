@@ -1,4 +1,4 @@
-import { hasReplaceableWords, replacePronouns } from './word-replacement.js';
+import { hasReplaceablePronouns, replacePronouns } from './pronoun-replacement.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, getExcludedDomain, whyExcluded } from './excluded-domains.js';
 import { hasPersonalPronounSpec, getPersonalPronounSpecs, highlightPersonalPronounSpecs} 
@@ -14,7 +14,7 @@ function replacePronounsInBody() {
     let node = null;
     for (node of textNodes) {
         const originalText = node.nodeValue;
-        if (hasReplaceableWords(originalText) && !(isEditable(node))) {
+        if (hasReplaceablePronouns(originalText) && !(isEditable(node))) {
             const newText = replacePronouns(originalText);
             const span = document.createElement("span");
             span.innerHTML = newText;
@@ -61,7 +61,7 @@ export function main() {
                    getPersonalPronounSpecs(document.body.innerHTML) +
                    ') on this page.';
     } else {
-        if (hasReplaceableWords(document.body.innerHTML)) {
+        if (hasReplaceablePronouns(document.body.innerHTML)) {
             replacePronounsInBody(); 
         }
         if (document.body.innerHTML.includes('class="'+replacementClass+'"')) {

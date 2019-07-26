@@ -16,9 +16,9 @@ function titleCase(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
 
-// Check if text includes any replaceable words.
+// Check if text includes any replaceable pronouns.
 // Use a closure to preconstruct the regexp.
-const hasReplaceableWords = (function() {
+const hasReplaceablePronouns = (function() {
     // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
     const regexp = new RegExp('\\b('+Object.keys(dictionary).join('|')+')\\b', 
                               'i');
@@ -60,4 +60,4 @@ function replacePronouns(text) {
     return doc.all().out('text');
 }
 
-export { hasReplaceableWords, replacePronouns };
+export { hasReplaceablePronouns, replacePronouns };
