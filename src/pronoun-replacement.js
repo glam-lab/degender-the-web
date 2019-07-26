@@ -1,4 +1,5 @@
 import { createWordReplacement } from './dom-construction.js';
+import { titleCase, replaceWords } from './word-replacement.js';
 
 const dictionary = { "she": "they",
                      "her": "them",           
@@ -10,11 +11,6 @@ const dictionary = { "she": "they",
                      "his": "their", 
                      // But: 'the book is his' -> 'the book is theirs'
                      "himself": "themself" };
-
-// Capitalize the first letter of the given string
-function titleCase(word) {
-    return word[0].toUpperCase() + word.slice(1);
-}
 
 // Check if text includes any replaceable pronouns.
 // Use a closure to preconstruct the regexp.
@@ -44,20 +40,7 @@ const substitute = (function () {
 
 // Replace the pronouns in given text.
 function replacePronouns(text) {
-    const doc = nlp(text);
-    let word = null;
-    for (word in dictionary) {
-        if (doc.has(word)) {
-            // Replace matching words while preserving case.
-            // Do not change acronyms.
-            const tc = substitute(titleCase(word));
-            const lc = substitute(word.toLowerCase());
-            const matches = doc.match(word);
-            matches.match("#TitleCase").replaceWith(tc);
-            matches.not("#TitleCase").not("#Acronym").replaceWith(lc);
-        }
-    }
-    return doc.all().out('text');
+    return replaceWords(text, Object.keys(dictionary), substitute);
 }
 
 export { hasReplaceablePronouns, replacePronouns };
