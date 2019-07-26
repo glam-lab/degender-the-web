@@ -1,3 +1,5 @@
+import { createWordHighlight } from './dom-construction.js';
+
 const personalPronouns = 
 #include "../data/personal-pronouns.json"
 ;
@@ -16,4 +18,15 @@ export function hasPersonalPronounSpec(text) {
 export function getPersonalPronounSpecs(text) {
     const match = (s) => text.match(new RegExp('\\b'+s+'\\b', 'i'));
     return personalPronouns.filter(match).join(', ');
+}
+
+// Highlight all personal pronoun specifiers found in the given text.
+export function highlightPersonalPronounSpecs(text) {
+    // Note: This does not preserve case!
+    let result = text, pp = null;
+    for (pp of personalPronouns) {
+        const re = new RegExp(pp, 'ig');
+        result = result.replace(re, createWordHighlight(pp));
+    }
+    return result;
 }

@@ -1,19 +1,25 @@
-export const replacementClass = 'dgtw-replacement';
 export const headerClass = 'dgtw-header';
 export const buttonClass = 'dgtw';
+export const replacementClass = 'dgtw-replacement';
+export const highlightClass = 'dgtw-highlight';
 
 // Construct HTML to implement the given replacement.
 // We construct raw HTML rather than DOM nodes to enable substitution using 
 // the match().replace() API provided by the Compromise NLP library.
-function createWordReplacement(newWord, origWord) {
+export function createWordReplacement(newWord, origWord) {
     return '<span class="' + replacementClass + '"' +
                   ' onmouseover="this.innerHTML=\'' + origWord + '\';"' +
                   ' onmouseout="this.innerHTML=\'' + newWord +  '\';">' +
                   newWord + '</span>';
 }
 
+// Construct HTML to implement the given highlight.
+export function createWordHighlight(word) {
+    return '<span class ="'+highlightClass+'">'+word+'</span>';
+}
+
 // Create a header indicating text replacement status.
-function createHeader(message) {
+export function createHeader(message) {
     const element = document.createElement('section');
     element.innerHTML = message;
     element.classList.add(headerClass);
@@ -21,12 +27,10 @@ function createHeader(message) {
 }
 
 // Create a button with given text and onclick function.
-function createButton(text, onclick) {
+export function createButton(text, onclick) {
     const button = document.createElement("button");
     button.innerHTML = text;
     button.onclick = onclick;
     button.classList.add(buttonClass);
     return button;
 }
-
-export { createWordReplacement, createHeader, createButton };

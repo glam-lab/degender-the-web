@@ -33,3 +33,7 @@ span.dgtw-replacement {
     display: inline-block;
     border-bottom: 1px dashed silver;
 }
+
+span.dgtw-highlight {
+    background-color: lightyellow;
+}
