@@ -1,6 +1,7 @@
 import { hasReplaceableWords, replacePronouns } from './word-replacement.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, getExcludedDomain, whyExcluded } from './excluded-domains.js';
+import { hasPersonalPronounSpec } from './personal-pronouns.js';
 import { replacementClass, createHeader, createButton } from './dom-construction.js';
 
 // The core algorithm: If a text node contains one or more keywords, 
@@ -41,12 +42,14 @@ export function main() {
         };
     })();
 
-    // If this is not an excluded domain, replace the pronouns!
     let message = '<i>Degender the Web</i> ';
+
     if (inExcludedDomain(location)) {
         const domain = getExcludedDomain(location);
         message += ' does not run on ' + domain + 
                    ' due to ' + whyExcluded(domain) + '.';
+    } else if (hasPersonalPronounSpec(document.body.innerHTML)) {
+        message += ' found a personal pronoun specifier on this page.';
     } else {
         if (hasReplaceableWords(document.body.innerHTML)) {
             replacePronounsInBody(); 
