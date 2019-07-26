@@ -26,8 +26,8 @@ function replacePronounsInBody() {
     // "he/him/his" or "she/her/her".)
     const replacementNodes = document.getElementsByClassName(replacementClass);
     for (node of replacementNodes) {
-        const width = node.offsetWidth;  // Find the node's width as rendered.
-        node.style.width = width + "px"; // Set the width explicitly.
+        const width = node.offsetWidth + 3; // Find the node's width as rendered
+        node.style.width = width + "px";    // Set the width explicitly
     }
 }
 
