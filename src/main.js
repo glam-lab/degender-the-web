@@ -2,7 +2,7 @@ import { hasReplaceablePronouns, replacePronouns } from './pronoun-replacement.j
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, getExcludedDomain, whyExcluded } from './excluded-domains.js';
 import { hasPersonalPronounSpec, getPersonalPronounSpecs, highlightPersonalPronounSpecs} 
-       from './personal-pronouns.js';
+       from './pronoun-spec-highlights.js';
 import { replacementClass, createHeader, createButton } from './dom-construction.js';
 
 // The core algorithm: If a text node contains one or more keywords, 

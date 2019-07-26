@@ -1,4 +1,4 @@
-GENERATED_JS = src/excluded-domains.js src/personal-pronouns.js
+GENERATED_JS = src/excluded-domains.js src/personal-pronoun-specs.js
 
 all: $(GENERATED_JS)
 
