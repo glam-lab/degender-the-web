@@ -22,7 +22,7 @@ const hasReplaceableWords = (function() {
     // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
     const regexp = new RegExp('\\b('+Object.keys(dictionary).join('|')+')\\b', 
                               'i');
-    return (text) => regexp.exec(text);
+    return (text) => regexp.test(text);
 })();
 
 // Find the subtitution for a given word (case-sensitive).
