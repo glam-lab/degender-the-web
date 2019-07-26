@@ -1,9 +1,9 @@
 # Degender the Web - a Chrome extension
+What if English had no gender pronouns? 
 Inspired by [Farhad Manjoo](https://www.nytimes.com/by/farhad-manjoo)'s essay 
 [It's Time for 'They'](https://www.nytimes.com/2019/07/10/opinion/pronoun-they-gender.html), 
 _Degender the Web_ is a Chrome web browser extension that replaces gendered pronouns on most Web pages with "they/them/their".
 
-What if English had no gender pronouns? 
 _Degender the Web_ is both a thought experiment and a behavior change support system.
 When you install it, you will see how the singular "they" can function as a universal pronoun.
 As you use it over time, you should become more comfortable with the singular "they" in reading, writing, and speech. 
