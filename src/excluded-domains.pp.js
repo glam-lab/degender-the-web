@@ -5,9 +5,14 @@ const excludedDomains =
 const list = Object.keys(excludedDomains);
 const regexp = new RegExp('(' + list.join('|') + ')', 'i');
 
-// Checks if this domain is an an excluded list.
-// Returns the domain as a string, or null. 
-function inExcludedDomain(url) {
+
+// Test if this domain is an an excluded list. Returns true or false.
+export function inExcludedDomain(url) {
+    return regexp.test(url);
+}
+
+// Get the domain, if on an excluded list.
+export function getExcludedDomain(url) {
     let result = regexp.exec(url);
     if (result != null) {
         result = result[0];
@@ -16,8 +21,6 @@ function inExcludedDomain(url) {
 }
 
 // Finds the reason why a domain is excluded.
-function whyExcluded(domain) {
+export function whyExcluded(domain) {
     return excludedDomains[domain];
 }
-
-export { inExcludedDomain, whyExcluded };
