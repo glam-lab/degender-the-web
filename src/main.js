@@ -1,7 +1,7 @@
 import { hasReplaceableWords, replacePronouns } from './word-replacement.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, whyExcluded } from './excluded-domains.js';
-import { createHeader, createButton } from './dom-construction.js';
+import { replacementClass, createHeader, createButton } from './dom-construction.js';
 
 // The core algorithm: If a text node contains one or more keywords, 
 // create new nodes containing the substitute text and the surrounding text.
@@ -24,7 +24,7 @@ function replacePronounsInBody() {
     // when the node content is replaced. 
     // (This relies on the observation than "they/them/their" is longer than
     // "he/him/his" or "she/her/her".)
-    const replacementNodes = document.getElementsByClassName("replacement");
+    const replacementNodes = document.getElementsByClassName(replacementClass);
     for (node of replacementNodes) {
         const width = node.offsetWidth;  // Find the node's width as rendered.
         node.style.width = width + "px"; // Set the width explicitly.
@@ -51,7 +51,7 @@ export function main() {
         if (hasReplaceableWords(document.body.innerHTML)) {
             replacePronounsInBody(); 
         }
-        if (document.body.innerHTML.includes('class="dgtw-replacement"')) { 
+        if (document.body.innerHTML.includes('class="'+replacementClass+'"')) {
             message += ' has replaced gendered pronouns on this page.';
         } else {
             message += ' found no gendered pronouns in static content ' +

@@ -1,3 +1,7 @@
+export let replacementClass = 'dgtw-replacement';
+export let headerClass = 'dgtw-header';
+export let buttonClass = 'dgtw';
+
 // Construct HTML to implement the given replacement.
 // We construct raw HTML rather than DOM nodes to enable substitution using 
 // the match().replace() API provided by the Compromise NLP library.
