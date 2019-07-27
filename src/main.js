@@ -7,14 +7,14 @@ import { replacementClass, createHeader, createButton } from './dom-construction
 
 // The core algorithm: If a text node contains one or more keywords, 
 // create new nodes containing the substitute text and the surrounding text.
-function replaceWordsInBody(replaceFunction) {
+function replaceWordsInBody(needsReplacement, replaceFunction) {
     // We collect all text nodes in a list before processing them because 
     // modification in place seems to disrupt a TreeWalker traversal.
     const textNodes = textNodesUnder(document.body);
     let node = null;
     for (node of textNodes) {
         const originalText = node.nodeValue;
-        if (!isEditable(node)) {
+        if (needsReplacement(originalText) && !isEditable(node)) {
             const newText = replaceFunction(originalText);
             const span = document.createElement("span");
             span.innerHTML = newText;
@@ -50,13 +50,14 @@ export function main() {
         message += ' does not run on ' + domain + 
                    ' due to ' + whyExcluded(domain) + '.';
     } else if (hasPersonalPronounSpec(document.body.innerHTML)) {
-        replaceWordsInBody(highlightPersonalPronounSpecs);
+        replaceWordsInBody(hasPersonalPronounSpec, 
+                           highlightPersonalPronounSpecs);
         message += ' found personal pronoun specifiers (' +
                    getPersonalPronounSpecs(document.body.innerHTML) +
                    ') on this page.';
     } else {
         if (hasReplaceablePronouns(document.body.innerHTML)) {
-            replaceWordsInBody(replacePronouns); 
+            replaceWordsInBody(hasReplaceablePronouns, replacePronouns); 
         }
         if (document.body.innerHTML.includes('class="'+replacementClass+'"')) {
             message += ' has replaced gendered pronouns on this page.';
