@@ -40,7 +40,11 @@ const substitute = (function () {
 
 // Replace the pronouns in given text.
 function replacePronouns(text) {
-    return replaceWords(text, Object.keys(dictionary), substitute);
+    if (hasReplaceablePronouns(text)) {
+        return replaceWords(text, Object.keys(dictionary), substitute);
+    } else {
+        return text;
+    }
 }
 
 export { hasReplaceablePronouns, replacePronouns };

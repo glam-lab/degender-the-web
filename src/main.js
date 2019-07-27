@@ -14,7 +14,7 @@ function replaceWordsInBody(replaceFunction) {
     let node = null;
     for (node of textNodes) {
         const originalText = node.nodeValue;
-        if (hasReplaceablePronouns(originalText) && !(isEditable(node))) {
+        if (!isEditable(node)) {
             const newText = replaceFunction(originalText);
             const span = document.createElement("span");
             span.innerHTML = newText;
