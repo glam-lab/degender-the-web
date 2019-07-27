@@ -15,8 +15,12 @@ The original text can be restored with the click of a button.
 
 Note that this extension runs the risk of misgendering persons, both trans and cis, 
 who have stated their use of "he/him" or "she/her" prounouns. 
-Though it can never be eliminated entirely, several design features will aim to mitigate that risk. 
-Those features are currently documented as [issues](https://github.com/ProfJanetDavis/degender-the-web/issues) 
+Though it can never be eliminated entirely, several design features will aim to mitigate that risk. In particular:
+
+* If a page includes a specification of personal pronouns [such as "he/him" or "she/her"](data/personal-pronoun-specs.json),
+  those specifications will be highlighted and other pronouns will not be changed.
+  
+Other potential features are currently documented as [issues](https://github.com/ProfJanetDavis/degender-the-web/issues) 
 and will be documented here when they are implemented. 
 See also the invitation to contribute below.
 
