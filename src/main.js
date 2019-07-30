@@ -18,9 +18,14 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
         const originalText = node.nodeValue;
         if (needsReplacement(originalText) && !isEditable(node)) {
             const newText = replaceFunction(originalText);
-            const span = document.createElement("span");
-            span.innerHTML = newText;
-            node.parentNode.replaceChild(span, node);
+            const siblings = node.parentNode.childNodes;
+            if (siblings.length == 1) {
+                node.parentNode.innerHTML = newText;
+            } else {
+                const span = document.createElement("span");
+                span.innerHTML = newText;
+                node.parentNode.replaceChild(span, node);
+            }
         }
     }
     
