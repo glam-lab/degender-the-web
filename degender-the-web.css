@@ -4,16 +4,18 @@ section.dgtw-header {
     top: 0;
     left: 0;
     padding: 1ex;
+    margin: 0;
     line-height: normal;
-    font: normal;
+    font: Arial;
     font-family: "Arial", sans-serif;
     font-size: normal;
     font-style: normal;
+    font-weight: normal;
     font-variant: normal;
     text-transform: none;
     text-indent: 0px;
     color: black;
-    background-color: #eeeeee;
+    background: #eeeeee;
 }
 
 button.dgtw {
@@ -23,18 +25,21 @@ button.dgtw {
     height: auto;
     line-height: normal;
     padding: 0.5ex;
-    margin-left: 1ex;
-    font: normal;
+    margin: 1ex;
+    vertical-align: middle;
+    font: Arial;
     font-family: "Arial", sans-serif;
     font-size: small;
     font-style: normal;
+    font-weight: normal;
     font-variant: normal;
     text-transform: none;
     text-align: center;
+    text-shadow: none;
     border: 1pt solid #cccccc;
     border-radius: 3px;
     color: blue;
-    background-color: #eeeeee;
+    background: #eeeeee;
 }
 
 button.dgtw:hover {
