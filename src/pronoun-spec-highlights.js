@@ -21,7 +21,7 @@ export function getPersonalPronounSpecs(text) {
 // Highlight all personal pronoun specifiers found in the given text.
 export function highlightPersonalPronounSpecs(text) {
     function highlightWithCase(text, word) {
-        const re = new RegExp(word, 'g');
+        const re = new RegExp('\\b'+word+'\\b', 'g');
         return text.replace(re, createWordHighlight(word));
     }
     let result = text, pp = null;
