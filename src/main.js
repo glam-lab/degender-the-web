@@ -1,8 +1,10 @@
 import { hasReplaceablePronouns, replacePronouns } from './pronoun-replacement.js';
 import { textNodesUnder, isEditable } from './dom-traversal.js';
 import { inExcludedDomain, getExcludedDomain, whyExcluded } from './excluded-domains.js';
-import { hasPersonalPronounSpec, getPersonalPronounSpecs, highlightPersonalPronounSpecs} 
-       from './pronoun-spec-highlights.js';
+import { mentionsGender, highlightGender,
+         hasPersonalPronounSpec, highlightPersonalPronounSpecs,
+         getPersonalPronounSpecs }
+       from './stopword-highlights.js';
 import { replacementClass, createHeader, createButton } from './dom-construction.js';
 
 // The core algorithm: If a text node contains one or more keywords, 
@@ -43,23 +45,28 @@ export function main() {
         };
     })();
 
+    const body = document.body.innerHTML;
     let message = '<i>Degender the Web</i> ';
 
     if (inExcludedDomain(location)) {
         const domain = getExcludedDomain(location);
         message += ' does not run on ' + domain + 
                    ' due to ' + whyExcluded(domain) + '.';
-    } else if (hasPersonalPronounSpec(document.body.innerHTML)) {
+    } else if (hasPersonalPronounSpec(body)) {
         replaceWordsInBody(hasPersonalPronounSpec, 
                            highlightPersonalPronounSpecs);
-        message += ' found personal pronoun specifiers (' +
-                   getPersonalPronounSpecs(document.body.innerHTML) +
-                   ') on this page.';
+        message += ' did not rewrite gender pronouns because it ';
+        message += ' found personal pronoun specifiers on this page: ' 
+        message += getPersonalPronounSpecs(body) 
+    } else if (mentionsGender(body)) {
+        replaceWordsInBody(mentionsGender, highlightGender);
+        message += ' did not rewrite gender pronouns because it ';
+        message += ' found this page discusses gender.';
     } else {
-        if (hasReplaceablePronouns(document.body.innerHTML)) {
+        if (hasReplaceablePronouns(body)) {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns); 
         }
-        if (document.body.innerHTML.includes('class="'+replacementClass+'"')) {
+        if (body.includes('class="'+replacementClass+'"')) {
             message += ' has replaced gendered pronouns on this page.';
         } else {
             message += ' found no gendered pronouns in static content ' +

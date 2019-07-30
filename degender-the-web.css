@@ -4,21 +4,33 @@ section.dgtw-header {
     top: 0;
     left: 0;
     padding: 1ex;
+    line-height: normal;
+    font: normal;
     font-family: "Arial", sans-serif;
     font-size: normal;
     font-style: normal;
     font-variant: normal;
+    text-transform: none;
+    text-indent: 0px;
     color: black;
     background-color: #eeeeee;
 }
 
 button.dgtw {
+    cursor: pointer;
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
     padding: 0.5ex;
     margin-left: 1ex;
+    font: normal;
     font-family: "Arial", sans-serif;
     font-size: small;
     font-style: normal;
     font-variant: normal;
+    text-transform: none;
+    text-align: center;
     border: 1pt solid #cccccc;
     border-radius: 3px;
     color: blue;

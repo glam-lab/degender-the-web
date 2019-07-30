@@ -8,6 +8,27 @@ const esc = (s) => s.replace('\w*/ \w*','\/') ;
 const escaped = personalPronounSpecs.map(esc);
 const regexp = new RegExp('\\b(' + escaped.join('|') + ')\\b', 'i');
 
+// Report whether the text includes the keyword "gender".
+// (May be part of another word.)
+export function mentionsGender(text) {
+    return text.match(/gender/i);
+}
+
+// Highlight all instances of the keyword "gender" found in the given text.
+// (May be part of another word.)
+export function highlightGender(text) {
+    function highlightWithCase(text, word) {
+        const re = new RegExp(word, 'g');
+        return text.replace(re, createWordHighlight(word));
+    }
+    let result = text;
+    result = highlightWithCase(result, 'gender');
+    result = highlightWithCase(result, 'Gender');
+    result = highlightWithCase(result, 'GENDER');
+    return result;
+}
+
+
 // Report whether the text includes a personal pronouns specifier.
 export function hasPersonalPronounSpec(text) {
     return regexp.test(text);
