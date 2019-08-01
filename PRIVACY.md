@@ -1,5 +1,5 @@
 # Privacy Policy for Degender the Web
-This privacy policy has been compiled to better serve those who are concerned with how their 'Personally identifiable information' (PII) is being used online. 
+This privacy policy has been compiled to better serve those who are concerned with how their _Personally Identifiable Information_ (PII) is being used online. 
 PII, as used in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. 
 Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.
 
@@ -8,9 +8,9 @@ This app does not perform any automated data collection.
 In particular, it does not collect any PII.
 
 ## What other information may be transmitted by this app?
-Configuration options that you set for this app will be retained using [Chrome Sync storage](https://support.google.com/chrome/answer/165139?).
+Configuration options that you set for this app will be retained using [Chrome Sync storage](https://support.google.com/chrome/answer/165139).
 If you have enabled Chrome Sync, your options will be stored on a Google server so that they are available across all devices on which you use Chrome. 
-You can create a passphrase to keep this information private. 
+Google provides [instructions for creating a passphrase](https://support.google.com/chrome/answer/165139) to keep this information private. 
 
 ## Do we use web browser cookies?
 This app does not use cookies.
@@ -18,7 +18,7 @@ This app does not use cookies.
 ## How does our app handle do not track signals?
 Users are never tracked.
 
-## Third Party Disclosure
+## Third party disclosure
 We do not sell, trade, or otherwise transfer PII to outside parties. 
 
 ## Third party links
@@ -52,4 +52,4 @@ In order to be in line with Fair Information Practices we will take the followin
 
 ## Contacting Us
 If there are any questions concerning this privacy policy you may contact us 
-at <a mailto:degender.the.web@gmail.com>degender.the.web@gmail.com</a>.
+at <a href="mailto:degender.the.web@gmail.com">degender.the.web@gmail.com</a>.
