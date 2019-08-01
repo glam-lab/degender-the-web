@@ -13,6 +13,8 @@ Mouse over to see the original, gendered pronoun.
 Text that you write or edit, e.g., in a form or on Google Docs, will not be modified.
 The original text can be restored with the click of a button.
 
+This extension does not collect personally identifiable information. See the [privacy policy](PRIVACY.md) for more information.
+
 Note that this extension runs the risk of misgendering persons, both trans and cis, 
 who have stated their use of "he/him" or "she/her" prounouns. 
 Though it can never be eliminated entirely, several design features will aim to mitigate that risk. In particular:
