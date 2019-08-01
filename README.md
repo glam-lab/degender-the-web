@@ -17,16 +17,16 @@ This extension does not collect personally identifiable information. See the [pr
 
 Note that this extension runs the risk of misgendering persons, both trans and cis, 
 who have stated their use of "he/him" or "she/her" prounouns. 
-Though it can never be eliminated entirely, several design features will aim to mitigate that risk. In particular:
+Though it can never be eliminated entirely, several design features will aim to mitigate that risk. In particular, the extension does ot alter personal pronouns on pages that
+* include a personal pronoun specifier, [such as "he/him" or "she/her"](data/personal-pronoun-specs.json);
+* include the word "gender" in the page text, suggesting that the page may address gender as a topic.
 
-* If a page includes a specification of personal pronouns [such as "he/him" or "she/her"](data/personal-pronoun-specs.json),
-  those specifications will be highlighted and other pronouns will not be changed.
-  
-Other potential features are currently documented as [issues](https://github.com/ProfJanetDavis/degender-the-web/issues) 
+[A few domains](data/excluded-domains.json) are excluded due to technical incompatibilities.
+
+Other potential mitigation features are currently documented as [issues](https://github.com/ProfJanetDavis/degender-the-web/issues) 
 and will be documented here when they are implemented. 
 See also the invitation to contribute below.
 
-[A few sites](data/excluded-domains.json) are excluded due to technical incompatibilities.
 
 ## Learning more
 
