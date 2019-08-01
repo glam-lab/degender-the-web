@@ -60,6 +60,9 @@ Developers are welcome to submit a pull request. See [information for developers
 
 Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks also to Sarah Peterson, Ellie Poley, and Syd Ryan for contributing to the links listed above. Thanks to all for conversations about this project.
 
+Thanks to Andy Exley and Robert Grimm for technical advice. 
+Thanks to Spencer Kelly for maintaining the Compromise JavaScript NLP library.
+
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
 
 This Chrome extension is inspired by earlier text replacement extensions such as 
