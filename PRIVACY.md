@@ -51,5 +51,13 @@ In order to be in line with Fair Information Practices we will take the followin
 * We also agree to the individual redress principle, which requires that individuals have a right to pursue legally enforceable rights against data collectors and processors who fail to adhere to the law. This principle requires not only that individuals have enforceable rights against data users, but also that individuals have recourse to courts or a government agency to investigate and/or prosecute non-compliance by data processors.
 
 ## Contacting Us
-If there are any questions concerning this privacy policy you may contact us 
-at <a href="mailto:degender.the.web@gmail.com">degender.the.web@gmail.com</a>.
+If there are any questions concerning this privacy policy you may contact us using the information below.
+
+<pre>
+Janet Davis
+Department of Computer Science
+Whitman College
+345 Boyer Ave
+Walla Walla, WA 99362
+davisj@whitman.edu
+</pre>
