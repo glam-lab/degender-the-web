@@ -3,12 +3,12 @@ name: Page report
 about: Report a page or site on which this extension should not run
 title: 'Page report:'
 labels: '@pagereport'
-assignees: '@profjanetdavis'
+assignees: '@ProfJanetDavis'
 
 ---
 
 **Page URL**
-Please give the URL of the page for which you wish to report a problem.
+Copy and paste the URL of the page for which you wish to report a problem. 
 
 **Why is it important not to change the pronouns on this page?**
 Choose one or more of the following:
