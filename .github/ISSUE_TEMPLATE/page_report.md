@@ -2,8 +2,8 @@
 name: Page report
 about: Report a page or site on which this extension should not run
 title: 'Page report:'
-labels: '@pagereport'
-assignees: '@ProfJanetDavis'
+labels: pagereport
+assignees: ProfJanetDavis
 
 ---
 
