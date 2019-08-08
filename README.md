@@ -50,8 +50,8 @@ For a review of technology designed to influence language use, see this prior wo
 ## Contributing
 
 Contributions from the community are welcome. Please [create a GitHub issue](https://github.com/ProfJanetDavis/degender-the-web/issues/new/choose):
+* if you identify a web page or site on which this extension should not run;
 * if you identify situations in which the singular pronoun 'they' is conjugated incorrectly;
-* if you identify a site on which this extension should not run;
 * if you encounter other unexpected behavior (bugs) while using this extension;
 * if you have suggestions for additional features.
 
@@ -62,7 +62,7 @@ Developers are welcome to submit a pull request. See [information for developers
 Thanks to Kristen Peter Mork for sharing Farhad Manjoo's essay. Thanks also to Sarah Peterson, Ellie Poley, and Syd Ryan for contributing to the links listed above. Thanks to all for conversations about this project.
 
 Thanks to Andy Exley and Robert Grimm for technical advice. 
-Thanks to Spencer Kelly for maintaining the Compromise JavaScript NLP library.
+Thanks to Spencer Kelly for maintaining the [Compromise JavaScript NLP library](https://nlp-compromise.github.io/).
 
 This work is supported by [Whitman College](https://www.whitman.edu/) and the Microsoft Chair in Computer Science. Thanks to Gillian Frew for assisting with media strategy. 
 
