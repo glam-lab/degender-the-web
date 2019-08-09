@@ -71,7 +71,7 @@ export function main() {
         if (hasReplaceablePronouns(body)) {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns); 
         }
-        if (body.includes('class="'+replacementClass+'"')) {
+        if (document.body.innerHTML.includes(replacementClass)) {
             message += ' has replaced gendered pronouns on this page.';
         } else {
             message += ' found no gendered pronouns in static content ' +
