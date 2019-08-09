@@ -54,10 +54,8 @@ In order to be in line with Fair Information Practices we will take the followin
 If there are any questions concerning this privacy policy you may contact us using the information below.
 
 <pre>
-Janet Davis
-Department of Computer Science
-Whitman College
+GLAM lab
 345 Boyer Ave
 Walla Walla, WA 99362
-davisj@whitman.edu
+gender.language.activism.making@gmail.com
 </pre>
