@@ -1,5 +1,5 @@
 GENERATED_JS = src/excluded-domains.js src/personal-pronoun-specs.js
-PACKAGE_FILES = src/*.js lib/*.js $\
+PACKAGE_FILES = src/*.js lib/*.js img/icon*.png $\
                 degender-the-web.css manifest.json $\
                 README.md PRIVACY.md
 VERSION = $(shell grep '"version":' manifest.json | cut -d: -f 2 | tr -d "\"\,\ ")
