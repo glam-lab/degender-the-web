@@ -28,7 +28,7 @@ or a pull request.
 Before writing code, see [development information](DEVELOPMENT.md) and the [project Wiki](https://github.com/glam-lab/degender-the-web/wiki).
 
 If you would like to be invited to participate in a future study evaluating the effectiveness of _Degender the Web_,
-please provide your email address using [this Google Form](https://forms.gle/yoH7HGdukBvqRDKz7).
+please [give us your email address](https://forms.gle/yoH7HGdukBvqRDKz7).
 
 ## Learning more
 
