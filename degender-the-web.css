@@ -1,56 +1,64 @@
-section.dgtw-header {
-    position: sticky;
-    z-index: 1000000;
-    top: 0;
-    left: 0;
-    padding: 1ex;
-    margin: 0;
-    line-height: normal;
-    font: Arial;
-    font-family: "Arial", sans-serif;
-    font-size: normal;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    text-indent: 0px;
-    color: black;
-    background: #eeeeee;
+@media not print {
+    section.dgtw-header {
+        position: sticky;
+        z-index: 1000000;
+        top: 0;
+        left: 0;
+        padding: 1ex;
+        margin: 0;
+        line-height: normal;
+        font: Arial;
+        font-family: "Arial", sans-serif;
+        font-size: normal;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        text-indent: 0px;
+        color: black;
+        background: #eeeeee;
+    }
+    
+    button.dgtw {
+        cursor: pointer;
+        display: inline;
+        width: auto;
+        height: auto;
+        line-height: normal;
+        padding: 0.5ex;
+        margin: 1ex;
+        vertical-align: middle;
+        font: Arial;
+        font-family: "Arial", sans-serif;
+        font-size: small;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        text-align: center;
+        text-shadow: none;
+        border: 1pt solid #cccccc;
+        border-radius: 3px;
+        color: blue;
+        background: #eeeeee;
+    }
+    
+    button.dgtw:hover {
+        background-color: #dddddd;
+    }
+    
+    span.dgtw-replacement {
+        display: inline-block;
+        border-bottom: 1px dashed silver;
+    }
+    
+    span.dgtw-highlight {
+        background-color: lightyellow;
+    }
 }
 
-button.dgtw {
-    cursor: pointer;
-    display: inline;
-    width: auto;
-    height: auto;
-    line-height: normal;
-    padding: 0.5ex;
-    margin: 1ex;
-    vertical-align: middle;
-    font: Arial;
-    font-family: "Arial", sans-serif;
-    font-size: small;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    text-align: center;
-    text-shadow: none;
-    border: 1pt solid #cccccc;
-    border-radius: 3px;
-    color: blue;
-    background: #eeeeee;
-}
-
-button.dgtw:hover {
-    background-color: #dddddd;
-}
-
-span.dgtw-replacement {
-    display: inline-block;
-    border-bottom: 1px dashed silver;
-}
-
-span.dgtw-highlight {
-    background-color: lightyellow;
+@media print {
+    section.dgtw-header {
+        display: none;
+    }
 }
