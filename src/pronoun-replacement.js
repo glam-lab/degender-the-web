@@ -1,16 +1,27 @@
 import { createWordReplacement } from './dom-construction.js';
 import { titleCase, replaceWords } from './word-replacement.js';
 
-const dictionary = { "she": "they",
+const compound  =  { // Compound pronouns first!
+                     "he or she": "they",
+                     "him or her": "them",
+                     "his or her": "their",
+                     "his or hers": "theirs",
+                     "himself or herself": "themself"
+                   };
+
+const singular   = { // She/her/her/hers/herself
+                     "she": "they",
                      "her": "them",           
                      // But: 'her book' -> 'their book'
                      "hers": "theirs",
                      "herself": "themself",
+                     // He/him/his/his/himself
                      "he": "they",
                      "him": "them",
                      "his": "their", 
                      // But: 'the book is his' -> 'the book is theirs'
                      "himself": "themself" };
+const dictionary = {...compound, ...singular}; // This is called object spread
 
 // Check if text includes any replaceable pronouns.
 // Use a closure to preconstruct the regexp.
@@ -39,8 +50,13 @@ const substitute = (function () {
 })();
 
 // Replace the pronouns in given text, expanding contractions.
+// If compound pronouns are found, do not look for singular pronouns.
 function replacePronouns(text) {
-    return replaceWords(text, Object.keys(dictionary), substitute, true);
+    let result = replaceWords(text, Object.keys(compound), substitute, false);
+    if (result == text) {
+        result = replaceWords(text, Object.keys(singular), substitute, true);
+    }
+    return result;
 }
 
 export { hasReplaceablePronouns, replacePronouns };

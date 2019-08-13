@@ -23,8 +23,5 @@ export function replaceWords(text, words, substitute, expandContractions=false) 
             matches.not("#TitleCase").not("#Acronym").replaceWith(lc);
         }
     }
-    if (expandContractions) {
-       doc.contractions().contract(); 
-    }
     return doc.all().out('text');
 }
