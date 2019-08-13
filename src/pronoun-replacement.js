@@ -38,9 +38,9 @@ const substitute = (function () {
     return (word) => substitution[word]; 
 })();
 
-// Replace the pronouns in given text.
+// Replace the pronouns in given text, expanding contractions.
 function replacePronouns(text) {
-    return replaceWords(text, Object.keys(dictionary), substitute);
+    return replaceWords(text, Object.keys(dictionary), substitute, true);
 }
 
 export { hasReplaceablePronouns, replacePronouns };
