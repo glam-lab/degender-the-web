@@ -13,17 +13,16 @@ function textNodesUnder(elmnt){
 // or whether an ancestor has "edit" in its id or class.
 function isEditable(node) {
     if (node == null) {
-        // Base case
         return false;
     } else if (node.nodeType === 1) {
         // It's an element - check for real
-        return ((node != null) 
-            && ((node.tag == "textarea") 
-             || (node.tag == "input")
-             || (node.tag == "form")
-             || (("string" == typeof(node.className))
+        return (((node != null) && (node.tagName != "BODY"))
+            && ((node.tagName == "TEXTAREA") 
+             || (node.tagName == "INPUT")
+             || (node.tagName == "FORM")
+             || ((typeof(node.className) == "string")
                  && (node.className.includes("edit")))
-             || (("string" == typeof(node.id)) 
+             || ((typeof(node.id) == "string") 
                  && (node.id.includes("edit")))
              || isEditable(node.parentNode)));
      } else {
