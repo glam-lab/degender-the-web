@@ -17,7 +17,7 @@ The original text can be restored with the click of a button.
 Contributions from the community are welcome. 
 Please use this [anonymous Google Form](https://forms.gle/7Ht7yZbXeZ3PxkdP6) to share your feedback:
 * if you identify a web page or site on which this extension should not run;
-* if you identify situations in which the singular pronoun 'they' is conjugated incorrectly;
+* if you identify situations in which the singular pronoun 'they' is conjugated incorrectly (but first note [known issues](https://github.com/glam-lab/degender-the-web/issues?q=is%3Aissue+is%3Aopen+label%3Agrammar));
 * if you encounter other unexpected behavior (bugs) while using this extension;
 * if you have suggestions for additional features;
 * if you have positive feedback to share.
