@@ -17,7 +17,7 @@ The original text can be restored with the click of a button.
 Contributions from the community are welcome. 
 Please use this [anonymous Google Form](https://forms.gle/7Ht7yZbXeZ3PxkdP6) to share your feedback:
 * if you identify a web page or site on which this extension should not run;
-* if you identify situations in which the singular pronoun 'they' is conjugated incorrectly (but first note [known issues](https://github.com/glam-lab/degender-the-web/issues?q=is%3Aissue+is%3Aopen+label%3Agrammar));
+* if you identify situations in which the singular pronoun 'they' is conjugated incorrectly (but first note [known issues](https://github.com/glam-lab/degender-the-web/labels/grammar));
 * if you encounter other unexpected behavior (bugs) while using this extension;
 * if you have suggestions for additional features;
 * if you have positive feedback to share.
@@ -51,14 +51,14 @@ For a review of technology designed to influence language use, see this prior wo
 
 This extension does not collect personally identifiable information. See the [privacy policy](PRIVACY.md) for more information.
 
-Note that this extension runs the risk of misgendering persons, both trans and cis, 
+This extension runs the risk of misgendering persons, both trans and cis, 
 who have stated their use of "he/him" or "she/her" prounouns. 
 Though it can never be eliminated entirely, several design features will aim to mitigate that risk. 
 In particular, the extension does not alter personal pronouns on pages that
 * include a personal pronoun specifier, [such as "he/him" or "she/her"](data/personal-pronoun-specs.json);
 * include the word "gender" in the page text, suggesting that the page may address gender as a topic.
 
-Other potential mitigation features are currently documented as [issues](https://github.com/ProfJanetDavis/degender-the-web/issues) 
+Other potential mitigation features are currently documented as [issues](https://github.com/glam-lab/degender-the-web/labels/respect) 
 and will be documented here when they are implemented. 
 
 [A few domains](data/excluded-domains.json) are excluded from this extension due to technical incompatibilities.
