@@ -14,6 +14,7 @@ export function createWordReplacement(newWord, origWord) {
 }
 
 // Construct a span tag to implement the given replacement.
+// DELETE unused code
 export function getReplacementSpanTag(newWord, origWord) {
     return '<span class="' + replacementClass + '"' +
                   ' onmouseover="this.innerHTML=\'' + origWord + '\';"' +
@@ -21,6 +22,7 @@ export function getReplacementSpanTag(newWord, origWord) {
 }
 
 // Construct a span tag to implement the given highlight.
+// DELETE unused code
 export function getHighlightSpanTag(word) {
     return '<span class ="'+highlightClass+'">';
 }
