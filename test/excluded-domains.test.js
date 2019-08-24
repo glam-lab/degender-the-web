@@ -1,0 +1,56 @@
+/*eslint no-unused-expressions: "off" */
+/*globals describe, it, chai */
+import { excludedDomains } from "../data/excluded-domains.js";
+import {
+    inExcludedDomain,
+    getExcludedDomain,
+    getWhyExcluded
+} from "../src/excluded-domains.js";
+
+const domains = Object.keys(excludedDomains);
+
+describe("excluded-domains.js", function() {
+    describe("inExcludedDomain", function() {
+        it("should be true for any listed domain", function() {
+            domains.forEach(function(d) {
+                chai.expect(inExcludedDomain(d)).to.be.true;
+            });
+        });
+        it("should be true for any host in a listed domain", function() {
+            ["www", "foo"].forEach(function(s) {
+                chai.expect(inExcludedDomain(s + "." + domains[0])).to.be.true;
+            });
+        });
+        it("should be true for nested domains", function() {
+            chai.expect(inExcludedDomain("foo.bar." + domains[0])).to.be.true;
+        });
+        it("should be false for hosts in unlisted domains", function() {
+            chai.expect(inExcludedDomain("localhost")).to.be.false;
+            chai.expect(inExcludedDomain("my.server.name.here")).to.be.false;
+        });
+        it("should be false if the domain is a superstring", function() {
+            chai.expect(inExcludedDomain("www.my" + domains[0])).to.be.false;
+        });
+    });
+    describe("getExcludedDomain", function() {
+        it("should correctly identify any listed domain", function() {
+            domains.forEach(function(d) {
+                chai.expect(getExcludedDomain("www." + d)).to.equal(d);
+            });
+        });
+        it("should return null for hosts in unlisted domains", function() {
+            chai.expect(getExcludedDomain("localhost")).to.be.null;
+            chai.expect(getExcludedDomain("my.server.name.here")).to.be.null;
+            chai.expect(getExcludedDomain("www.my" + domains[0])).to.be.null;
+        });
+    });
+    describe("getWhyExcluded", function() {
+        it("should give the reason listed", function() {
+            domains.forEach(function(d) {
+                chai.expect(getWhyExcluded("www." + d)).to.equal(
+                    excludedDomains[d]
+                );
+            });
+        });
+    });
+});

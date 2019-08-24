@@ -1,3 +1,5 @@
-import 'https://unpkg.com/chai@4.1.2/chai.js';
+/*globals mocha */
 
-mocha.setup('bdd');
+import "https://unpkg.com/chai@4.1.2/chai.js";
+
+mocha.setup("bdd");
