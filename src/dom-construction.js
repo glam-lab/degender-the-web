@@ -29,7 +29,7 @@ export function getHighlightSpanTag(word) {
 
 // Construct HTML to implement the given highlight.
 export function createWordHighlight(word) {
-    return '<span class ="'+highlightClass+'">'+word+'</span>';
+    return '<span class="'+highlightClass+'">'+word+'</span>';
 }
 
 // Create a header indicating text replacement status.
