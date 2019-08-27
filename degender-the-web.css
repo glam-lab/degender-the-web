@@ -16,7 +16,7 @@
         text-transform: none;
         text-indent: 0px;
         color: black;
-        background: #eeeeee;
+        background: rgba(222,222,222,0.9);
     }
     
     button.dgtw {
@@ -40,7 +40,7 @@
         border: 1pt solid #cccccc;
         border-radius: 3px;
         color: blue;
-        background: #eeeeee;
+        background: rgba(222,222,222,0.9);
     }
     
     button.dgtw:hover {
