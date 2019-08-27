@@ -32,9 +32,10 @@ const hasReplaceablePronouns = (function() {
     return (text) => regexp.test(text);
 })();
 
-// Find the subtitution for a given word (case-sensitive).
-// Use a closure to precompute adding tooltips to replacement text, 
-// with title case variants
+// The substitute function provides the replacement for a given word.
+// Substitution is performed with a dictionary constructed in a closure.
+// We provide a function, rather than providing the dictionary directly, 
+// to protect the dictionary from accidental changes by its users.
 const substitute = (function () {
     const capitalizers = [ titleCase, 
                            x => x.toLowerCase() ];
