@@ -1,3 +1,5 @@
+/*global nlp */
+
 // Capitalize the first letter of the given string.
 export function titleCase(word) {
     return word[0].toUpperCase() + word.slice(1);

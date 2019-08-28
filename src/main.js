@@ -19,7 +19,7 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
         if (needsReplacement(originalText) && !isEditable(node)) {
             const newText = replaceFunction(originalText);
             const siblings = node.parentNode.childNodes;
-            if (siblings.length == 1) {
+            if (siblings.length === 1) {
                 node.parentNode.innerHTML = newText;
             } else {
                 const span = document.createElement("span");

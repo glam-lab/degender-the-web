@@ -54,7 +54,7 @@ const substitute = (function () {
 // If compound pronouns are found, do not look for singular pronouns.
 function replacePronouns(text) {
     let result = replaceWords(text, Object.keys(compound), substitute, false);
-    if (result == text) {
+    if (result === text) {
         result = replaceWords(text, Object.keys(singular), substitute, true);
     }
     return result;

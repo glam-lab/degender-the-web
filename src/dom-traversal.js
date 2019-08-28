@@ -1,3 +1,6 @@
+/*eslint no-cond-assign: "warn" */
+/*eslint eqeqeq: "warn" */
+
 // Collect in a list all text nodes under an element elmnt
 // Source: https://stackoverflow.com/questions/10730309/find-all-text-nodes-in-html-page
 function textNodesUnder(elmnt){
