@@ -10,8 +10,7 @@
     "scripts": {
         "test": "make test",
         "lint": "lynt",
-        "prettify": "prettier --config .prettierrc --write",
-        "/*AFTER RESOLVING LINT ERRORS DELETE THIS COMMENT*/precommit": "lint-staged && npm run lint"
+        "prettify": "prettier --config .prettierrc --write"
     },
     "repository": {
         "type": "git",
@@ -35,5 +34,10 @@
             "prettier --config .prettierrc --write",
             "git add"
         ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged && npm run lint"
+        }
     }
 }
