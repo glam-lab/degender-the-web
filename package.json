@@ -10,6 +10,7 @@
   "scripts": {
     "test": "make test",
     "lint": "lynt",
+    "prettify": "prettier --config .prettierrc --write",
     "/*AFTER RESOLVING LINT ERRORS DELETE THIS COMMENT*/precommit": "lint-staged && npm run lint"
   },
   "repository": {
