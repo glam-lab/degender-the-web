@@ -1,4 +1,3 @@
-GENERATED_JS = src/excluded-domains.js src/personal-pronoun-specs.js
 PACKAGE_FILES = src/*.js lib/*.js img/icon*.png $\
                 degender-the-web.css manifest.json $\
                 README.md PRIVACY.md
@@ -7,13 +6,5 @@ ZIPFILE = dgtw-$(VERSION).zip
 
 package: $(ZIPFILE)
 
-$(ZIPFILE): $(GENERATED_JS) $(PACKAGE_FILES)  
+$(ZIPFILE): $(PACKAGE_FILES)  
 	zip -r "$(ZIPFILE)" . -i $(PACKAGE_FILES)
-
-all: $(GENERATED_JS)
-
-src/%.js: src/%.pp.js data/%.json
-	cpp -P $< > $@
-
-realclean: 
-	rm $(GENERATED_JS) dgtw*.zip

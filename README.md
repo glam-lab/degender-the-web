@@ -55,13 +55,13 @@ This extension runs the risk of misgendering persons, both trans and cis,
 who have stated their use of "he/him" or "she/her" prounouns. 
 Though it can never be eliminated entirely, several design features will aim to mitigate that risk. 
 In particular, the extension does not alter personal pronouns on pages that
-* include a personal pronoun specifier, [such as "he/him" or "she/her"](data/personal-pronoun-specs.json);
+* include a personal pronoun specifier, [such as "he/him" or "she/her"](data/personal-pronoun-specs.js);
 * include the word "gender" in the page text, suggesting that the page may address gender as a topic.
 
 Other potential mitigation features are currently documented as [issues](https://github.com/glam-lab/degender-the-web/labels/respect) 
 and will be documented here when they are implemented. 
 
-[A few domains](data/excluded-domains.json) are excluded from this extension due to technical incompatibilities.
+[A few domains](data/excluded-domains.js) are excluded from this extension due to technical incompatibilities.
 
 ## Acknowledgments
 
