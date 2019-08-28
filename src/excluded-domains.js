@@ -1,10 +1,7 @@
-const excludedDomains = 
-#import "../data/excluded-domains.json"
-;
+import { excludedDomains } from '../data/excluded-domains.js';
 
 const list = Object.keys(excludedDomains);
 const regexp = new RegExp('(' + list.join('|') + ')', 'i');
-
 
 // Test if this domain is an an excluded list. Returns true or false.
 export function inExcludedDomain(url) {
@@ -24,3 +21,4 @@ export function getExcludedDomain(url) {
 export function whyExcluded(domain) {
     return excludedDomains[domain];
 }
+

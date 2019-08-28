@@ -1,3 +1,4 @@
+export const personalPronounSpecs = 
 [
     "ae/aer",
     "e/em",
@@ -17,4 +18,4 @@
     "zie/zir",
     "he/they",
     "she/they"
-]
+];

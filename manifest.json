@@ -21,6 +21,7 @@
         }
     ],
     "web_accessible_resources": [
+        "data/*.js",
         "src/*.js"
     ],
     "icons": {

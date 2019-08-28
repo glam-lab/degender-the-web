@@ -1,4 +1,4 @@
-import { personalPronounSpecs } from './personal-pronoun-specs.js'
+import { personalPronounSpecs } from '../data/personal-pronoun-specs.js'
 import { createWordHighlight } from './dom-construction.js';
 import { titleCase } from './word-replacement.js';
 
