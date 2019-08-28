@@ -1,39 +1,39 @@
 {
-  "name": "degender-the-web",
-  "version": "0.6.1",
-  "description": "What if English had no gender pronouns?  Inspired by Farhad Manjoo's essay _It's Time for 'They'_,  _Degender the Web_ is a Chrome web browser extension that replaces gendered personal pronouns on most Web pages with 'they/them/their'.",
-  "directories": {
-    "src": "src",
-    "lib": "lib",
-    "test": "test"
-  },
-  "scripts": {
-    "test": "make test",
-    "lint": "lynt",
-    "prettify": "prettier --config .prettierrc --write",
-    "/*AFTER RESOLVING LINT ERRORS DELETE THIS COMMENT*/precommit": "lint-staged && npm run lint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/glam-lab/degender-the-web.git"
-  },
-  "author": "GLAM Lab",
-  "license": "AGPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/glam-lab/degender-the-web/issues"
-  },
-  "homepage": "https://github.com/glam-lab/degender-the-web#README.md",
-  "devDependencies": {
-    "husky": "^3.0.4",
-    "lint-staged": "^9.2.5",
-    "lynt": "^0.5.5",
-    "prettier": "^1.18.2",
-    "typescript": "^3.5.3"
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --config .prettierrc --write",
-      "git add"
-    ]
-  }
+    "name": "degender-the-web",
+    "version": "0.6.1",
+    "description": "What if English had no gender pronouns?  Inspired by Farhad Manjoo's essay _It's Time for 'They'_,  _Degender the Web_ is a Chrome web browser extension that replaces gendered personal pronouns on most Web pages with 'they/them/their'.",
+    "directories": {
+        "src": "src",
+        "lib": "lib",
+        "test": "test"
+    },
+    "scripts": {
+        "test": "make test",
+        "lint": "lynt",
+        "prettify": "prettier --config .prettierrc --write",
+        "/*AFTER RESOLVING LINT ERRORS DELETE THIS COMMENT*/precommit": "lint-staged && npm run lint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/glam-lab/degender-the-web.git"
+    },
+    "author": "GLAM Lab",
+    "license": "AGPL-3.0-or-later",
+    "bugs": {
+        "url": "https://github.com/glam-lab/degender-the-web/issues"
+    },
+    "homepage": "https://github.com/glam-lab/degender-the-web#README.md",
+    "devDependencies": {
+        "husky": "^3.0.4",
+        "lint-staged": "^9.2.5",
+        "lynt": "^0.5.5",
+        "prettier": "^1.18.2",
+        "typescript": "^3.5.3"
+    },
+    "lint-staged": {
+        "*.{js,json,css,md}": [
+            "prettier --config .prettierrc --write",
+            "git add"
+        ]
+    }
 }

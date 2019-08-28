@@ -1,29 +1,18 @@
 {
-"manifest_version": 2,
+    "manifest_version": 2,
     "name": "Degender the Web",
     "short_name": "DGtW",
     "description": "'Degender the Web' replaces gendered pronouns on most Web pages with 'they/them/their'.",
     "version": "0.6.1",
     "content_scripts": [
         {
-            "matches": [
-                "file://*",
-                "*://*/*"
-            ],
-            "css": [
-                "degender-the-web.css"
-            ],
-            "js": [
-                "lib/compromise.min.js",
-                "src/content.js"
-            ],
+            "matches": ["file://*", "*://*/*"],
+            "css": ["degender-the-web.css"],
+            "js": ["lib/compromise.min.js", "src/content.js"],
             "run_at": "document_idle"
         }
     ],
-    "web_accessible_resources": [
-        "data/*.js",
-        "src/*.js"
-    ],
+    "web_accessible_resources": ["data/*.js", "src/*.js"],
     "icons": {
         "16": "img/icon16.png",
         "48": "img/icon48.png",

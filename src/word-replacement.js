@@ -8,10 +8,15 @@ export function titleCase(word) {
 // Replace the words in given text using the given substitute function.
 // Preserve title and lower case, ignoring ACRONYMS.
 // An option is given to expand contractions.
-export function replaceWords(text, words, substitute, expandContractions=false) {
+export function replaceWords(
+    text,
+    words,
+    substitute,
+    expandContractions = false
+) {
     const doc = nlp(text);
     if (expandContractions) {
-       doc.contractions().expand(); 
+        doc.contractions().expand();
     }
     let word = null;
     for (word of words) {
@@ -22,8 +27,11 @@ export function replaceWords(text, words, substitute, expandContractions=false) 
             const lc = substitute(word.toLowerCase());
             const matches = doc.match(word);
             matches.match("#TitleCase").replaceWith(tc);
-            matches.not("#TitleCase").not("#Acronym").replaceWith(lc);
+            matches
+                .not("#TitleCase")
+                .not("#Acronym")
+                .replaceWith(lc);
         }
     }
-    return doc.all().out('text');
+    return doc.all().out("text");
 }

@@ -1,5 +1,4 @@
-export const personalPronounSpecs = 
-[
+export const personalPronounSpecs = [
     "ae/aer",
     "e/em",
     "ey/em",
