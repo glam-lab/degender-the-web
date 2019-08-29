@@ -6,7 +6,7 @@ import { textNodesUnder, isEditable } from "./dom-traversal.js";
 import {
     inExcludedDomain,
     getExcludedDomain,
-    whyExcluded
+    getWhyExcluded
 } from "./excluded-domains.js";
 import {
     mentionsGender,
@@ -67,13 +67,12 @@ export function main() {
     const body = document.body.innerHTML;
     let message = "<i>Degender the Web</i> ";
 
-    if (inExcludedDomain(location)) {
-        const domain = getExcludedDomain(location);
+    if (inExcludedDomain(location.host)) {
         message +=
             " does not run on " +
-            domain +
+            getExcludedDomain(location.host) +
             " due to " +
-            whyExcluded(domain) +
+            getWhyExcluded(location.host) +
             ".";
     } else if (hasPersonalPronounSpec(body)) {
         replaceWordsInBody(
