@@ -6,9 +6,10 @@ import { titleCase } from "./word-replacement.js";
 
 // Construct the regular expressions.
 // Escape the slash and allow whitespace characters around it.
-const esc = s => s.replace("/", "s*/s*");
+const esc = s => s.replace("/", "\\s*\\/\\s*");
 const escaped = personalPronounSpecs.map(esc);
 const regexp = new RegExp("\\b(" + escaped.join("|") + ")\\b", "i");
+//document.write(regexp.source + "<br/>");
 
 // Report whether the text includes the keyword "gender".
 // (May be part of another word.)
