@@ -13,7 +13,7 @@ const regexp = new RegExp("\\b(" + escaped.join("|") + ")\\b", "i");
 // Report whether the text includes the keyword "gender".
 // (May be part of another word.)
 export function mentionsGender(text) {
-    return text.match(/gender/i);
+    return text.match(/gender/i) ? true : false;
 }
 
 // Highlight all instances of the keyword "gender" found in the given text.
