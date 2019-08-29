@@ -60,13 +60,13 @@ export function main() {
     } else if (hasPersonalPronounSpec(body)) {
         replaceWordsInBody(hasPersonalPronounSpec, 
                            highlightPersonalPronounSpecs);
-        message += ' did not rewrite gender pronouns because it ';
-        message += ' found personal pronoun specifiers on this page: ' 
-        message += getPersonalPronounSpecs(body) 
+        message += ' did not rewrite gender pronouns because it ' +
+                   'found personal pronoun specifiers on this page: ' +
+                   getPersonalPronounSpecs(body);
     } else if (mentionsGender(body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
-        message += ' did not rewrite gender pronouns because it ';
-        message += ' found this page discusses gender.';
+        message += ' did not rewrite gender pronouns because it ' +
+                   'found this page discusses gender.';
     } else {
         if (hasReplaceablePronouns(body)) {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns); 
@@ -75,7 +75,7 @@ export function main() {
             message += ' has replaced gendered pronouns on this page.';
         } else {
             message += ' found no gendered pronouns in static content ' +
-                       ' on this page.';
+                       'on this page.';
        }
     }
 
