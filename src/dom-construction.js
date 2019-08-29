@@ -4,7 +4,7 @@ export const replacementClass = 'dgtw-replacement';
 export const highlightClass = 'dgtw-highlight';
 
 // Construct HTML to implement the given replacement.
-// We construct raw HTML rather than DOM nodes to enable substitution using 
+// We construct raw HTML rather than DOM nodes to enable substitution using
 // the match().replace() API provided by the Compromise NLP library.
 export function createWordReplacement(newWord, origWord) {
     return '<span class="' + replacementClass + '"' +

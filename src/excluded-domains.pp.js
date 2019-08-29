@@ -1,4 +1,4 @@
-const excludedDomains = 
+const excludedDomains =
 #import "../data/excluded-domains.json"
 ;
 
@@ -16,7 +16,7 @@ export function getExcludedDomain(url) {
     let result = regexp.exec(url);
     if (result != null) {
         result = result[0];
-    } 
+    }
     return result;
 }
 
