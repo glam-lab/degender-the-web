@@ -1,37 +1,17 @@
+import {
+    compoundPronouns,
+    genderPronouns,
+    allPronouns
+} from "../data/pronouns.js";
 import { createWordReplacement } from "./dom-construction.js";
 import { titleCase, replaceWords } from "./word-replacement.js";
-
-const compound = {
-    // Compound pronouns first!
-    "he or she": "they",
-    "him or her": "them",
-    "his or her": "their",
-    "his or hers": "theirs",
-    "himself or herself": "themself"
-};
-
-const singular = {
-    // She/her/her/hers/herself
-    she: "they",
-    her: "them",
-    // But: 'her book' -> 'their book'
-    hers: "theirs",
-    herself: "themself",
-    // He/him/his/his/himself
-    he: "they",
-    him: "them",
-    his: "their",
-    // But: 'the book is his' -> 'the book is theirs'
-    himself: "themself"
-};
-const dictionary = { ...compound, ...singular }; // This is called object spread
 
 // Check if text includes any replaceable pronouns.
 // Use a closure to preconstruct the regexp.
 const hasReplaceablePronouns = (function() {
     // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
     const regexp = new RegExp(
-        "\\b(" + Object.keys(dictionary).join("|") + ")\\b",
+        "\\b(" + Object.keys(allPronouns).join("|") + ")\\b",
         "i"
     );
     return text => regexp.test(text);
@@ -46,10 +26,10 @@ const substitute = (function() {
     const substitution = {};
     let word = "",
         f = null;
-    for (word in dictionary) {
+    for (word in allPronouns) {
         for (f of capitalizers) {
             substitution[f(word)] = createWordReplacement(
-                f(dictionary[word]),
+                f(allPronouns[word]),
                 f(word)
             );
         }
@@ -58,11 +38,21 @@ const substitute = (function() {
 })();
 
 // Replace the pronouns in given text, expanding contractions.
-// If compound pronouns are found, do not look for singular pronouns.
+// If compound pronouns are found, do not look for singular gender pronouns.
 function replacePronouns(text) {
-    let result = replaceWords(text, Object.keys(compound), substitute, false);
+    let result = replaceWords(
+        text,
+        Object.keys(compoundPronouns),
+        substitute,
+        false
+    );
     if (result === text) {
-        result = replaceWords(text, Object.keys(singular), substitute, true);
+        result = replaceWords(
+            text,
+            Object.keys(genderPronouns),
+            substitute,
+            true
+        );
     }
     return result;
 }
