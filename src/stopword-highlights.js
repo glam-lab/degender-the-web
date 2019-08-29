@@ -6,7 +6,7 @@ import { titleCase } from "./word-replacement.js";
 
 // Construct the regular expressions.
 // Except the slash and allow whitespace characters around it.
-const esc = s => s.replace("w*/w*", "/");
+const esc = s => s.replace(/\s+\/\s+/g, "/");
 const escaped = personalPronounSpecs.map(esc);
 const regexp = new RegExp("\\b(" + escaped.join("|") + ")\\b", "i");
 
