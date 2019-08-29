@@ -79,7 +79,7 @@ export function main() {
        }
     }
 
-    // Insert the header for Degender the Web, with the constructed message.
+    // Create the header for Degender the Web, with the constructed message.
     const header = createHeader(message);
     const dismissHeader = (function(element) {
         return function() { element.style.display = 'none'; };
@@ -88,6 +88,8 @@ export function main() {
                                     restoreOriginalContent));
     header.appendChild(createButton('Dismiss this header', 
                                     dismissHeader));
+
+    // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
 }
 
