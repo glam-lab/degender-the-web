@@ -4,7 +4,7 @@ import {
     allPronouns
 } from "../data/pronouns.js";
 import { createWordReplacement } from "./dom-construction.js";
-import { titleCase, replaceWords } from "./word-replacement.js";
+import { capitalize, replaceWords } from "./word-replacement.js";
 
 // Check if text includes any replaceable pronouns.
 // Use a closure to preconstruct the regexp.
@@ -22,7 +22,7 @@ const hasReplaceablePronouns = (function() {
 // We provide a function, rather than providing the dictionary directly,
 // to protect the dictionary from accidental changes by its users.
 const substitute = (function() {
-    const capitalizers = [titleCase, x => x.toLowerCase()];
+    const capitalizers = [capitalize, x => x.toLowerCase()];
     const substitution = {};
     let word = "",
         f = null;

@@ -2,7 +2,7 @@
 
 import { personalPronounSpecs } from "../data/personal-pronoun-specs.js";
 import { createWordHighlight } from "./dom-construction.js";
-import { titleCase } from "./word-replacement.js";
+import { capitalize } from "./word-replacement.js";
 
 // Construct the regular expressions.
 // Escape the slash and allow whitespace characters around it.
@@ -52,7 +52,7 @@ export function highlightPersonalPronounSpecs(text) {
         pp = null;
     for (pp of personalPronounSpecs) {
         result = highlightWithCase(result, pp);
-        result = highlightWithCase(result, titleCase(pp));
+        result = highlightWithCase(result, capitalize(pp));
     }
     return result;
 }
