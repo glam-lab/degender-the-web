@@ -1,7 +1,7 @@
 /*global nlp */
 
 // Capitalize the first letter of the given string.
-export function titleCase(word) {
+export function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
 
@@ -23,7 +23,7 @@ export function replaceWords(
         if (doc.has(word)) {
             // Replace matching words while preserving case.
             // Do not change acronyms.
-            const tc = substitute(titleCase(word));
+            const tc = substitute(capitalize(word));
             const lc = substitute(word.toLowerCase());
             const matches = doc.match(word);
             matches.match("#TitleCase").replaceWith(tc);
