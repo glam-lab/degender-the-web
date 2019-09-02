@@ -1,6 +1,6 @@
 # Information for developers
 
-If you're a developer, you are welcome to submit a pull request. However, if you are not responding to an [existing issue](https://github.com/ProfJanetDavis/degender-the-web/issues), please [submit an issue](https://github.com/ProfJanetDavis/degender-the-web/issues/new) for discussion prior to implementation.
+If you're a developer, you are welcome to submit a pull request. However, if you are not responding to an [existing issue](https://github.com/ProfJanetDavis/degender-the-web/issues), please consider [submitting an issue](https://github.com/ProfJanetDavis/degender-the-web/issues/new) for discussion prior to implementation.
 
 Read about [trans-inclusive design](https://alistapart.com/article/trans-inclusive-design) before contributing.
 See the [wiki](https://github.com/ProfJanetDavis/degender-the-web/wiki) for additional technical and design notes.
@@ -8,13 +8,12 @@ See the [wiki](https://github.com/ProfJanetDavis/degender-the-web/wiki) for addi
 ## Development setup
 
 -   Fork this repository, then run `git clone`.
--   Install [Node.js](https://nodejs.org/en/download/), if needed, then run `npm install`.
+-   Install [Node.js](https://nodejs.org/en/download/), if needed, then run `npm install` from the project directory.
 -   Follow the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
--   Open the file `test.html` in a Web browser to review the provided end-to-end test cases.
 -   Ensure Chrome is your default Web browser, then
-    - Run `make test` to run automated tests, first ensuring that Chrome is your default Web browser.
+    - Run `make test` to run automated tests;
     - Run `make test-e2e` to review end-to-end test cases.
--   If you make changes to any code, click the Reload link on the `chrome://extensions` page and then reload pages to pick up the changes. Reload test pages using **Shift-Command-R**.
+-   If you make changes to any code, click the Reload link on the `chrome://extensions` page and then reload pages using **Shift-Command-R**.
 -   Errors will show up in the [console](https://developers.google.com/web/tools/chrome-devtools/console/).
 
 ## To publish a new version to the Chrome Webstore
