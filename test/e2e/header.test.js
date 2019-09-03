@@ -1,9 +1,21 @@
-/*globals it */
+/*globals describe, before, after, it, browser */
 
-export default function suite() {
-    it("should be present");
+describe("Header", function() {
+    let page;
+
+    before(async function() {
+        page = await browser.newPage();
+        await page.goto("http://localhost:8080/mocha/e2e.html");
+    });
+
+    after(async function() {
+        await page.close();
+    });
+
+    it("should be present", async function() {
+        await page.waitFor(".dgtw-header");
+    });
     it("should be the first element in the body");
-    it("should be visible");
     it("should contain a dismiss button");
     it("should contain a restore button");
     it("should have some text outside the buttons");
@@ -12,4 +24,4 @@ export default function suite() {
     it("should say when the word 'gender' is found");
     it("should say when pronouns are changed");
     it("should say when no pronouns are found");
-}
+});

@@ -10,17 +10,3 @@ package: $(ZIPFILE)
 
 $(ZIPFILE): $(PACKAGE_FILES)  
 	zip -r "$(ZIPFILE)" . -i $(PACKAGE_FILES)
-
-test-e2e:
-	open file://$(shell pwd)/test.html
-
-test: run-server open-mocha
-
-open-mocha:
-	open http://localhost:$(TEST_PORT)/mocha/
-
-run-server: 
-	python3 -m http.server $(TEST_PORT) &	
-
-kill-server:
-	ps ax | grep 'python3 -m http.server $(TEST_PORT)' | grep -e 'grep' | cut -d' ' -f 1 | xargs kill

@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dummy page for end-to-end testing</title>
+    <script src="../lib/compromise.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../degender-the-web.css"/>
+  </head>
+  <body>
+
+    <h1>Dummy page for end-to-end testing</h1>
+
+    <h2>Usage</h2>
+    <p>Visit <a id="sampleLink">Sample link goes here</a></p>
+
+    <h2>Text appears below</h2>
+    <div id="text">Body text from search param "text" goes here</div>
+
+    <script>
+      const sampleURL = 
+      [location.protocol, "//", location.host, location.pathname, "?text=Desired text"].join("");
+      const sampleLink = document.getElementById("sampleLink");
+      sampleLink.href = sampleURL;
+      sampleLink.innerHTML = sampleURL;
+    </script>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      document.getElementById("text").innerHTML = urlParams.get("text");;
+    </script>
+
+    <script type="module">
+      import { main } from "../src/main.js";
+      main();
+    </script>
+
+  </body>
+</html>
