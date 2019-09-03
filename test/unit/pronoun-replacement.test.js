@@ -1,11 +1,11 @@
 /*eslint no-unused-expressions: "off" */
 /*globals describe, it, chai */
-import { allPronouns } from "../data/pronouns.js";
-import { capitalize } from "../src/word-replacement.js";
+import { allPronouns } from "../../data/pronouns.js";
+import { capitalize } from "../../src/word-replacement.js";
 import {
     hasReplaceablePronouns,
     replacePronouns
-} from "../src/pronoun-replacement.js";
+} from "../../src/pronoun-replacement.js";
 
 const dictionary = allPronouns;
 const pronouns = Object.keys(dictionary);

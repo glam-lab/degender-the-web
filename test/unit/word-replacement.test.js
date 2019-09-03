@@ -1,5 +1,5 @@
 /*globals describe, it, chai */
-import { capitalize, replaceWords } from "../src/word-replacement.js";
+import { capitalize, replaceWords } from "../../src/word-replacement.js";
 
 describe("word-replacement.js", function() {
     describe("capitalize", function() {

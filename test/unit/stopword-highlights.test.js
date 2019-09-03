@@ -1,13 +1,13 @@
 /*eslint no-unused-expressions: "off" */
 /*globals describe, it, chai */
-import { personalPronounSpecs } from "../data/personal-pronoun-specs.js";
+import { personalPronounSpecs } from "../../data/personal-pronoun-specs.js";
 import {
     mentionsGender,
     highlightGender,
     hasPersonalPronounSpec,
     getPersonalPronounSpecs,
     highlightPersonalPronounSpecs
-} from "../src/stopword-highlights.js";
+} from "../../src/stopword-highlights.js";
 
 const genderWords = ["gender", "transgender", "gender-normative", "Gender"];
 

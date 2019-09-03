@@ -2,11 +2,11 @@
 import {
     createWordHighlight,
     highlightClass
-} from "../src/dom-construction.js";
+} from "../../src/dom-construction.js";
 import {
     createWordReplacement,
     replacementClass
-} from "../src/dom-construction.js";
+} from "../../src/dom-construction.js";
 
 function expectSpanElement(text) {
     chai.expect(text).to.match(/^<span.*span>$/i);

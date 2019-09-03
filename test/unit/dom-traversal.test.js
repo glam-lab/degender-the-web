@@ -1,6 +1,6 @@
 /*eslint no-unused-expressions: "off" */
 /*globals describe, it, after, chai */
-import { textNodesUnder, isEditable } from "../src/dom-traversal.js";
+import { textNodesUnder, isEditable } from "../../src/dom-traversal.js";
 
 function constructElementWithText(tag) {
     const element = document.createElement(tag);

@@ -1,11 +1,11 @@
 /*eslint no-unused-expressions: "off" */
 /*globals describe, it, chai */
-import { excludedDomains } from "../data/excluded-domains.js";
+import { excludedDomains } from "../../data/excluded-domains.js";
 import {
     inExcludedDomain,
     getExcludedDomain,
     getWhyExcluded
-} from "../src/excluded-domains.js";
+} from "../../src/excluded-domains.js";
 
 const domains = Object.keys(excludedDomains);
 
