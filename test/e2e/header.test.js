@@ -5,7 +5,7 @@ describe("Header", function() {
 
     before(async function() {
         page = await browser.newPage();
-        await page.goto("http://localhost:8080/mocha/e2e.html");
+        await page.goto("http://localhost:8080/test/html/e2e-helper.html");
     });
 
     after(async function() {

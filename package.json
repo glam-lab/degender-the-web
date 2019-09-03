@@ -10,11 +10,10 @@
     "scripts": {
         "lint": "lynt",
         "prettify": "prettier --config .prettierrc --write",
-        "puppeteer-test": "mocha test/puppeteer/bootstrap.js --recursive test/puppeteer",
         "server": "http-server .",
-        "unittest": "mocha-headless-chrome -f http://127.0.0.1:8080/mocha/",
+        "unittest": "mocha-headless-chrome -f http://127.0.0.1:8080/test/html/unittest.html",
         "e2e-test": "mocha test/e2e/bootstrap.js --recursive test/e2e",
-        "manual-test": "open http://127.0.0.1:8080/test.html"
+        "manual-test": "open http://127.0.0.1:8080/test/html/manual.html"
     },
     "repository": {
         "type": "git",
