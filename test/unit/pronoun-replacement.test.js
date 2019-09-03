@@ -10,7 +10,7 @@ import {
 const dictionary = allPronouns;
 const pronouns = Object.keys(dictionary);
 
-export default function suite() {
+describe("pronoun-replacement.js", function() {
     describe("hasReplaceablePronouns", function() {
         it("should be false for a sentence with no pronouns", function() {
             const sentence = "Janet has a Kliban cat named Ernie.";
@@ -70,4 +70,4 @@ export default function suite() {
             chai.expect(result).to.include("Theirs");
         });
     });
-}
+});

@@ -1,7 +1,5 @@
-/*globals describe, mocha */
-import unit from "../test/unit/index.js";
-
-describe("Unit tests", unit.bind(this));
+/*globals mocha */
+import "../test/unit/all.js";
 
 mocha.checkLeaks();
 mocha.run();

@@ -22,7 +22,7 @@ function expectElementContents(text, contents) {
     chai.expect(text).to.match(new RegExp(">" + contents + "<"));
 }
 
-export default function suite() {
+describe("dom-construction.js", function() {
     describe("createWordHighlight", function() {
         const result = createWordHighlight("spam");
         it("should construct text representing a span element", function() {
@@ -57,4 +57,4 @@ export default function suite() {
             );
         });
     });
-}
+});

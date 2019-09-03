@@ -1,7 +1,7 @@
 /*globals describe, it, chai */
 import { capitalize, replaceWords } from "../../src/word-replacement.js";
 
-export default function suite() {
+describe("word-replacement.js", function() {
     describe("capitalize", function() {
         it("should capitalize the first letter of the given string", function() {
             chai.expect(capitalize("hello")).to.equal("Hello");
@@ -107,4 +107,4 @@ export default function suite() {
             );
         });
     });
-}
+});
