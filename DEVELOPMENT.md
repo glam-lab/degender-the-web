@@ -10,7 +10,9 @@ See the [wiki](https://github.com/ProfJanetDavis/degender-the-web/wiki) for addi
 -   Fork this repository, then run `git clone`.
 -   Install [Node.js](https://nodejs.org/en/download/), if needed, then run `npm install` from the project directory.
 -   Follow the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) to load the extension.
--   Run tests as follows:
+-   Prior to running any tests:
+    -   `npm run server`
+-   Then run test suites as follows:
     -   `npm run unittest`
     -   `npm run e2e-test`
     -   `npm run manual-test`
