@@ -3,6 +3,7 @@
 import { personalPronounSpecs } from "../data/personal-pronoun-specs.js";
 import { createWordHighlight } from "./dom-construction.js";
 import { capitalize } from "./word-replacement.js";
+import { textNodesUnder, isVisible } from "./dom-traversal.js";
 
 // Construct the regular expressions.
 // Escape the slash and allow whitespace characters around it.
@@ -15,6 +16,20 @@ const regexp = new RegExp("\\b(" + escaped.join("|") + ")\\b", "i");
 // (May be part of another word.)
 export function mentionsGender(text) {
     return text.match(/gender/i) ? true : false;
+}
+
+// Report whether the page includes the keyword "gender" visibly.
+export function visiblyMentionsGender(body) {
+    const textNodes = textNodesUnder(body);
+    let node = null;
+    for (node of textNodes) {
+        if (mentionsGender(node.data) && isVisible(node)) {
+            // If any text node mentions gender,
+            return true;
+        }
+    }
+    // If no text nodes mention gender,
+    return false;
 }
 
 // Highlight all instances of the keyword "gender" found in the given text.

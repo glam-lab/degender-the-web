@@ -10,6 +10,7 @@ import {
 } from "./excluded-domains.js";
 import {
     mentionsGender,
+    visiblyMentionsGender,
     highlightGender,
     hasPersonalPronounSpec,
     highlightPersonalPronounSpecs,
@@ -82,7 +83,7 @@ export function main() {
         message += " did not rewrite gender pronouns because it ";
         message += " found personal pronoun specifiers on this page: ";
         message += getPersonalPronounSpecs(body);
-    } else if (mentionsGender(body)) {
+    } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
         message += " did not rewrite gender pronouns because it ";
         message += " found this page discusses gender.";
