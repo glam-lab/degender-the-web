@@ -1,4 +1,3 @@
-/*globals mocha */
 import "../test/unit/all.js";
 
 mocha.checkLeaks();
