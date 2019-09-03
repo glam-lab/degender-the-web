@@ -9,7 +9,7 @@ import {
 
 const domains = Object.keys(excludedDomains);
 
-describe("excluded-domains.js", function() {
+export default function suite() {
     describe("inExcludedDomain", function() {
         it("should be true for any listed domain", function() {
             domains.forEach(function(d) {
@@ -53,4 +53,4 @@ describe("excluded-domains.js", function() {
             });
         });
     });
-});
+}

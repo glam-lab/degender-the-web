@@ -16,7 +16,7 @@ function expectNotEditable(element) {
     chai.expect(textNodesUnder(element).some(isEditable)).to.be.false;
 }
 
-describe("dom-traversal.js", function() {
+export default function suite() {
     describe("textNodesUnder", function() {
         const element = document.createElement("p");
         element.innerHTML = "foo <span>bar</span> baz";
@@ -68,4 +68,4 @@ describe("dom-traversal.js", function() {
             done();
         });
     });
-});
+}

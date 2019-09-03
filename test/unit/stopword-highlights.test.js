@@ -11,7 +11,7 @@ import {
 
 const genderWords = ["gender", "transgender", "gender-normative", "Gender"];
 
-describe("stopword-highlights.js", function() {
+export default function suite() {
     describe("mentionsGender", function() {
         it("should be false for text not containing 'gender'", function() {
             chai.expect(mentionsGender("blah blah blah")).to.be.false;
@@ -117,4 +117,4 @@ describe("stopword-highlights.js", function() {
             chai.expect(count).to.equal(2);
         });
     });
-});
+}
