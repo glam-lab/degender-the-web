@@ -91,10 +91,10 @@ export function main() {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
         }
         if (document.body.innerHTML.includes(replacementClass)) {
-            message += " has replaced gendered pronouns on this page.";
+            message += " has replaced gender pronouns on this page.";
         } else {
             message +=
-                " found no gendered pronouns in static content " +
+                " found no gender pronouns in static content " +
                 " on this page.";
         }
     }
