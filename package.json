@@ -12,9 +12,9 @@
         "lint": "lynt",
         "prettify": "prettier --config .prettierrc --write",
         "server": "http-server .",
-        "unittest": "mocha-headless-chrome -f http://127.0.0.1:8080/test/html/unittest.html",
+        "unittest": "mocha-headless-chrome -f http://127.0.0.1:8080/test/unit",
         "e2e-test": "mocha test/e2e/bootstrap.js --recursive test/e2e",
-        "manual-test": "open http://127.0.0.1:8080/test/html/manual.html"
+        "manual-test": "open http://127.0.0.1:8080/test/"
     },
     "repository": {
         "type": "git",

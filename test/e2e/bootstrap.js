@@ -20,7 +20,7 @@ const opts = {
 // expose variables
 before(function(done) {
     global.expect = expect;
-    global.testURL = "http://localhost:8080/test/html/e2e-helper.html?text=";
+    global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
     global.textdivSelector = "#text";
     global.headerSelector = "#dgtw-header";
     global.highlightSelector = "span.dgtw-highlight";
