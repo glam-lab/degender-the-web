@@ -107,9 +107,15 @@ export function main() {
         };
     })(header);
     header.appendChild(
-        createButton("Restore original content", restoreOriginalContent)
+        createButton(
+            "restore",
+            "Restore original content",
+            restoreOriginalContent
+        )
     );
-    header.appendChild(createButton("Dismiss this header", dismissHeader));
+    header.appendChild(
+        createButton("dismiss", "Dismiss this header", dismissHeader)
+    );
 
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);

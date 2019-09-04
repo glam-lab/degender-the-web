@@ -1,5 +1,5 @@
-export const headerClass = "dgtw-header";
-export const buttonClass = "dgtw";
+//export const headerClass = "dgtw-header";
+//export const buttonClass = "dgtw";
 export const replacementClass = "dgtw-replacement";
 export const highlightClass = "dgtw-highlight";
 
@@ -52,16 +52,16 @@ export function createWordHighlight(word) {
 // Create a header indicating text replacement status.
 export function createHeader(message) {
     const element = document.createElement("section");
+    element.id = "dgtw-header";
     element.innerHTML = message;
-    element.classList.add(headerClass);
     return element;
 }
 
 // Create a button with given text and onclick function.
-export function createButton(text, onclick) {
+export function createButton(id, text, onclick) {
     const button = document.createElement("button");
+    button.id = id;
     button.innerHTML = text;
     button.onclick = onclick;
-    button.classList.add(buttonClass);
     return button;
 }
