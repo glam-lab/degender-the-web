@@ -69,5 +69,9 @@ describe("pronoun-replacement.js", function() {
             chai.expect(result).to.include("They");
             chai.expect(result).to.include("Theirs");
         });
+        it("should not replace acronyms", function() {
+            const text = "HERS Institute";
+            chai.expect(replacePronouns(text)).to.equal(text);
+        });
     });
 });
