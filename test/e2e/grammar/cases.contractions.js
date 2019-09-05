@@ -3,8 +3,8 @@ module.exports.cases = {
         {
             descr: "'s",
             in: "She's alone",
-            out: "They are alone",
-            pending: 8
+            out: "They are alone"
+            //pending: 8
         },
         {
             descr: "'ll",

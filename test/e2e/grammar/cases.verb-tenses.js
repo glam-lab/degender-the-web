@@ -8,39 +8,53 @@ module.exports.cases = {
                 {
                     descr: "Regular verb",
                     in: "She speaks English",
-                    out: "They speak English",
-                    pending: 8
+                    out: "They speak English"
+                    //pending: 8
                 },
                 {
                     descr: "Regular with adverb",
-                    in: "She only speaks English",
-                    out: "They only speak English",
-                    pending: 8
+                    in: "He only speaks English",
+                    out: "They only speak English"
+                    //pending: 8
                 },
                 {
-                    descr: "Do, statement",
+                    descr: "Do statement",
                     in: "She does not speak English",
-                    out: "They do not speak English",
-                    pending: 8
+                    out: "They do not speak English"
+                    //pending: 8
                 },
                 {
-                    descr: "Do, question",
-                    in: "Does she speak English?",
-                    out: "Do they speak English?",
-                    pending: 8
+                    descr: "Do question",
+                    in: "Does he speak English?",
+                    out: "Do they speak English?"
+                    //pending: 8
                 },
                 {
-                    descr: "Be",
-                    in: "She is happy",
-                    out: "They are happy",
-                    pending: 8
+                    descr: "Be statement",
+                    in: "He is happy",
+                    out: "They are happy"
+                    //pending: 8
                 },
                 {
-                    descr: "Have",
+                    descr: "Be question",
+                    in: "Is she happy?",
+                    out: "Are they happy?"
+                    //pending: 8
+                },
+
+                {
+                    descr: "Have statement",
                     in: "She has a book",
-                    out: "They have a book",
-                    pending: 8
+                    out: "They have a book"
+                    //pending: 8
                 },
+                {
+                    descr: "Have question",
+                    in: "Has he a book?",
+                    out: "Have they a book?"
+                    //pending: 8
+                },
+
                 { descr: "Modal", in: "She should go", out: "They should go" }
             ],
             Past: [
@@ -58,14 +72,14 @@ module.exports.cases = {
             Future: [
                 {
                     descr: "Will",
-                    in: "She will travel to Japan",
+                    in: "He will travel to Japan",
                     out: "They will travel to Japan"
                 },
                 {
                     descr: "Be going to",
-                    in: "She is going to travel to Japan",
-                    out: "They are going to travel to Japan",
-                    pending: 8
+                    in: "He is going to travel to Japan",
+                    out: "They are going to travel to Japan"
+                    //pending: 8
                 }
             ]
         },
@@ -73,18 +87,18 @@ module.exports.cases = {
             {
                 descr: "Present",
                 in: "She is reading a book",
-                out: "They are reading a book",
-                pending: 8
+                out: "They are reading a book"
+                //pending: 8
             },
             {
                 descr: "Past",
                 in: "She was reading a book",
-                out: "They were reading a book",
-                pending: 8
+                out: "They were reading a book"
+                //pending: 8
             },
             {
                 descr: "Future",
-                in: "She will be waiting",
+                in: "He will be waiting",
                 out: "They will be waiting"
             }
         ],
@@ -92,8 +106,8 @@ module.exports.cases = {
             {
                 descr: "Present",
                 in: "She has been reading a book",
-                out: "They have been reading a book",
-                pending: 8
+                out: "They have been reading a book"
+                //pending: 8
             },
             {
                 descr: "Past",
@@ -102,7 +116,7 @@ module.exports.cases = {
             },
             {
                 descr: "Future",
-                in: "She will have left",
+                in: "He will have left",
                 out: "They will have left"
             }
         ]
