@@ -1,224 +1,23 @@
 <html>
   <head>
-    <title>DGtW: End-to-end tests</title>
+    <title>DGtW: Manual tests</title>
     <style>
-      th { text-align:left; }
+        ul li, ol li {
+            margin: 0 0 1ex 0;
+}
     </style>
   </head>
 
   <body>
-    <table cellspacing="5pt">
-      <tr>
-        <th>Use case</th>
-        <th>Test sentence</th>
-        <th>Correct output</th>
-      </tr>
-
-      <tr>
-        <th>S H E</th>
-        <td>She left today.</td>
-        <td>They left today.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>She is leaving.</td>
-        <td>They are leaving.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>She leaves now.</td>
-        <td>They leave now.</td>
-      </tr>
-
-      <tr>
-        <th>H E</th>
-        <td>He left today.</td>
-        <td>They left today.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>He is leaving.</td>
-        <td>They are leaving.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>He leaves now.</td>
-        <td>They leave now.</td>
-      </tr>
-
-      <tr>
-        <th>
-          H E R - Noun form
-          (<a href="https://english.stackexchange.com/questions/261843/her-a-determiner-or-a-pronoun">source</a>)
-        </th>
-        <td>Give it to her.</td>
-        <td>Give it to them.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>I know her.</td>
-        <td>I know them.</td>
-      </tr>
-
-      <tr>
-        <th>
-          H E R - Possessive adjective form
-          (<a href="https://english.stackexchange.com/questions/261843/her-a-determiner-or-a-pronoun">source</a>)
-        </th>
-        <td>This is her pen.</td>
-        <td>This is their pen.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>That is her mother.</td>
-        <td>That is their mother.</td>
-      </tr>
-
-      <tr> 
-        <th>H E R - Both forms together</th>
-        <td>You should take her at her word.</td>
-        <td>You should take them at their word.</td>
-      </tr>
-
-      <tr>
-        <th>H E R S</th>
-        <td>The book is hers.</td>
-        <td>The book is theirs.</td>
-      </tr>
-
-      <tr>
-        <th>H I M</th>
-        <td>I know him.</td>
-        <td>I know them.</td>
-      </tr>
-
-      <tr>
-        <th>
-          H I S - Possessive noun form 
-          (<a href="https://www.answers.com/Q/5_example_of_sentences_using_the_pronoun_his">source</a>)
-        </th>
-        <td>The house on the corner is his.</td>
-        <td>The house in the corner is theirs.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>We can take his; mine is in the shop.</td>
-        <td>We can take theirs; mine is in the shop.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>His is the best entry in the contest.</td>
-        <td>Theirs is the best entry in the contest.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>Which one is his?</td>
-        <td>Which one is theirs?</td>
-      </tr>
-
-      <tr>
-        <th>
-          H I S - Possessive adjective form 
-          (<a href="https://www.answers.com/Q/5_example_of_sentences_using_the_pronoun_his">source</a>)
-        </th>
-        <td>My dad liked to take his motorcycle out.</td>
-        <td>My dad liked to take their motorcycle out.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>His mom decorated the house very nicely.</td>
-        <td>Their mom decorated the house very nicely.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>His favorite color is blue.</td>
-        <td>Their favorite color is blue.</td>
-      </tr>
-
-      <tr>
-        <th>H I S - Both forms together</th>
-        <td>His motorcycle is his.</td>
-        <td>Their motorcycle is theirs.</td>
-      </tr>
-
-      <tr>
-        <th>H E R S E L F</th>
-        <td>She did it herself.</td>
-        <td>They did it themself.</td>
-      </tr>
-
-      <tr>
-        <th>H I M S E L F</th>
-        <td>He did it himself.</td>
-        <td>They did it themself.</td>
-      </tr>
-
-      <tr>
-        <th>Contractions</th>
-        <td>He's nice.</td>
-        <td>They are nice.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>She's nice.</td>
-        <td>They are nice.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>He'll arrive soon.</td>
-        <td>They will arrive soon.</td>
-      </tr>>
-      <tr>
-        <th></th>
-        <td>She'll arrive soon.</td>
-        <td>They will arrive soon.</td>
-      </tr>>
-
-      <tr>
-        <th>Compound pronouns</th>
-        <td>What if he or she doesn't answer?</td>
-        <td>What if they don't answer?</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>When you find the owner, give it back to him or her.</td>
-        <td>When you find the owner, give it back to them.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>Whoever left his or her book should come get it.</td>
-        <td>Whoever left their book should come get it.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>If he or she takes it, it is his or hers.</td>
-        <td>If they take it, it is theirs.</td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>The caregiver should take care of himself or herself.</td>
-        <td>The caregiver should take care of themself.</td>
-      </tr>
-
-      <tr>
-        <th>Acronym</th>
-        <td>HERS Institute</td>
-        <td>HERS Institute</td>
-      </tr>
-
-      <tr>
-        <th valign="top">
-            Full sentence
+    <h2>Interesting sentences</h2>
+    <ol>
+       <li>You should take her at her word.</li>
+       <li>She has manual dexterity issues related to osteoarthritis; she cannot hold her arms up for extended periods of time and experiences pain when she does repetitive tasks, such as keyboard typing and button pressing.
             (<a href="http://uxpamagazine.org/should-we-conduct-this-usability-study/">Source</a>)
-        </th>
-        <td width="80ex">She has manual dexterity issues related to osteoarthritis; she cannot hold her arms up for extended periods of time and experiences pain when she does repetitive tasks, such as keyboard typing and button pressing.</td>
-        <td width="80ex">They have manual dexterity issues related to osteoarthritis; they cannot hold their arms up for extended periods of time and experience pain when they do repetitive tasks, such as keyboard typing and button pressing.</td>
-      </tr>
+        </li>
+    </ol>
 
-    </table>
-
-    <h2>Links</h2>
-    <p>Visit the following sites for additional real-world tests. Links open in new tabs.</p>
+    <h2>Links (will open in new tabs)</h2>
 
     <h3>Pronouns should be changed</h3>
     <ol>
