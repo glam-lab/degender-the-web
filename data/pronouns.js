@@ -3,7 +3,8 @@ export const compoundPronouns = {
     "him or her": "them",
     "his or her": "their",
     "his or hers": "theirs",
-    "himself or herself": "themself"
+    "himself or herself": "themself",
+    "him or herself": "themself"
 };
 
 export const genderPronouns = {
