@@ -8,9 +8,13 @@ export function capitalize(word) {
 // Yikes.
 function fixVerbNumber(doc, subject) {
     const irregulars = [
+        ["is not", "are not"],
         ["is", "are"],
+        ["was not", "were not"],
         ["was", "were"],
+        ["has not", "have not"],
         ["has", "have"],
+        ["does not", "do not"],
         ["does", "do"]
     ];
     const esVerbs = doc
@@ -51,7 +55,7 @@ export function replaceWords(
     for (word of words) {
         if (doc.has(word)) {
             // Deal with verb number following (he|she) -> they.
-            if (word === "he" || word === "she") {
+            if (["he", "she", "he or she"].includes(word)) {
                 fixVerbNumber(doc, word);
             }
             // Replace matching words while preserving case.

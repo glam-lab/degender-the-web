@@ -15,6 +15,11 @@ module.exports.cases = {
             descr: "'d",
             in: "She'd like to",
             out: "They would like to"
+        },
+        {
+            descr: "doesn't",
+            in: "What if he doesn't answer?",
+            out: "What if they do not answer?"
         }
     ]
 };
