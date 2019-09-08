@@ -82,12 +82,8 @@ export function replaceWords(
             const lc = substitute(word.toLowerCase());
             const matches = doc.match(word);
             matches.not("#Acronym").forEach(function(m) {
-                if (
-                    m
-                        .out("text")
-                        .trim()
-                        .match(/^[A-Z]/)
-                ) {
+                const t = m.out("text").trim();
+                if (t.match(/^[A-Z]/)) {
                     m.replaceWith(tc);
                 } else {
                     m.replaceWith(lc);
