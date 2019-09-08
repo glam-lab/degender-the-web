@@ -12,6 +12,153 @@ module.exports.cases = {
                     //pending: 8
                 },
                 {
+                    descr: "Regular verb ending in e",
+                    in: "She makes do",
+                    out: "They make do"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in s",
+                    in: "She misses it",
+                    out: "They miss it"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in ch",
+                    in: "She lunches",
+                    out: "They lunch"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in sh",
+                    in: "She wishes",
+                    out: "They wish"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in x",
+                    in: "She boxes",
+                    out: "They box"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in z",
+                    in: "She buzzes",
+                    out: "They buzz"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in o",
+                    in: "She goes home",
+                    out: "They go home"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in y",
+                    in: "She flies home",
+                    out: "They fly home"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular with adverb",
+                    in: "He only speaks English",
+                    out: "They only speak English"
+                    //pending: 8
+                },
+                {
+                    descr: "Do statement",
+                    in: "She does not speak English",
+                    out: "They do not speak English"
+                    //pending: 8
+                },
+                {
+                    descr: "Do question",
+                    in: "Does he speak English?",
+                    out: "Do they speak English?"
+                    //pending: 8
+                },
+                {
+                    descr: "Be statement",
+                    in: "He is happy",
+                    out: "They are happy"
+                    //pending: 8
+                },
+                {
+                    descr: "Be question",
+                    in: "Is she happy?",
+                    out: "Are they happy?"
+                    //pending: 8
+                },
+
+                {
+                    descr: "Regular with adverb",
+                    in: "He only speaks English",
+                    out: "They only speak English"
+                    //pending: 8
+                },
+                {
+                    descr: "Do statement",
+                    in: "She does not speak English",
+                    out: "They do not speak English"
+                    //pending: 8
+                },
+                {
+                    descr: "Do question",
+                    in: "Does he speak English?",
+                    out: "Do they speak English?"
+                    //pending: 8
+                },
+                {
+                    descr: "Be statement",
+                    in: "He is happy",
+                    out: "They are happy"
+                    //pending: 8
+                },
+                {
+                    descr: "Be question",
+                    in: "Is she happy?",
+                    out: "Are they happy?"
+                    //pending: 8
+                },
+                {
+                    descr: "Regular verb ending in e",
+                    in: "She makes do",
+                    out: "They make do"
+                    //pending: 8
+                },
+
+                {
+                    descr: "Regular with adverb",
+                    in: "He only speaks English",
+                    out: "They only speak English"
+                    //pending: 8
+                },
+                {
+                    descr: "Do statement",
+                    in: "She does not speak English",
+                    out: "They do not speak English"
+                    //pending: 8
+                },
+                {
+                    descr: "Do question",
+                    in: "Does he speak English?",
+                    out: "Do they speak English?"
+                    //pending: 8
+                },
+                {
+                    descr: "Be statement",
+                    in: "He is happy",
+                    out: "They are happy"
+                    //pending: 8
+                },
+                {
+                    descr: "Be question",
+                    in: "Is she happy?",
+                    out: "Are they happy?"
+                    //pending: 8
+                },
+
+                {
                     descr: "Regular with adverb",
                     in: "He only speaks English",
                     out: "They only speak English"
