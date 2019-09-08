@@ -4,8 +4,7 @@ module.exports.cases = {
             {
                 descr: "Statement with modal verb",
                 in: "He or she should come home.",
-                out: "They should come home.",
-                pending: 87
+                out: "They should come home."
             },
             {
                 descr: "Question with regular verb",
@@ -35,8 +34,7 @@ module.exports.cases = {
             {
                 descr: "Statement with 'wasn't'",
                 in: "He or she wasn't home.",
-                out: "They were not home.",
-                pending: 87
+                out: "They were not home."
             },
 
             {

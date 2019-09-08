@@ -63,11 +63,18 @@ export function replaceWords(
             const tc = substitute(capitalize(word));
             const lc = substitute(word.toLowerCase());
             const matches = doc.match(word);
-            matches.match("#TitleCase").replaceWith(tc);
-            matches
-                .not("#TitleCase")
-                .not("#Acronym")
-                .replaceWith(lc);
+            matches.not("#Acronym").forEach(function(m) {
+                if (
+                    m
+                        .out("text")
+                        .trim()
+                        .match(/^[A-Z]/)
+                ) {
+                    m.replaceWith(tc);
+                } else {
+                    m.replaceWith(lc);
+                }
+            });
         }
     }
     return doc.all().out("text");
