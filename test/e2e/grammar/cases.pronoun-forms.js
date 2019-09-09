@@ -14,8 +14,12 @@ module.exports.cases = {
             {
                 descr: "Possessive adjective",
                 in: "It is her book",
-                out: "It is their book",
-                pending: 1
+                out: "It is their book"
+            },
+            {
+                descr: "Possessive adjective with more adjectives",
+                in: "It is her large green book",
+                out: "It is their large green book"
             },
             {
                 descr: "Possessive noun",
@@ -47,8 +51,7 @@ module.exports.cases = {
             {
                 descr: "Possessive noun",
                 in: "The book is his",
-                out: "The book is theirs",
-                pending: 1
+                out: "The book is theirs"
             },
             {
                 descr: "Reflexive",

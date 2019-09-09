@@ -56,6 +56,28 @@ function fixVerbNumber(doc, subject) {
         });
 }
 
+// Replace matching words while preserving case.
+// Do not change acronyms.
+function replaceWithCapitalization(matches, capitalized, uncapitalized) {
+    matches.not("#Acronym").forEach(function(m) {
+        const t = m.out("text").trim();
+        if (t.match(/^[A-Z]/)) {
+            m.replaceWith(capitalized);
+        } else {
+            m.replaceWith(uncapitalized);
+        }
+    });
+}
+
+// Replace possessive adjectives, a special case.
+// Pronoun must be "her" or "his".
+function replacePossessiveAdjective(doc, substitute, pronoun) {
+    const matches = doc.match("[" + pronoun + "] #Noun");
+    const uc = substitute(capitalize(pronoun) + "PossAdj");
+    const lc = substitute(pronoun + "possadj");
+    replaceWithCapitalization(matches, uc, lc);
+}
+
 // Replace the words in given text using the given substitute function.
 // Preserve title and lower case, ignoring ACRONYMS.
 // An option is given to expand contractions.
@@ -76,19 +98,23 @@ export function replaceWords(
             if (["he", "she", "he or she"].includes(word)) {
                 fixVerbNumber(doc, word);
             }
-            // Replace matching words while preserving case.
-            // Do not change acronyms.
-            const tc = substitute(capitalize(word));
+
+            const uc = substitute(capitalize(word));
             const lc = substitute(word.toLowerCase());
-            const matches = doc.match(word);
-            matches.not("#Acronym").forEach(function(m) {
-                const t = m.out("text").trim();
-                if (t.match(/^[A-Z]/)) {
-                    m.replaceWith(tc);
-                } else {
-                    m.replaceWith(lc);
-                }
-            });
+
+            if (word === "her") {
+                // First, "her #Noun" -> "their #Noun"
+                replacePossessiveAdjective(doc, substitute, "her");
+                // Otherwise, "her" -> "them"
+                replaceWithCapitalization(doc.match("her"), uc, lc);
+            } else if (word === "his") {
+                // First, "his #Noun" -> "their #Noun"
+                replacePossessiveAdjective(doc, substitute, "his");
+                // Otherwise "his" -> "theirs"
+                replaceWithCapitalization(doc.match(word), uc, lc);
+            } else {
+                replaceWithCapitalization(doc.match(word), uc, lc);
+            }
         }
     }
     return doc.all().out("text");

@@ -3,7 +3,7 @@
 
 describe("When the page includes gender pronouns, it", function() {
     let page;
-    const text = "He washed his car.";
+    const text = "She washed her motorcycle. He washed his car.";
 
     before(async function() {
         page = await browser.newPage();
@@ -21,12 +21,14 @@ describe("When the page includes gender pronouns, it", function() {
 
     it("should replace personal pronouns", async function() {
         const contents = await page.$eval(textdivSelector, e => e.innerText);
-        expect(contents).to.equal("They washed their car.");
+        expect(contents).to.equal(
+            "They washed their motorcycle. They washed their car."
+        );
     });
 
     it("should mark up replacement text", async function() {
         const replacements = await page.$$(replacementSelector);
-        expect(replacements.length).to.equal(2);
+        expect(replacements.length).to.equal(4);
     });
 
     it("should explain in the header", async function() {

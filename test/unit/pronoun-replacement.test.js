@@ -39,11 +39,15 @@ describe("pronoun-replacement.js", function() {
             const sentence = "The quick brown fox jumps over the lazy dog.";
             chai.expect(replacePronouns(sentence)).to.equal(sentence);
         });
-        it("should replace all listed pronouns as specified", function() {
+        describe("should replace all listed pronouns as specified", function() {
             pronouns.forEach(function(p) {
-                const text = "blah blah " + p + " blah blah";
-                const result = replacePronouns(text);
-                chai.expect(result).to.include(dictionary[p]);
+                it(
+                    "should replace " + p + " with " + dictionary[p],
+                    function() {
+                        const result = replacePronouns(p);
+                        chai.expect(result).to.include(dictionary[p]);
+                    }
+                );
             });
         });
         it("should replace multiple pronouns", function() {
