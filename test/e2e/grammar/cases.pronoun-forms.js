@@ -22,6 +22,12 @@ module.exports.cases = {
                 out: "It is their large green book"
             },
             {
+                descr: "Object with possessive adjective",
+                in: "I let her borrow my suitcase for her trip",
+                out: "I let them borrow my suitcase for their trip",
+                pending: 93
+            },
+            {
                 descr: "Possessive noun",
                 in: "The book is hers",
                 out: "The book is theirs"
@@ -52,6 +58,23 @@ module.exports.cases = {
                 descr: "Possessive noun",
                 in: "The book is his",
                 out: "The book is theirs"
+            },
+            {
+                descr: "Possessive noun followed by 'is'",
+                in: "His is better",
+                out: "Theirs is better",
+                pending: 93
+            },
+            {
+                descr: "Possessive noun followed by semicolon",
+                in: "We can take his; mine is in the shop",
+                out: "We can take theirs; mine is in the shop",
+                pending: 94
+            },
+            {
+                descr: "Possessive adjective with possessive noun",
+                in: "His things are his",
+                out: "Their things are theirs"
             },
             {
                 descr: "Reflexive",
