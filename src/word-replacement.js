@@ -87,6 +87,22 @@ export function replaceWords(
     substitute,
     expandContractions = false
 ) {
+    // Spencer and I disagree about whether a semicolon or a dash is equivalent
+    // to a period. So we're going to force the issue.
+    if (text.includes(";")) {
+        return text
+            .split(";")
+            .map(t => replaceWords(t, words, substitute, expandContractions))
+            .join("; ")
+            .replace(/ +/g, " ");
+    }
+    if (text.match(/ -+ /)) {
+        return text
+            .split(/ -+ /)
+            .map(t => replaceWords(t, words, substitute, expandContractions))
+            .join(" - ")
+            .replace(/ +/g, " ");
+    }
     const doc = nlp(text);
     if (expandContractions) {
         doc.contractions().expand();

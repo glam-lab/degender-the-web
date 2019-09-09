@@ -28,7 +28,7 @@ module.exports.cases = {
                 pending: 93
             },
             {
-                descr: "Possessive noun",
+                descr: "Possessive pronoun",
                 in: "The book is hers",
                 out: "The book is theirs"
             },
@@ -55,9 +55,9 @@ module.exports.cases = {
                 out: "It is their book"
             },
             {
-                descr: "Possessive noun",
-                in: "The book is his",
-                out: "The book is theirs"
+                descr: "Possessive pronoun",
+                in: "We can take his",
+                out: "We can take theirs"
             },
             {
                 descr: "Possessive noun followed by 'is'",
@@ -68,8 +68,12 @@ module.exports.cases = {
             {
                 descr: "Possessive noun followed by semicolon",
                 in: "We can take his; mine is in the shop",
-                out: "We can take theirs; mine is in the shop",
-                pending: 94
+                out: "We can take theirs; mine is in the shop"
+            },
+            {
+                descr: "Possessive noun followed by dash",
+                in: "We can take his - mine is in the shop",
+                out: "We can take theirs - mine is in the shop"
             },
             {
                 descr: "Possessive adjective with possessive noun",

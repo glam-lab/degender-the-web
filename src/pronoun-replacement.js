@@ -53,6 +53,7 @@ function replacePronouns(text) {
             substitute,
             true
         );
+    } else {
     }
     return result;
 }
