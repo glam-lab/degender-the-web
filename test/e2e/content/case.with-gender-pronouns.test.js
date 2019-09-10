@@ -26,9 +26,9 @@ describe("When the page includes gender pronouns, it", function() {
         );
     });
 
-    it("should mark up replacement text", async function() {
+    it("should not mark up replacement text", async function() {
         const replacements = await page.$$(replacementSelector);
-        expect(replacements.length).to.equal(4);
+        expect(replacements.length).to.equal(0);
     });
 
     it("should explain in the header", async function() {

@@ -19,7 +19,7 @@ module.exports.cases = {
             {
                 descr: "Question with contraction",
                 in: "What if he or she won't answer?",
-                out: "What if they won't answer?"
+                out: "What if they will not answer?"
             },
             {
                 descr: "Question with 'doesn't'",

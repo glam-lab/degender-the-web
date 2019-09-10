@@ -3,7 +3,6 @@ import {
     genderPronouns,
     allPronouns
 } from "../data/pronouns.js";
-import { createWordReplacement } from "./dom-construction.js";
 import { capitalize, replaceWords } from "./word-replacement.js";
 
 // Check if text includes any replaceable pronouns.
@@ -28,10 +27,7 @@ const substitute = (function() {
         f = null;
     for (word in allPronouns) {
         for (f of capitalizers) {
-            substitution[f(word)] = createWordReplacement(
-                f(allPronouns[word]),
-                f(word)
-            );
+            substitution[f(word)] = f(allPronouns[word]);
         }
     }
     return word => substitution[word];
@@ -46,15 +42,12 @@ function replacePronouns(text) {
         substitute,
         false
     );
-    if (result === text) {
-        result = replaceWords(
-            text,
-            Object.keys(genderPronouns),
-            substitute,
-            true
-        );
-    } else {
-    }
+    result = replaceWords(
+        result,
+        Object.keys(genderPronouns),
+        substitute,
+        true
+    );
     return result;
 }
 

@@ -88,10 +88,11 @@ export function main() {
         message += " did not rewrite gender pronouns because it ";
         message += " found this page discusses gender.";
     } else {
+        const original = document.body.innerHTML;
         if (hasReplaceablePronouns(body)) {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
         }
-        if (document.body.innerHTML.includes(replacementClass)) {
+        if (document.body.innerHTML !== original) {
             message += " has replaced gender pronouns on this page.";
         } else {
             message +=
