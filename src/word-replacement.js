@@ -5,6 +5,10 @@ export function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
 
+function isCapitalized(word) {
+    return word.trim().match(/^[A-Z]/);
+}
+
 // Yikes. See spelling rules at
 // https://www.really-learn-english.com/spelling-rules-add-s-verb.html
 function fixVerbNumber(doc, subject) {
@@ -56,26 +60,33 @@ function fixVerbNumber(doc, subject) {
         });
 }
 
-// Replace matching words while preserving case.
-// Do not change acronyms.
-function replaceWithCapitalization(matches, capitalized, uncapitalized) {
-    matches.not("#Acronym").forEach(function(m) {
-        const t = m.out("text").trim();
-        if (t.match(/^[A-Z]/)) {
-            m.replaceWith(capitalized);
-        } else {
-            m.replaceWith(uncapitalized);
-        }
-    });
+function replaceWithCapitalization(doc, substitute, word) {
+    doc.match(word)
+        .not("#Acronym")
+        .forEach(function(m) {
+            const matchedWord = m
+                .clone()
+                .setPunctuation("")
+                .trim()
+                .out("text");
+            m.replaceWith(substitute(matchedWord));
+        });
 }
 
 // Replace possessive adjectives, a special case.
-// Pronoun must be "her" or "his".
 function replacePossessiveAdjective(doc, substitute, pronoun) {
-    const matches = doc.match("[" + pronoun + "] #Noun");
     const uc = substitute(capitalize(pronoun) + "_poss_adj");
     const lc = substitute(pronoun + "_poss_adj");
-    replaceWithCapitalization(matches, uc, lc);
+    doc.match("[" + pronoun + "] #Noun")
+        .not("#Acronym")
+        .forEach(function(m) {
+            const matchedWord = m
+                .clone()
+                .setPunctuation("")
+                .trim()
+                .out("text");
+            m.replaceWith(isCapitalized(matchedWord) ? uc : lc);
+        });
 }
 
 // Replace the words in given text using the given substitute function.
@@ -115,22 +126,16 @@ export function replaceWords(
                 fixVerbNumber(doc, word);
             }
 
-            const uc = substitute(capitalize(word));
-            const lc = substitute(word.toLowerCase());
-
             if (word === "her") {
                 // First, "her #Noun" -> "their #Noun"
                 replacePossessiveAdjective(doc, substitute, "her");
                 // Otherwise, "her" -> "them"
-                replaceWithCapitalization(doc.match("her"), uc, lc);
             } else if (word === "his") {
                 // First, "his #Noun" -> "their #Noun"
                 replacePossessiveAdjective(doc, substitute, "his");
                 // Otherwise "his" -> "theirs"
-                replaceWithCapitalization(doc.match(word), uc, lc);
-            } else {
-                replaceWithCapitalization(doc.match(word), uc, lc);
             }
+            replaceWithCapitalization(doc, substitute, word);
         }
     }
     return doc.all().out("text");
