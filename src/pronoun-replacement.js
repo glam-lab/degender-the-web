@@ -6,19 +6,18 @@ import {
 import { capitalize, replaceWords } from "./word-replacement.js";
 
 // Check if text includes any replaceable pronouns.
-const hasReplaceablePronouns = (function() {
-    // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
-    const regexp = new RegExp(
-        "\\b(" + Object.keys(allPronouns).join("|") + ")\\b",
-        "i"
-    );
-    return text => regexp.test(text);
-})();
+// Words must be bounded on both ends ('\b'). Case-insensitive ('i').
+const regexp = new RegExp(
+    "\\b(" + Object.keys(allPronouns).join("|") + ")\\b",
+    "i"
+);
+function hasReplaceablePronouns(text) {
+    return regexp.test(text);
+}
 
 // The substitute function provides the replacement for a given pronoun.
 function substitute(pronoun) {
     let result = allPronouns[pronoun.toLowerCase()];
-    console.log(pronoun, result);
     if (pronoun.match(/^[A-Z]/)) {
         result = capitalize(result);
     }
