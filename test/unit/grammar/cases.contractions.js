@@ -1,4 +1,4 @@
-module.exports.cases = {
+export const contractions = {
     Contractions: [
         {
             descr: "'s",

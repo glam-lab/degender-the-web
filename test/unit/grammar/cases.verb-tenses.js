@@ -1,7 +1,7 @@
 // See https://www.englishpage.com/verbpage/
 // Not all verb forms are represented here, but I think I got the ones likely to make trouble.
 
-module.exports.cases = {
+export const verbTenses = {
     "Verb tenses": {
         Simple: {
             Present: [

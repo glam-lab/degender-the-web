@@ -1,4 +1,4 @@
-module.exports.cases = {
+export const pronounForms = {
     "Pronoun forms": {
         Feminine: [
             {

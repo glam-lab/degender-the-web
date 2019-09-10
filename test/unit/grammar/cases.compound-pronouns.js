@@ -1,4 +1,4 @@
-module.exports.cases = {
+export const compoundPronouns = {
     "Compound pronouns": {
         "With 'or'": [
             {
