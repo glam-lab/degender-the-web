@@ -5,8 +5,9 @@ export function capitalize(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
 
-function isCapitalized(word) {
-    return word.trim().match(/^[A-Z]/);
+// Return true if the given string begins with a capital letter.
+export function isCapitalized(word) {
+    return /^[A-Z]/.test(word);
 }
 
 // Yikes. See spelling rules at

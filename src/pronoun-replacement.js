@@ -3,7 +3,7 @@ import {
     genderPronouns,
     allPronouns
 } from "../data/pronouns.js";
-import { capitalize, replaceWords } from "./word-replacement.js";
+import { capitalize, isCapitalized, replaceWords } from "./word-replacement.js";
 
 // Check if text includes any replaceable pronouns.
 // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
@@ -18,7 +18,7 @@ function hasReplaceablePronouns(text) {
 // The substitute function provides the replacement for a given pronoun.
 function substitute(pronoun) {
     let result = allPronouns[pronoun.toLowerCase()];
-    if (pronoun.match(/^[A-Z]/)) {
+    if (isCapitalized(pronoun)) {
         result = capitalize(result);
     }
     return result;
