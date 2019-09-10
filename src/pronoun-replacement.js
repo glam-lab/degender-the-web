@@ -6,7 +6,6 @@ import {
 import { capitalize, replaceWords } from "./word-replacement.js";
 
 // Check if text includes any replaceable pronouns.
-// Use a closure to preconstruct the regexp.
 const hasReplaceablePronouns = (function() {
     // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
     const regexp = new RegExp(
@@ -16,22 +15,15 @@ const hasReplaceablePronouns = (function() {
     return text => regexp.test(text);
 })();
 
-// The substitute function provides the replacement for a given word.
-// Substitution is performed with a dictionary constructed in a closure.
-// We provide a function, rather than providing the dictionary directly,
-// to protect the dictionary from accidental changes by its users.
-const substitute = (function() {
-    const capitalizers = [capitalize, x => x.toLowerCase()];
-    const substitution = {};
-    let word = "",
-        f = null;
-    for (word in allPronouns) {
-        for (f of capitalizers) {
-            substitution[f(word)] = f(allPronouns[word]);
-        }
+// The substitute function provides the replacement for a given pronoun.
+function substitute(pronoun) {
+    let result = allPronouns[pronoun.toLowerCase()];
+    console.log(pronoun, result);
+    if (pronoun.match(/^[A-Z]/)) {
+        result = capitalize(result);
     }
-    return word => substitution[word];
-})();
+    return result;
+}
 
 // Replace the pronouns in given text, expanding contractions.
 // If compound pronouns are found, do not look for singular gender pronouns.

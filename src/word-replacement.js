@@ -73,8 +73,8 @@ function replaceWithCapitalization(matches, capitalized, uncapitalized) {
 // Pronoun must be "her" or "his".
 function replacePossessiveAdjective(doc, substitute, pronoun) {
     const matches = doc.match("[" + pronoun + "] #Noun");
-    const uc = substitute(capitalize(pronoun) + "PossAdj");
-    const lc = substitute(pronoun + "possadj");
+    const uc = substitute(capitalize(pronoun) + "_poss_adj");
+    const lc = substitute(pronoun + "_poss_adj");
     replaceWithCapitalization(matches, uc, lc);
 }
 

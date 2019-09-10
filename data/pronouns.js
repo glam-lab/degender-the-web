@@ -11,13 +11,13 @@ export const genderPronouns = {
     // She/her/her/hers/herself
     she: "they",
     her: "them",
-    herPossAdj: "their",
+    her_poss_adj: "their",
     hers: "theirs",
     herself: "themself",
     // He/him/his/his/himself
     he: "they",
     him: "them",
-    hisPossAdj: "their",
+    his_poss_adj: "their",
     his: "theirs",
     himself: "themself"
 };
