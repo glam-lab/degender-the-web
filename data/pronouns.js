@@ -4,7 +4,9 @@ export const compoundPronouns = {
     "his or her": "their",
     "his or hers": "theirs",
     "himself or herself": "themself",
-    "him or herself": "themself"
+    "him or herself": "themself",
+    he: "they",
+    she: "they"
 };
 
 export const genderPronouns = {
@@ -23,5 +25,4 @@ export const genderPronouns = {
 };
 
 // Make a combined dictionary using object spread.
-// Compound pronouns should come first.
 export const allPronouns = { ...compoundPronouns, ...genderPronouns };

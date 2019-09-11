@@ -3,8 +3,8 @@ export const compoundPronouns = {
         "With 'or'": [
             {
                 descr: "Statement with modal verb",
-                in: "He or she should come home.",
-                out: "They should come home."
+                in: "He or she should come home. ",
+                out: "They should come home. "
             },
             {
                 descr: "Question with regular verb",
@@ -33,8 +33,8 @@ export const compoundPronouns = {
             },
             {
                 descr: "Statement with 'wasn't'",
-                in: "He or she wasn't home.",
-                out: "They were not home."
+                in: "He or she wasn't home. ",
+                out: "They were not home. "
             },
 
             {
