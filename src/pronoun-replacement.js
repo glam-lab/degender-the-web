@@ -4,6 +4,7 @@ import {
     allPronouns
 } from "../data/pronouns.js";
 import { capitalize, isCapitalized, replaceWords } from "./word-replacement.js";
+import { pluralizeVerbs } from "./verb-pluralization.js";
 
 // Check if text includes any replaceable pronouns.
 // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
@@ -39,6 +40,7 @@ function replacePronouns(text) {
         substitute,
         true
     );
+    result = pluralizeVerbs(result);
     return result;
 }
 
