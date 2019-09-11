@@ -56,5 +56,11 @@ describe("verb-pluralization.js", function() {
                 "Do they want it?"
             );
         });
+
+        it("should work for a negated question", function() {
+            chai.expect(pluralizeVerbs("Doesn't they want it?")).to.equal(
+                "Do they not want it?"
+            );
+        });
     });
 });

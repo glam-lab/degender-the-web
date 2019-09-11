@@ -2,13 +2,9 @@
 import { capitalize } from "./word-replacement.js";
 
 const irregulars = [
-    //["is not", "are not"],
     ["is", "are"],
-    //["was not", "were not"],
     ["was", "were"],
-    //["has not", "have not"],
     ["has", "have"],
-    //["does not", "do not"],
     ["does", "do"]
 ];
 
@@ -45,14 +41,18 @@ export function pluralizeVerbs(text) {
         .concat(esVerbs)
         .concat(sVerbs)
         .forEach(function(pair) {
-            doc.match(subjAdvPat + "[" + pair[0] + "]").replace(pair[1]);
+            doc.match(subjAdvPat + "[" + pair[0] + "]").replaceWith(pair[1]);
         });
 
-    // Question form, e.g., "Does she smoke?", must start with an irregular verb
+    // Question form, e.g., "Does she smoke?" or "Won't she go?"
     irregulars.forEach(function(pair) {
-        doc.match("[" + pair[0] + "] they").replace(capitalize(pair[1]));
-        //doc.match(pair[0] + " not they").replace(capitalize(pair[1]) + " they not");
+        doc.match("[" + pair[0] + "] not? they").replaceWith(
+            capitalize(pair[1])
+        );
     });
+
+    // "Will not they go?" should be "Will they not go?"
+    doc.match("not they").replaceWith("they not");
 
     return doc.all().out("text");
 }
