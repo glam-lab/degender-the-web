@@ -57,7 +57,7 @@ describe("word-replacement.js", function() {
                 "Well. Goodbye world!"
             );
         });
-        it.skip("should replace a word preceded/followed by ?", function() {
+        it("should replace a word preceded/followed by ?", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("Hello? Hello world!")).to.equal(
                 "Goodbye? Goodbye world!"
@@ -78,7 +78,7 @@ describe("word-replacement.js", function() {
                 "Goodbye; goodbye world!"
             );
         });
-        it.skip("should replace a word preceded by -", function() {
+        it("should replace a word preceded by -", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("Well - hello world!")).to.equal(
                 "Well - goodbye world!"
@@ -89,13 +89,13 @@ describe("word-replacement.js", function() {
                 "Goodbye - world!"
             );
         });
-        it.skip("should replace a word preceded/followed by []", function() {
+        it("should replace a word preceded/followed by []", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("[hello foo]")).to.equal(
                 "[goodbye bar]"
             );
         });
-        it.skip("should replace a word preceded/followed by ()", function() {
+        it("should replace a word preceded/followed by ()", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("(hello foo)")).to.equal(
                 "(goodbye bar)"
