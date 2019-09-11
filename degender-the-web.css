@@ -47,8 +47,20 @@
         background-color: #dddddd;
     }
 
+    /* Color contrast checked with 
+       https://www.color-blindness.com/coblis-color-blindness-simulator 
+       and is redundant to underline/strikethrough for ins/del. */
+
     span.dgtw-highlight {
-        background-color: lightyellow;
+        background-color: #ffffcc; /* yellow */
+    }
+
+    ins.dgtw {
+        background-color: #eeffee; /* green */
+    }
+
+    del.dgtw {
+        background-color: #ffeeee; /* pink */
     }
 }
 

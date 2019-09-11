@@ -7,6 +7,7 @@ import {
 import { capitalize, isCapitalized } from "./capitalization.js";
 import { replaceWords } from "./word-replacement.js";
 import { pluralizeVerbs } from "./verb-pluralization.js";
+import { diffString } from "./diff.js";
 
 // Check if text includes any replaceable pronouns.
 // Words must be bounded on both ends ('\b'). Case-insensitive ('i').
@@ -70,12 +71,12 @@ function replacePossessiveAdjectives(text) {
 
 // Replace the pronouns in given text, expanding contractions.
 // If compound pronouns are found, do not look for singular gender pronouns.
-export function replacePronouns(text) {
+export function replacePronouns(text, showChanges) {
     let result = replaceWords(
         text,
         Object.keys(compoundPronouns),
         substitute,
-        false
+        true
     );
     result = replacePossessiveAdjectives(result);
     result = replaceWords(
@@ -85,5 +86,8 @@ export function replacePronouns(text) {
         true
     );
     result = pluralizeVerbs(result);
+    if (showChanges) {
+        result = diffString(text, result);
+    }
     return result;
 }
