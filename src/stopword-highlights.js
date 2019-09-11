@@ -2,7 +2,7 @@
 
 import { personalPronounSpecs } from "../data/personal-pronoun-specs.js";
 import { createWordHighlight } from "./dom-construction.js";
-import { capitalize } from "./word-replacement.js";
+import { capitalize } from "./capitalization.js";
 import { textNodesUnder, isVisible } from "./dom-traversal.js";
 
 // Construct the regular expressions.

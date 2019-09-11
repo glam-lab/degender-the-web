@@ -4,7 +4,8 @@ import {
     genderPronouns,
     allPronouns
 } from "../data/pronouns.js";
-import { capitalize, isCapitalized, replaceWords } from "./word-replacement.js";
+import { capitalize, isCapitalized } from "./capitalization.js";
+import { replaceWords } from "./word-replacement.js";
 import { pluralizeVerbs } from "./verb-pluralization.js";
 
 // Check if text includes any replaceable pronouns.

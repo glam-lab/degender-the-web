@@ -1,3 +1,4 @@
+import "./capitalization.test.js";
 import "./dom-construction.test.js";
 import "./dom-traversal.test.js";
 import "./excluded-domains.test.js";

@@ -1,7 +1,7 @@
 /*eslint no-unused-expressions: "off" */
 /*globals describe, it, chai */
 import { allPronouns } from "../../data/pronouns.js";
-import { capitalize } from "../../src/word-replacement.js";
+import { capitalize } from "../../src/capitalization.js";
 import {
     hasReplaceablePronouns,
     replacePronouns

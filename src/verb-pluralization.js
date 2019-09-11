@@ -1,5 +1,5 @@
 /*global nlp */
-import { capitalize } from "./word-replacement.js";
+import { capitalize } from "./capitalization.js";
 
 const irregulars = [
     ["is", "are"],
