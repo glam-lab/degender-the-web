@@ -16,11 +16,7 @@ import {
     highlightPersonalPronounSpecs,
     getPersonalPronounSpecs
 } from "./stopword-highlights.js";
-import {
-    replacementClass,
-    createHeader,
-    createButton
-} from "./dom-construction.js";
+import { createHeader, createButton } from "./dom-construction.js";
 
 // The core algorithm: If a text node contains one or more keywords,
 // create new nodes containing the substitute text and the surrounding text.
@@ -42,16 +38,6 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
                 node.parentNode.replaceChild(span, node);
             }
         }
-    }
-
-    // Fix the width of all "replacement" spans so the text does not reflow
-    // when the node content is replaced.
-    // (This relies on the observation than "they/them/their" is longer than
-    // "he/him/his" or "she/her/her".)
-    const replacementNodes = document.getElementsByClassName(replacementClass);
-    for (node of replacementNodes) {
-        const width = node.offsetWidth + 3; // Find the node's width as rendered
-        node.style.width = width + "px"; // Set the width explicitly
     }
 }
 

@@ -8,8 +8,7 @@ const globalVariables = _.pick(global, [
     "testURL",
     "textdivSelector",
     "headerSelector",
-    "highlightSelector",
-    "replacementSelector"
+    "highlightSelector"
 ]);
 
 // puppeteer options
@@ -24,7 +23,6 @@ before(function(done) {
     global.textdivSelector = "#text";
     global.headerSelector = "#dgtw-header";
     global.highlightSelector = "span.dgtw-highlight";
-    global.replacementSelector = "span.dgtw-replacement";
 
     puppeteer.launch(opts).then(function(browser) {
         global.browser = browser;

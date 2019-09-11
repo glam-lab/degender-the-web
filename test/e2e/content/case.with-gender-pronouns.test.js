@@ -1,5 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, textdivSelector, replacementSelector, highlightSelector, headerSelector */
+/*globals describe, before, after, it, expect, browser, testURL, textdivSelector, highlightSelector, headerSelector */
 
 describe("When the page includes gender pronouns, it", function() {
     let page;
@@ -24,11 +24,6 @@ describe("When the page includes gender pronouns, it", function() {
         expect(contents).to.equal(
             "They washed their motorcycle. They washed their car."
         );
-    });
-
-    it("should not mark up replacement text", async function() {
-        const replacements = await page.$$(replacementSelector);
-        expect(replacements.length).to.equal(0);
     });
 
     it("should explain in the header", async function() {

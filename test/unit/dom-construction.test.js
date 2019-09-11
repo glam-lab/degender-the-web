@@ -3,10 +3,6 @@ import {
     createWordHighlight,
     highlightClass
 } from "../../src/dom-construction.js";
-import {
-    createWordReplacement,
-    replacementClass
-} from "../../src/dom-construction.js";
 
 function expectSpanElement(text) {
     chai.expect(text).to.match(/^<span.*span>$/i);
@@ -33,28 +29,6 @@ describe("dom-construction.js", function() {
         });
         it("should contain the word to highlight", function() {
             expectElementContents(result, "spam");
-        });
-    });
-    describe("createWordReplacement", function() {
-        const result = createWordReplacement("goodbye", "hello");
-        it("should construct text representing a span element", function() {
-            expectSpanElement(result);
-        });
-        it("should use the specified replacement class", function() {
-            expectStyleClass(result, replacementClass);
-        });
-        it("should contain the new word", function() {
-            expectElementContents(result, "goodbye");
-        });
-        it("should specify a mouseover function", function() {
-            chai.expect(result).to.match(
-                /onmouseover="this.innerHTML='hello';"/i
-            );
-        });
-        it("should specify a mouseout function", function() {
-            chai.expect(result).to.match(
-                /onmouseout="this.innerHTML='goodbye';"/i
-            );
         });
     });
 });

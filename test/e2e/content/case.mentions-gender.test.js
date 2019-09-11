@@ -1,5 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, replacementSelector, highlightSelector, headerSelector */
+/*globals describe, before, after, it, expect, browser, testURL, highlightSelector, headerSelector */
 
 describe("When the page includes the stopword 'gender', it", function() {
     let page;
@@ -20,11 +20,6 @@ describe("When the page includes the stopword 'gender', it", function() {
         const bodyText = await page.$eval("body", e => e.innerText);
         expect(bodyText).to.include(" he ");
         expect(bodyText).to.include(" she ");
-    });
-
-    it("should not include any replacement text", async function() {
-        const replacements = page.$$(replacementSelector);
-        expect(replacements).to.be.empty;
     });
 
     it("should highlight the word 'gender'", async function() {

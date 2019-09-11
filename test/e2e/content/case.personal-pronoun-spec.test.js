@@ -1,5 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, replacementSelector, highlightSelector, headerSelector */
+/*globals describe, before, after, it, expect, browser, testURL, highlightSelector, headerSelector */
 
 describe("When the page includes personal pronoun specifiers, it", function() {
     let page;
@@ -22,11 +22,6 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         personalPronounSpecs.forEach(function(p) {
             expect(bodyText).to.include(p);
         });
-    });
-
-    it("should not include any replacement text", async function() {
-        const replacements = page.$$(replacementSelector);
-        expect(replacements).to.be.empty;
     });
 
     it("should highlight personal pronoun specifiers", async function() {
