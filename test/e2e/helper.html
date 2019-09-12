@@ -4,10 +4,28 @@
     <title>Helper page for end-to-end testing</title>
     <script src="../../lib/compromise.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../degender-the-web.css"/>
+    <style>
+    #test-display-none {
+        display: none
+    }
+    </style>
   </head>
   <body>
 
     <h1>Helper page for end-to-end testing</h1>
+
+    <p>This link shouldn't disable the plugin: <a href="https://www.independent.co.uk/life-style/women/women-workplace-gender-pay-gap-maternity-leave-feminism-a8979581.html">Why is there a pay gap?</a></p>
+
+    <div style="display:none;">Inline display none
+        <div>
+            <p>something about gender</p>
+        </div>
+    </div>
+    <div id="test-display-none">Internal CSS display none
+        <div>
+            <p>something about gender</p>
+        </div>
+    </div>
 
     <h2>Usage</h2>
     <p>Visit <a id="sampleLink">Sample link goes here</a></p>
