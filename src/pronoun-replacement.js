@@ -81,26 +81,24 @@ export function pluralizeVerbs(doc) {
     return doc.all();
 }
 
+function replaceMatchWithCapitalization(matches, substitute, postfix) {
+    matches.not("#Acronym").forEach(function(m) {
+        const matchedWord = m
+            .clone()
+            .setPunctuation("")
+            .trim()
+            .out("text");
+        m.replaceWith(substitute(matchedWord + postfix));
+    });
+}
+
 // Replace "he" and "she" only.
 // Expects a tagged document, not plain text!
 export function replaceHeShe(doc) {
     ["she", "he"].forEach(function(pronoun) {
-        doc.match(pronoun)
-            .not("#Acronym")
-            .forEach(function(m) {
-                const matchedWord = m
-                    .clone()
-                    .setPunctuation("")
-                    .trim()
-                    .out("text");
-                m.replaceWith(
-                    isCapitalized(matchedWord)
-                        ? substitute(capitalize(pronoun))
-                        : substitute(pronoun)
-                );
-            });
+        const matches = doc.match(pronoun);
+        replaceMatchWithCapitalization(matches, substitute, "");
     });
-
     return doc.all();
 }
 
@@ -110,22 +108,9 @@ export function replaceHeShe(doc) {
 // Expects a tagged document, not plain text!
 export function replacePossessiveAdjectives(doc) {
     ["her", "his"].forEach(function(pronoun) {
-        doc.match("[" + pronoun + "] #Noun")
-            .not("#Acronym")
-            .forEach(function(m) {
-                const matchedWord = m
-                    .clone()
-                    .setPunctuation("")
-                    .trim()
-                    .out("text");
-                m.replaceWith(
-                    isCapitalized(matchedWord)
-                        ? substitute(capitalize(pronoun) + "_poss_adj")
-                        : substitute(pronoun + "_poss_adj")
-                );
-            });
+        const matches = doc.match("[" + pronoun + "] #Noun");
+        replaceMatchWithCapitalization(matches, substitute, "_poss_adj");
     });
-
     return doc.all();
 }
 
