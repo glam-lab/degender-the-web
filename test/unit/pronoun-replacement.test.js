@@ -179,14 +179,24 @@ describe("pronoun-replacement.js", function() {
             const result = replacePronouns("he or she");
             chai.expect(theyCount(result)).to.equal(1);
         });
+
         it("should replace capitalized pronouns", function() {
+            // See https://onezero.medium.com/wikipedia-doesnt-know-what-to-do-with-almost-famous-people-f4776193488c
             const text = "Take the case of Jenny. She makes videos for YouTube";
             const result = replacePronouns(text);
             chai.expect(result).to.include("They");
         });
+
         it("should not replace acronyms", function() {
             const text = "HERS Institute";
             chai.expect(replacePronouns(text)).to.equal(text);
+        });
+
+        it("shouldn't get thrown off by a leading period", function() {
+            // See https://johnresig.com/about/
+            const text = ". He's created numerous JavaScript projects";
+            const result = replacePronouns(text);
+            chai.expect(result).to.include("They have");
         });
     });
 });

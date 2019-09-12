@@ -138,7 +138,7 @@ export function spaceAfterPeriod(text) {
 // Replace the pronouns in given text.
 
 // Algorithm steps:
-// 0. Break on semicolon and dash (similar to a period)
+// 0. Deal with punctuation that Compromise doesn't handle as we'd like.
 // 1. Replace compound pronouns.
 // 2. Expand relevant contractions.
 // 3. Replace subject "he" and "she" with "they"
@@ -156,16 +156,22 @@ export function replacePronouns(text, showChanges) {
     if (text.includes(";")) {
         return text
             .split(";")
-            .map(t => replacePronouns(t))
+            .map(t => replacePronouns(t, showChanges))
             .join("; ")
             .replace(/ +/g, " ");
     }
     if (text.match(/ -+ /)) {
         return text
             .split(/ -+ /)
-            .map(t => replacePronouns(t))
+            .map(t => replacePronouns(t, showChanges))
             .join(" - ")
             .replace(/ +/g, " ");
+    }
+
+    // Step 0, continued.
+    // Spans sometimes start with a leading period, which seems to mess up nlp.
+    if (text[0] === ".") {
+        return "." + replacePronouns(text.slice(1), showChanges);
     }
 
     // Now we start the algorithm proper.
