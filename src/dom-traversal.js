@@ -41,4 +41,14 @@ function isEditable(node) {
     }
 }
 
-export { textNodesUnder, isEditable };
+// Check if the given element is visible.
+// Source: https://stackoverflow.com/a/21696585
+function isVisible(node) {
+    if (node == null) {
+        return false;
+    } else {
+        return !(node.parentNode.offsetParent === null);
+    }
+}
+
+export { textNodesUnder, isEditable, isVisible };
