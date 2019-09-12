@@ -94,7 +94,11 @@ describe("pronoun-replacement.js", function() {
         });
 
         it("should work for a negated question", function() {
-            test("Doesn't they want it?", "Do they not want it?");
+            test("Does not they want it?", "Do they not want it?");
+        });
+
+        it("should correctly capitalize a question not starting with a verb", function() {
+            test("Well, does they want it?", "Well, do they want it?");
         });
     });
 

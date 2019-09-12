@@ -18,27 +18,36 @@ export function hasReplaceablePronouns(text) {
     return regexp.test(text);
 }
 
-// The substitute function provides the replacement for a given pronoun.
-function substitute(pronoun) {
-    let result = allPronouns[pronoun.toLowerCase()];
-    if (isCapitalized(pronoun)) {
-        result = capitalize(result);
-    }
-    return result;
+// This is a functor because substitute functions get called a lot!
+function makeSubstituter(dictionary) {
+    return function(word) {
+        let result = dictionary[word.toLowerCase()];
+        if (isCapitalized(word)) {
+            result = capitalize(result);
+        }
+        return result;
+    };
 }
 
-// Pluralize verbs that "they" perform.
-// Expects a tagged document, not plain text!
-export function pluralizeVerbs(doc) {
-    // What comes before a verb in a statement that needs fixing
-    const subjAdvPat = "they #Adverb? ";
+const substitutePronoun = makeSubstituter(allPronouns);
 
-    const irregulars = [
-        ["is", "are"],
-        ["was", "were"],
-        ["has", "have"],
-        ["does", "do"]
-    ];
+const irregularVerbs = [
+    ["is", "are"],
+    ["was", "were"],
+    ["has", "have"],
+    ["does", "do"]
+];
+const substituteIrregularVerb = makeSubstituter(
+    irregularVerbs.reduce(function(obj, entry) {
+        obj[entry[0]] = entry[1];
+        return obj;
+    }, {})
+);
+
+// Pluralize verbs that "they" perform.
+// Expects a tagged document, with contractions expanded.
+export function pluralizeVerbs(doc) {
+    const subjAdvPat = "they #Adverb? ";
 
     // Rule for verbs ending in y, like "fly"
     const yVerbs = doc
@@ -60,7 +69,9 @@ export function pluralizeVerbs(doc) {
         .map(v => [v, v.slice(0, -1)]);
 
     // Statement form, e.g., "Yes, she smokes." or "No, she does not smoke."
-    irregulars
+    // Note we don't need to worry about capitalization, because the verb
+    // can never lead the sentence.
+    irregularVerbs
         .concat(yVerbs)
         .concat(esVerbs)
         .concat(sVerbs)
@@ -68,11 +79,11 @@ export function pluralizeVerbs(doc) {
             doc.match(subjAdvPat + "[" + pair[0] + "]").replaceWith(pair[1]);
         });
 
-    // Question form, e.g., "Does she smoke?" or "Won't she go?"
-    irregulars.forEach(function(pair) {
-        doc.match("[" + capitalize(pair[0]) + "] not? they").replaceWith(
-            capitalize(pair[1])
-        );
+    // Question form, e.g., "Does she smoke?" or "Will not she go?"
+    // Here we do need to worry about capitalization: "Well, does she smoke?"
+    irregularVerbs.forEach(function(pair) {
+        const matches = doc.match("[" + capitalize(pair[0]) + "] not? they");
+        replaceMatchWithCapitalization(matches, substituteIrregularVerb, "");
     });
 
     // "Have not they a book?" -> "Have they not a book?"
@@ -93,11 +104,11 @@ function replaceMatchWithCapitalization(matches, substitute, postfix) {
 }
 
 // Replace "he" and "she" only.
-// Expects a tagged document, not plain text!
+// Expects a tagged document, with contractions expanded.
 export function replaceHeShe(doc) {
     ["she", "he"].forEach(function(pronoun) {
         const matches = doc.match(pronoun);
-        replaceMatchWithCapitalization(matches, substitute, "");
+        replaceMatchWithCapitalization(matches, substitutePronoun, "");
     });
     return doc.all();
 }
@@ -109,7 +120,7 @@ export function replaceHeShe(doc) {
 export function replacePossessiveAdjectives(doc) {
     ["her", "his"].forEach(function(pronoun) {
         const matches = doc.match("[" + pronoun + "] #Noun");
-        replaceMatchWithCapitalization(matches, substitute, "_poss_adj");
+        replaceMatchWithCapitalization(matches, substitutePronoun, "_poss_adj");
     });
     return doc.all();
 }
@@ -163,7 +174,11 @@ export function replacePronouns(text, showChanges) {
     let result = text;
 
     // Step 1
-    result = replaceWords(result, Object.keys(compoundPronouns), substitute);
+    result = replaceWords(
+        result,
+        Object.keys(compoundPronouns),
+        substitutePronoun
+    );
 
     // Steps 2-5 (require NLP)
     let doc = nlp(result);
@@ -178,7 +193,11 @@ export function replacePronouns(text, showChanges) {
     result = spaceAfterPeriod(result);
 
     // Step 6
-    result = replaceWords(result, Object.keys(genderPronouns), substitute);
+    result = replaceWords(
+        result,
+        Object.keys(genderPronouns),
+        substitutePronoun
+    );
 
     // Step 7
     if (showChanges) {
