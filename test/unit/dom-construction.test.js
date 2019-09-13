@@ -1,8 +1,7 @@
 /*globals describe, it, chai */
 import {
     appStyleClass,
-    createWordHighlight,
-    highlightClass,
+    highlight,
     ins,
     del
 } from "../../src/dom-construction.js";
@@ -24,13 +23,12 @@ function expectElementContents(text, contents) {
 }
 
 describe("dom-construction.js", function() {
-
     describe("ins", function() {
         const result = ins("spam");
         it("should construct text representing an ins element", function() {
             expectElementType(result, "ins");
         });
-        it("should use the dgtw class", function() {
+        it("should use the application style class", function() {
             expectStyleClass(result, appStyleClass);
         });
         it("should contain the text to insert", function() {
@@ -43,7 +41,7 @@ describe("dom-construction.js", function() {
         it("should construct text representing a del element", function() {
             expectElementType(result, "del");
         });
-        it("should use the dgtw class", function() {
+        it("should use the application style class", function() {
             expectStyleClass(result, appStyleClass);
         });
         it("should contain the text to insert", function() {
@@ -52,12 +50,12 @@ describe("dom-construction.js", function() {
     });
 
     describe("highlight", function() {
-        const result = createWordHighlight("spam");
-        it("should construct text representing a span element", function() {
-            expectElementType(result, "span");
+        const result = highlight("spam");
+        it("should construct text representing a strong element", function() {
+            expectElementType(result, "strong");
         });
-        it("should use the specified highlight class", function() {
-            expectStyleClass(result, highlightClass);
+        it("should use the application style class", function() {
+            expectStyleClass(result, appStyleClass);
         });
         it("should contain the word to highlight", function() {
             expectElementContents(result, "spam");

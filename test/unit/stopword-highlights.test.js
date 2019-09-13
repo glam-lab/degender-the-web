@@ -10,6 +10,7 @@ import {
 } from "../../src/stopword-highlights.js";
 
 const genderWords = ["gender", "transgender", "gender-normative", "Gender"];
+const highlightTag = "<strong";
 
 describe("stopword-highlights.js", function() {
     describe("mentionsGender", function() {
@@ -33,7 +34,7 @@ describe("stopword-highlights.js", function() {
             it("should highlight the word '" + w + "'", function() {
                 const text = "blah blah " + w + " blah blah";
                 const result = highlightGender(text);
-                chai.expect(result).to.include("highlight");
+                chai.expect(result).to.include(highlightTag);
             });
         });
     });
@@ -98,20 +99,20 @@ describe("stopword-highlights.js", function() {
         it("should highlight 'she/her'", function() {
             const text = "I use she/her pronouns.";
             chai.expect(highlightPersonalPronounSpecs(text)).to.include(
-                "highlight"
+                highlightTag
             );
         });
         it("should highlight any listed personal pronoun spec", function() {
             personalPronounSpecs.forEach(function(pp) {
                 chai.expect(
                     highlightPersonalPronounSpecs("I use " + pp + " pronouns.")
-                ).to.include("highlight");
+                ).to.include(highlightTag);
             });
         });
         it("should highlight multiple personal pronoun specs", function() {
             const text = "I use either they/them or ey/em.";
             const result = highlightPersonalPronounSpecs(text);
-            const re = new RegExp("highlight", "g");
+            const re = new RegExp(highlightTag, "g");
             let count = 0;
             while (re.exec(result)) count++;
             chai.expect(count).to.equal(2);

@@ -1,21 +1,18 @@
 export const headerID = "dgtw-header";
 export const appStyleClass = "dgtw";
-export const highlightClass = "dgtw-highlight";
 
-// Construct ins tag
-export function ins(s) {
-    return "<ins class='" + appStyleClass + ".hide'>" + s + "</ins>";
+// Functor that makes a function to wrap given content in an HTML tag
+function makeTagger(tag) {
+    const open = "<" + tag + " class='" + appStyleClass + " hide'>";
+    const close = "</" + tag + ">";
+    return function(content) {
+        return open + content + close;
+    };
 }
 
-// Construct del tag
-export function del(s) {
-    return "<del class='" + appStyleClass + ".hide'>" + s + "</del>";
-}
-
-// Construct highlight tag
-export function highlight(s) {
-    return '<span class="' + highlightClass + '.hide">' + s + "</span>";
-}
+export const ins = makeTagger("ins");
+export const del = makeTagger("del");
+export const highlight = makeTagger("strong");
 
 // Create a header indicating text replacement status.
 export function createHeader(message) {

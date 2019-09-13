@@ -22,7 +22,7 @@ before(function(done) {
     global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
     global.textdivSelector = "#text";
     global.headerSelector = "#dgtw-header";
-    global.highlightSelector = "span.dgtw-highlight";
+    global.highlightSelector = "strong.dgtw";
 
     puppeteer.launch(opts).then(function(browser) {
         global.browser = browser;
