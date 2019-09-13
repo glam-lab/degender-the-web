@@ -1,10 +1,20 @@
-//export const headerClass = "dgtw-header";
-//export const buttonClass = "dgtw";
+export const headerID = "dgtw-header";
+export const appStyleClass = "dgtw";
 export const highlightClass = "dgtw-highlight";
+
+// Construct ins tag
+export function ins(s) {
+    return "<ins class='" + appStyleClass + ".hide'>" + s + "</ins>";
+}
+
+// Construct del tag
+export function del(s) {
+    return "<del class='" + appStyleClass + ".hide'>" + s + "</del>";
+}
 
 // Construct HTML to implement the given highlight.
 export function createWordHighlight(word) {
-    return '<span class="' + highlightClass + '">' + word + "</span>";
+    return '<span class="' + highlightClass + '.hide">' + word + "</span>";
 }
 
 // Create a header indicating text replacement status.

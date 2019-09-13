@@ -11,6 +11,8 @@
  *  http://ejohn.org/projects/javascript-diff-algorithm/
  */
 
+import { ins, del } from "./dom-construction.js";
+
 function escape(s) {
     let n = s;
     n = n.replace(/&/g, "&amp;");
@@ -18,14 +20,6 @@ function escape(s) {
     n = n.replace(/>/g, "&gt;");
     n = n.replace(/"/g, "&quot;");
     return n;
-}
-
-function ins(s) {
-    return "<ins class='dgtw.hide'>" + s + "</ins>";
-}
-
-function del(s) {
-    return "<del class='dgtw.hide'>" + s + "</del>";
 }
 
 export function diffString(o, n) {
