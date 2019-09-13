@@ -21,11 +21,11 @@ function escape(s) {
 }
 
 function ins(s) {
-    return "<ins class='dgtw'>" + s + "</ins>";
+    return "<ins class='dgtw.hide'>" + s + "</ins>";
 }
 
 function del(s) {
-    return "<del class='dgtw'>" + s + "</del>";
+    return "<del class='dgtw.hide'>" + s + "</del>";
 }
 
 export function diffString(o, n) {
