@@ -6,4 +6,5 @@ describe("When the page is in an excluded domain, it", function() {
     it("should load the Chrome extension");
     it("should not change the text");
     it("should explain in the header");
+    it("should not have a 'Show changes/highlights' button");
 });

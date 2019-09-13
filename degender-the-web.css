@@ -51,12 +51,14 @@
        https://www.color-blindness.com/coblis-color-blindness-simulator 
        and is redundant to underline/strikethrough for ins/del. */
 
-    span.dgtw-highlight.show {
+    strong.dgtw.show {
+        font-weight: initial;
         background-color: #ffffcc; /* yellow */
     }
 
-    span.dgtw-highlight.hide {
-        /* No highlighting */
+    strong.dgtw.hide {
+        font-weight: initial;
+        display: inline;
     }
 
     ins.dgtw.show {
@@ -65,6 +67,7 @@
 
     ins.dgtw.hide {
         text-decoration: none;
+        display: inline;
     }
 
     del.dgtw.show {

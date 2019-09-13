@@ -1,5 +1,7 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, highlightSelector, headerSelector */
+/*globals describe, before, after, it, expect, browser, testURL, 
+          headerSelector, toggleSelector, 
+          highlightSelector, insSelector, delSelector */
 
 describe("When the page includes personal pronoun specifiers, it", function() {
     let page;
@@ -24,6 +26,11 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         });
     });
 
+    it("should not have any insertions or deletions", async function() {
+        expect(await page.$$(insSelector)).to.be.empty;
+        expect(await page.$$(delSelector)).to.be.empty;
+    });
+
     it("should highlight personal pronoun specifiers", async function() {
         const highlightTexts = await page.$$eval(highlightSelector, es =>
             es.map(e => e.innerText)
@@ -33,8 +40,17 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         });
     });
 
+    it("should not initially show those highlights", async function() {
+        expect(await page.$$(highlightSelector + ".show")).to.be.empty;
+    });
+
     it("should explain in the header", async function() {
         const headerText = await page.$eval(headerSelector, e => e.innerText);
         expect(headerText).to.include("personal pronoun");
+    });
+
+    it("should have a 'Show highlights' button", async function() {
+        const buttonText = await page.$eval(toggleSelector, e => e.innerText);
+        expect(buttonText).to.equal("Show highlights");
     });
 });

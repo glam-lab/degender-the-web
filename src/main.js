@@ -28,7 +28,7 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
     for (node of textNodes) {
         const originalText = node.nodeValue;
         if (needsReplacement(originalText) && !isEditable(node)) {
-            const newText = replaceFunction(originalText);
+            const newText = replaceFunction(originalText, true);
             const siblings = node.parentNode.childNodes;
             if (siblings.length === 1) {
                 node.parentNode.innerHTML = newText;
@@ -44,7 +44,7 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
 // Called in content.js
 export function main() {
     // Use a closure to capture the original content before ANY changes.
-    const restoreOriginalContent = (function() {
+    const restoreOriginal = (function() {
         const originalContent = document.body.innerHTML;
         return function() {
             document.body.innerHTML = originalContent;
@@ -53,6 +53,7 @@ export function main() {
 
     const body = document.body.innerHTML;
     let message = "<i>Degender the Web</i> ";
+    let showHideThing;
 
     if (inExcludedDomain(location.host)) {
         message +=
@@ -69,10 +70,12 @@ export function main() {
         message += " did not rewrite gender pronouns because it ";
         message += " found personal pronoun specifiers on this page: ";
         message += getPersonalPronounSpecs(body);
+        showHideThing = "highlights";
     } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
         message += " did not rewrite gender pronouns because it ";
         message += " found this page discusses gender.";
+        showHideThing = "highlights";
     } else {
         const original = document.body.innerHTML;
         if (hasReplaceablePronouns(body)) {
@@ -80,6 +83,7 @@ export function main() {
         }
         if (document.body.innerHTML !== original) {
             message += " has replaced gender pronouns on this page.";
+            showHideThing = "changes";
         } else {
             message +=
                 " found no gender pronouns in static content " +
@@ -89,21 +93,41 @@ export function main() {
 
     // Create the header for Degender the Web, with the constructed message.
     const header = createHeader(message);
+
     const dismissHeader = (function(element) {
         return function() {
             element.style.display = "none";
         };
     })(header);
-    header.appendChild(
-        createButton(
-            "restore",
-            "Restore original content",
-            restoreOriginalContent
-        )
-    );
+
+    let showMarkup = false;
+    function toggleShowMarkup() {
+        // Toggle the flag
+        showMarkup = !showMarkup;
+
+        // Toggle the style classes
+        document.querySelectorAll(".dgtw").forEach(function(node) {
+            node.classList.add(showMarkup ? "show" : "hide");
+            node.classList.remove(showMarkup ? "hide" : "show");
+        });
+
+        // Toggle the button text
+        const button = document.querySelector("#dgtw-header > #toggle");
+        button.innerHTML = (showMarkup ? "Hide " : "Show ") + showHideThing;
+    }
+
     header.appendChild(
         createButton("dismiss", "Dismiss this header", dismissHeader)
     );
+    header.appendChild(
+        createButton("restore", "Restore original content", restoreOriginal)
+    );
+
+    if (showHideThing) {
+        header.appendChild(
+            createButton("toggle", "Show " + showHideThing, toggleShowMarkup)
+        );
+    }
 
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
