@@ -12,9 +12,9 @@ export function del(s) {
     return "<del class='" + appStyleClass + ".hide'>" + s + "</del>";
 }
 
-// Construct HTML to implement the given highlight.
-export function createWordHighlight(word) {
-    return '<span class="' + highlightClass + '.hide">' + word + "</span>";
+// Construct highlight tag
+export function highlight(s) {
+    return '<span class="' + highlightClass + '.hide">' + s + "</span>";
 }
 
 // Create a header indicating text replacement status.

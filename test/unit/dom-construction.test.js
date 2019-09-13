@@ -51,7 +51,7 @@ describe("dom-construction.js", function() {
         });
     });
 
-    describe("createWordHighlight", function() {
+    describe("highlight", function() {
         const result = createWordHighlight("spam");
         it("should construct text representing a span element", function() {
             expectElementType(result, "span");

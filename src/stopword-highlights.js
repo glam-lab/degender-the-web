@@ -1,7 +1,7 @@
 /*eslint no-useless-escape: "off"*/
 
 import { personalPronounSpecs } from "../data/personal-pronoun-specs.js";
-import { createWordHighlight } from "./dom-construction.js";
+import { highlight } from "./dom-construction.js";
 import { capitalize } from "./capitalization.js";
 import { textNodesUnder, isVisible } from "./dom-traversal.js";
 
@@ -37,7 +37,7 @@ export function visiblyMentionsGender(body) {
 export function highlightGender(text) {
     function highlightWithCase(text, word) {
         const re = new RegExp(word, "g");
-        return text.replace(re, createWordHighlight(word));
+        return text.replace(re, highlight(word));
     }
     let result = text;
     result = highlightWithCase(result, "gender");
@@ -61,7 +61,7 @@ export function getPersonalPronounSpecs(text) {
 export function highlightPersonalPronounSpecs(text) {
     function highlightWithCase(text, word) {
         const re = new RegExp("\\b" + esc(word) + "\\b", "g");
-        return text.replace(re, createWordHighlight(word));
+        return text.replace(re, highlight(word));
     }
     let result = text,
         pp = null;
