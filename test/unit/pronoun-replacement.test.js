@@ -202,5 +202,12 @@ describe("pronoun-replacement.js", function() {
             const result = replacePronouns(text);
             chai.expect(result).to.include("They have");
         });
+
+        it("should mark up changes when requested", function() {
+            const sentence = "I said she should go. ";
+            const result = replacePronouns(sentence, true);
+            chai.expect(result).to.match(/<del.*>she *<\/del>/);
+            chai.expect(result).to.match(/<ins.*>they *<\/ins>/);
+        });
     });
 });
