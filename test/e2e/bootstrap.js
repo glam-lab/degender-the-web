@@ -6,12 +6,7 @@ const globalVariables = _.pick(global, [
     "browser",
     "expect",
     "testURL",
-    "textdivSelector",
-    "headerSelector",
-    "delSelector",
-    "insSelector",
-    "highlightSelector",
-    "toggleSelector"
+    "selectors"
 ]);
 
 // puppeteer options
@@ -23,12 +18,16 @@ const opts = {
 before(function(done) {
     global.expect = expect;
     global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
-    global.textdivSelector = "#text";
-    global.headerSelector = "#dgtw-header";
-    global.insSelector = "ins.dgtw";
-    global.delSelector = "del.dgtw";
-    global.highlightSelector = "strong.dgtw";
-    global.toggleSelector = "#dgtw-toggle";
+    global.selectors = {
+        content: "#text",
+        header: "#dgtw-header",
+        toggle: "#dgtw-toggle",
+        restore: "#dgtw-restore",
+        dismiss: "#dgtw-dismiss",
+        ins: "ins.dgtw",
+        del: "del.dgtw",
+        highlight: "strong.dgtw"
+    };
 
     puppeteer.launch(opts).then(function(browser) {
         global.browser = browser;
@@ -42,4 +41,6 @@ after(function() {
 
     global.browser = globalVariables.browser;
     global.expect = globalVariables.expect;
+    global.testURL = globalVariables.testURL;
+    global.selectors = globalVariables.selectors;
 });
