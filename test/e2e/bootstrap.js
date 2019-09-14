@@ -28,7 +28,7 @@ before(function(done) {
     global.insSelector = "ins.dgtw";
     global.delSelector = "del.dgtw";
     global.highlightSelector = "strong.dgtw";
-    global.toggleSelector = global.headerSelector + " > #toggle";
+    global.toggleSelector = "#dgtw-toggle";
 
     puppeteer.launch(opts).then(function(browser) {
         global.browser = browser;

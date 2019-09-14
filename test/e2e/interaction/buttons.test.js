@@ -5,13 +5,13 @@ function testButton(buttonID) {
         "When the user clicks on the " + buttonID + " button, it",
         function() {
             const text = "He washed his car.";
-            const restore = buttonID === "restore";
+            const restore = buttonID === "dgtw-restore";
             let page;
 
             before(async function() {
                 page = await browser.newPage();
                 await page.goto(testURL + text);
-                await page.click(headerSelector + " > #" + buttonID);
+                await page.click("#" + buttonID);
             });
 
             after(async function() {
@@ -41,5 +41,5 @@ function testButton(buttonID) {
     );
 }
 
-testButton("dismiss");
-testButton("restore");
+testButton("dgtw-dismiss");
+testButton("dgtw-restore");

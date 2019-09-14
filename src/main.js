@@ -18,6 +18,13 @@ import {
 } from "./stopword-highlights.js";
 import { createHeader, createButton } from "./dom-construction.js";
 
+const ids = {
+    header: "dgtw-header",
+    dismiss: "dgtw-dismiss",
+    restore: "dgtw-restore",
+    toggle: "dgtw-toggle"
+};
+
 // The core algorithm: If a text node contains one or more keywords,
 // create new nodes containing the substitute text and the surrounding text.
 function replaceWordsInBody(needsReplacement, replaceFunction) {
@@ -92,7 +99,7 @@ export function main() {
     }
 
     // Create the header for Degender the Web, with the constructed message.
-    const header = createHeader(message);
+    const header = createHeader(ids.header, message);
 
     const dismissHeader = (function(element) {
         return function() {
@@ -112,20 +119,20 @@ export function main() {
         });
 
         // Toggle the button text
-        const button = document.querySelector("#dgtw-header > #toggle");
+        const button = document.querySelector("#" + ids.toggle);
         button.innerHTML = (showMarkup ? "Hide " : "Show ") + showHideThing;
     }
 
     header.appendChild(
-        createButton("dismiss", "Dismiss this header", dismissHeader)
+        createButton(ids.dismiss, "Dismiss this header", dismissHeader)
     );
     header.appendChild(
-        createButton("restore", "Restore original content", restoreOriginal)
+        createButton(ids.restore, "Restore original content", restoreOriginal)
     );
 
     if (showHideThing) {
         header.appendChild(
-            createButton("toggle", "Show " + showHideThing, toggleShowMarkup)
+            createButton(ids.toggle, "Show " + showHideThing, toggleShowMarkup)
         );
     }
 

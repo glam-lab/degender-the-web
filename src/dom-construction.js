@@ -1,4 +1,3 @@
-export const headerID = "dgtw-header";
 export const appStyleClass = "dgtw";
 
 // Functor that makes a function to wrap given content in an HTML tag
@@ -15,9 +14,9 @@ export const del = makeTagger("del");
 export const highlight = makeTagger("strong");
 
 // Create a header indicating text replacement status.
-export function createHeader(message) {
+export function createHeader(id, message) {
     const element = document.createElement("section");
-    element.id = "dgtw-header";
+    element.id = id;
     element.innerHTML = message;
     return element;
 }
