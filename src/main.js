@@ -25,6 +25,42 @@ const ids = {
     toggle: "dgtw-toggle"
 };
 
+// Make a function to restore the original page content.
+// Expects to receive document.body.innerHTML.
+function makeRestorer(originalHTML) {
+    return function() {
+        document.body.innerHTML = originalHTML;
+    };
+}
+
+// Make a function to dismiss the header.
+function makeDismisser() {
+    return function() {
+        const header = document.querySelector("#" + ids.header);
+        header.style.display = "none";
+    };
+}
+
+// Make a function to toggle markup.
+// Expects the name of the thing to be toggled ("changes" or "highlights").
+function makeToggler(somethingToToggle) {
+    let showMarkup = false;
+    return function toggleShowMarkup() {
+        // Toggle the flag
+        showMarkup = !showMarkup;
+
+        // Toggle the style classes
+        document.querySelectorAll(".dgtw").forEach(function(node) {
+            node.classList.add(showMarkup ? "show" : "hide");
+            node.classList.remove(showMarkup ? "hide" : "show");
+        });
+
+        // Toggle the button text
+        const button = document.querySelector("#" + ids.toggle);
+        button.innerHTML = (showMarkup ? "Hide " : "Show ") + somethingToToggle;
+    };
+}
+
 // The core algorithm: If a text node contains one or more keywords,
 // create new nodes containing the substitute text and the surrounding text.
 function replaceWordsInBody(needsReplacement, replaceFunction) {
@@ -50,17 +86,9 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
 
 // Called in content.js
 export function main() {
-    // Use a closure to capture the original content before ANY changes.
-    const restoreOriginal = (function() {
-        const originalContent = document.body.innerHTML;
-        return function() {
-            document.body.innerHTML = originalContent;
-        };
-    })();
-
-    const body = document.body.innerHTML;
+    const originalBodyHTML = document.body.innerHTML;
     let message = "<i>Degender the Web</i> ";
-    let showHideThing;
+    let somethingToToggle;
 
     if (inExcludedDomain(location.host)) {
         message +=
@@ -69,28 +97,27 @@ export function main() {
             " due to " +
             getWhyExcluded(location.host) +
             ".";
-    } else if (hasPersonalPronounSpec(body)) {
+    } else if (hasPersonalPronounSpec(originalBodyHTML)) {
         replaceWordsInBody(
             hasPersonalPronounSpec,
             highlightPersonalPronounSpecs
         );
         message += " did not rewrite gender pronouns because it ";
         message += " found personal pronoun specifiers on this page: ";
-        message += getPersonalPronounSpecs(body);
-        showHideThing = "highlights";
+        message += getPersonalPronounSpecs(originalBodyHTML);
+        somethingToToggle = "highlights";
     } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
         message += " did not rewrite gender pronouns because it ";
         message += " found this page discusses gender.";
-        showHideThing = "highlights";
+        somethingToToggle = "highlights";
     } else {
-        const original = document.body.innerHTML;
-        if (hasReplaceablePronouns(body)) {
+        if (hasReplaceablePronouns(originalBodyHTML)) {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
         }
-        if (document.body.innerHTML !== original) {
+        if (document.body.innerHTML !== originalBodyHTML) {
             message += " has replaced gender pronouns on this page.";
-            showHideThing = "changes";
+            somethingToToggle = "changes";
         } else {
             message +=
                 " found no gender pronouns in static content " +
@@ -101,38 +128,24 @@ export function main() {
     // Create the header for Degender the Web, with the constructed message.
     const header = createHeader(ids.header, message);
 
-    const dismissHeader = (function(element) {
-        return function() {
-            element.style.display = "none";
-        };
-    })(header);
-
-    let showMarkup = false;
-    function toggleShowMarkup() {
-        // Toggle the flag
-        showMarkup = !showMarkup;
-
-        // Toggle the style classes
-        document.querySelectorAll(".dgtw").forEach(function(node) {
-            node.classList.add(showMarkup ? "show" : "hide");
-            node.classList.remove(showMarkup ? "hide" : "show");
-        });
-
-        // Toggle the button text
-        const button = document.querySelector("#" + ids.toggle);
-        button.innerHTML = (showMarkup ? "Hide " : "Show ") + showHideThing;
-    }
-
+    // Create the buttons.
     header.appendChild(
-        createButton(ids.dismiss, "Dismiss this header", dismissHeader)
+        createButton(ids.dismiss, "Dismiss this header", makeDismisser())
     );
     header.appendChild(
-        createButton(ids.restore, "Restore original content", restoreOriginal)
+        createButton(
+            ids.restore,
+            "Restore original content",
+            makeRestorer(originalBodyHTML)
+        )
     );
-
-    if (showHideThing) {
+    if (somethingToToggle) {
         header.appendChild(
-            createButton(ids.toggle, "Show " + showHideThing, toggleShowMarkup)
+            createButton(
+                ids.toggle,
+                "Show " + somethingToToggle,
+                makeToggler(somethingToToggle)
+            )
         );
     }
 
