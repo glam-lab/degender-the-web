@@ -119,7 +119,9 @@ export function replaceHeShe(doc) {
 // Expects a tagged document, not plain text!
 export function replacePossessiveAdjectives(doc) {
     ["her", "his"].forEach(function(pronoun) {
-        const matches = doc.match("[" + pronoun + "] #Noun");
+        const matches = doc.match(
+            "[" + pronoun + "] #Ordinal? #Adjective? #Noun"
+        );
         replaceMatchWithCapitalization(matches, substitutePronoun, "_poss_adj");
     });
     return doc.all();

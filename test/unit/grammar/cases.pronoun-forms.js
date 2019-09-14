@@ -21,6 +21,7 @@ export const pronounForms = {
                 in: "It is her large green book",
                 out: "It is their large green book"
             },
+
             {
                 descr: "Object with possessive adjective",
                 in: "I let her borrow my suitcase for her trip",
@@ -53,6 +54,11 @@ export const pronounForms = {
                 descr: "Possessive adjective",
                 in: "It is his book",
                 out: "It is their book"
+            },
+            {
+                descr: "Possessive adjective with ordinal",
+                in: "It was his first time",
+                out: "It was their first time"
             },
             {
                 descr: "Possessive pronoun",
