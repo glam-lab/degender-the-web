@@ -51,31 +51,39 @@
        https://www.color-blindness.com/coblis-color-blindness-simulator 
        and is redundant to underline/strikethrough for ins/del. */
 
+    /* Overrule sites that set !important rules for classes "show" or "hide".
+       See 
+       https://css-tricks.com/when-using-important-is-the-right-choice/
+       https://www.w3.org/TR/CSS2/cascade.html#important-rules */
+
     strong.dgtw.show {
         font-weight: initial;
         background-color: #ffffcc; /* yellow */
+        display: inline !important;
     }
 
     strong.dgtw.hide {
         font-weight: initial;
-        display: inline;
+        display: inline !important;
     }
 
     ins.dgtw.show {
         background-color: #eeffee; /* green */
+        display: inline !important;
     }
 
     ins.dgtw.hide {
         text-decoration: none;
-        display: inline;
+        display: inline !important;
     }
 
     del.dgtw.show {
         background-color: #ffeeee; /* pink */
+        display: inline !important;
     }
 
     del.dgtw.hide {
-        display: none;
+        display: none !important;
     }
 }
 
