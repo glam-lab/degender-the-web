@@ -154,12 +154,21 @@ export function main() {
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
 
-    // Provide status text to popup when requested
+    // Respond to messages sent from the popup
     chrome.runtime.onMessage.addListener(function(
         request,
         sender,
         sendResponse
     ) {
-        sendResponse({ statusText: message });
+        if (request.type === "getStatus") {
+            sendResponse({ statusText: message });
+        } else if (request.type === "restoreOriginalContent") {
+            restoreOriginalContent();
+        } else {
+            console.error(
+                "Content script received a request with unrecognized type " +
+                    request.type
+            );
+        }
     });
 }
