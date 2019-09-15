@@ -44,6 +44,33 @@ const substituteIrregularVerb = makeSubstituter(
     }, {})
 );
 
+// Replace nlp matches, keeping the capitalization from the original text.
+export function replaceMatchWithCapitalization(matches, substitute, postfix) {
+    postfix = postfix ? postfix : "";
+    matches.not("#Acronym").forEach(function(m) {
+        // Get the matched word with capitalization but without punctuation
+        const matchedWord = m
+            .clone()
+            .out("text")
+            .match(/\w+/)[0];
+
+        // Find the replacement word
+        let replacement = substitute(matchedWord + postfix);
+
+        // Restore parentheses (ugh, really?)
+        const tags = m.out("tags")[0].tags;
+        if (tags.includes("EndBracket")) {
+            replacement += ")";
+        }
+        if (tags.includes("StartBracket")) {
+            replacement = "(" + replacement;
+        }
+
+        // Replace the matched word
+        m.replaceWith(replacement);
+    });
+}
+
 // Pluralize verbs that "they" perform.
 // Expects a tagged document, with contractions expanded.
 export function pluralizeVerbs(doc) {
@@ -90,17 +117,6 @@ export function pluralizeVerbs(doc) {
     doc.match("not they").replaceWith("they not");
 
     return doc.all();
-}
-
-function replaceMatchWithCapitalization(matches, substitute, postfix) {
-    matches.not("#Acronym").forEach(function(m) {
-        const matchedWord = m
-            .clone()
-            .setPunctuation("")
-            .trim()
-            .out("text");
-        m.replaceWith(substitute(matchedWord + postfix));
-    });
 }
 
 // Replace "he" and "she" only.

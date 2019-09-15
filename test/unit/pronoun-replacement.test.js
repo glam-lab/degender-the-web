@@ -1,9 +1,10 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, it, chai, nlp */
+/*globals describe, beforeEach, it, chai, nlp */
 import { allPronouns } from "../../data/pronouns.js";
 import { capitalize } from "../../src/capitalization.js";
 import {
     hasReplaceablePronouns,
+    replaceMatchWithCapitalization,
     pluralizeVerbs,
     replacePossessiveAdjectives,
     spaceAfterPeriod,
@@ -34,6 +35,62 @@ describe("pronoun-replacement.js", function() {
                 const text = capitalize(p) + " blah blah blah";
                 chai.expect(hasReplaceablePronouns(text)).to.be.true;
             });
+        });
+    });
+
+    describe("replaceMatchWithCapitalization", function() {
+        const substitutions = {
+            foo: "chicken",
+            Foo: "Chicken",
+            bar: "chicken",
+            Bar: "Chicken",
+            foo_bar: "cluck",
+            Foo_bar: "Cluck"
+        };
+        function substitute(word) {
+            return substitutions[word];
+        }
+
+        let doc;
+
+        beforeEach(function() {
+            doc = nlp("Foo (bar) foo. (Foo foo.)");
+        });
+
+        it("should work for an uncapitalized word", function() {
+            const match = doc.match("foo");
+            replaceMatchWithCapitalization(match, substitute);
+            chai.expect(doc.all().out("text")).to.include("chicken.");
+        });
+
+        it("should work for a capitalized word", function() {
+            const match = doc.match("foo");
+            replaceMatchWithCapitalization(match, substitute);
+            chai.expect(doc.all().out("text")).to.include("Chicken ");
+        });
+
+        it("should accept a postfix", function() {
+            const match = doc.match("foo");
+            replaceMatchWithCapitalization(match, substitute, "_bar");
+            chai.expect(doc.all().out("text")).to.include("Cluck (bar) cluck.");
+        });
+
+        it("should replace the word if there are parentheses", function() {
+            const match = doc.match("bar");
+            replaceMatchWithCapitalization(match, substitute);
+            chai.expect(doc.all().out("text")).to.include("chicken");
+        });
+
+        it("should retain parentheses", function() {
+            const match = doc.match("bar");
+            replaceMatchWithCapitalization(match, substitute);
+            chai.expect(doc.all().out("text")).to.include(" (chicken) ");
+        });
+
+        it("should retain parentheses and capitalization together", function() {
+            const match = doc.match("foo");
+            replaceMatchWithCapitalization(match, substitute);
+            chai.expect(doc.all().out("text")).to.include("(Chicken");
         });
     });
 
