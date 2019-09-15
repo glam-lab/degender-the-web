@@ -1,3 +1,5 @@
+/*global chrome */
+
 import {
     hasReplaceablePronouns,
     replacePronouns
@@ -151,4 +153,13 @@ export function main() {
 
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
+
+    // Provide status text to popup when requested
+    chrome.runtime.onMessage.addListener(function(
+        request,
+        sender,
+        sendResponse
+    ) {
+        sendResponse({ statusText: message });
+    });
 }
