@@ -1,5 +1,7 @@
 export const contractions = {
     Contractions: [
+        // Ideally, contractions would be retained where possible,
+        // rather than expanded. See #92.
         {
             descr: "She's -> she is",
             in: "She's alone",

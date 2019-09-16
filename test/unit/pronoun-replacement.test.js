@@ -255,6 +255,7 @@ describe("pronoun-replacement.js", function() {
 
         it("shouldn't get thrown off by a leading period", function() {
             // See https://johnresig.com/about/
+            // See also issue #92 re: contractions
             const text = ". He's created numerous JavaScript projects";
             const result = replacePronouns(text);
             chai.expect(result).to.include("They have");

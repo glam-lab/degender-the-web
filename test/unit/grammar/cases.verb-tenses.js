@@ -26,6 +26,8 @@ export const verbTenses = {
                     out: "Do they speak English?"
                 },
                 {
+                    // Ideally, contractions would be retained.
+                    // See issue #92.
                     descr: "Do question, negated",
                     in: "Doesn't she speak English?",
                     out: "Do they not speak English?"
