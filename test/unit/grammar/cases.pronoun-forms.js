@@ -1,4 +1,4 @@
-module.exports.cases = {
+export const pronounForms = {
     "Pronoun forms": {
         Feminine: [
             {
@@ -21,6 +21,7 @@ module.exports.cases = {
                 in: "It is her large green book",
                 out: "It is their large green book"
             },
+
             {
                 descr: "Object with possessive adjective",
                 in: "I let her borrow my suitcase for her trip",
@@ -53,6 +54,11 @@ module.exports.cases = {
                 descr: "Possessive adjective",
                 in: "It is his book",
                 out: "It is their book"
+            },
+            {
+                descr: "Possessive adjective with ordinal",
+                in: "It was his first time",
+                out: "It was their first time"
             },
             {
                 descr: "Possessive pronoun",

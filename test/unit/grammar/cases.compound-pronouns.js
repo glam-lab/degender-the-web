@@ -1,10 +1,10 @@
-module.exports.cases = {
+export const compoundPronouns = {
     "Compound pronouns": {
         "With 'or'": [
             {
                 descr: "Statement with modal verb",
-                in: "He or she should come home.",
-                out: "They should come home."
+                in: "He or she should come home. ",
+                out: "They should come home. "
             },
             {
                 descr: "Question with regular verb",
@@ -19,7 +19,7 @@ module.exports.cases = {
             {
                 descr: "Question with contraction",
                 in: "What if he or she won't answer?",
-                out: "What if they won't answer?"
+                out: "What if they will not answer?"
             },
             {
                 descr: "Question with 'doesn't'",
@@ -33,8 +33,8 @@ module.exports.cases = {
             },
             {
                 descr: "Statement with 'wasn't'",
-                in: "He or she wasn't home.",
-                out: "They were not home."
+                in: "He or she wasn't home. ",
+                out: "They were not home. "
             },
 
             {

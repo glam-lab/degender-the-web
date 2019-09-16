@@ -1,17 +1,17 @@
-/*globals describe, before, after, it, expect, browser, testURL, headerSelector, textdivSelector */
+/*globals describe, before, after, it, expect, browser, testURL, selectors */
 
-function testButton(buttonID) {
+function testButton(buttonName) {
     describe(
-        "When the user clicks on the " + buttonID + " button, it",
+        "When the user clicks on the " + buttonName + " button, it",
         function() {
             const text = "He washed his car.";
-            const restore = buttonID === "restore";
+            const restore = buttonName === "restore";
             let page;
 
             before(async function() {
                 page = await browser.newPage();
                 await page.goto(testURL + text);
-                await page.click(headerSelector + " > #" + buttonID);
+                await page.click(selectors[buttonName]);
             });
 
             after(async function() {
@@ -19,7 +19,7 @@ function testButton(buttonID) {
             });
 
             it("should dismiss the header", async function() {
-                page.waitForSelector(headerSelector, { hidden: true });
+                page.waitForSelector(selectors.header, { hidden: true });
             });
 
             const description =
@@ -28,7 +28,7 @@ function testButton(buttonID) {
                 "restore the original page content";
             it(description, async function() {
                 const contents = await page.$eval(
-                    textdivSelector,
+                    selectors.content,
                     e => e.innerText
                 );
                 if (restore) {

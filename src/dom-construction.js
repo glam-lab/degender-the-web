@@ -1,58 +1,22 @@
-//export const headerClass = "dgtw-header";
-//export const buttonClass = "dgtw";
-export const replacementClass = "dgtw-replacement";
-export const highlightClass = "dgtw-highlight";
+export const appStyleClass = "dgtw";
 
-// Construct HTML to implement the given replacement.
-// We construct raw HTML rather than DOM nodes to enable substitution using
-// the match().replace() API provided by the Compromise NLP library.
-export function createWordReplacement(newWord, origWord) {
-    return (
-        '<span class="' +
-        replacementClass +
-        '"' +
-        " onmouseover=\"this.innerHTML='" +
-        origWord +
-        "';\"" +
-        " onmouseout=\"this.innerHTML='" +
-        newWord +
-        "';\">" +
-        newWord +
-        "</span>"
-    );
+// Functor that makes a function to wrap given content in an HTML tag
+function makeTagger(tag) {
+    const open = "<" + tag + " class='" + appStyleClass + " hide'>";
+    const close = "</" + tag + ">";
+    return function(content) {
+        return open + content + close;
+    };
 }
 
-// Construct a span tag to implement the given replacement.
-// DELETE unused code
-export function getReplacementSpanTag(newWord, origWord) {
-    return (
-        '<span class="' +
-        replacementClass +
-        '"' +
-        " onmouseover=\"this.innerHTML='" +
-        origWord +
-        "';\"" +
-        " onmouseout=\"this.innerHTML='" +
-        newWord +
-        "';\">"
-    );
-}
-
-// Construct a span tag to implement the given highlight.
-// DELETE unused code
-export function getHighlightSpanTag(word) {
-    return '<span class ="' + highlightClass + '">';
-}
-
-// Construct HTML to implement the given highlight.
-export function createWordHighlight(word) {
-    return '<span class="' + highlightClass + '">' + word + "</span>";
-}
+export const ins = makeTagger("ins");
+export const del = makeTagger("del");
+export const highlight = makeTagger("strong");
 
 // Create a header indicating text replacement status.
-export function createHeader(message) {
+export function createHeader(id, message) {
     const element = document.createElement("section");
-    element.id = "dgtw-header";
+    element.id = id;
     element.innerHTML = message;
     return element;
 }

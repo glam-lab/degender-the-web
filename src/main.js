@@ -16,11 +16,50 @@ import {
     highlightPersonalPronounSpecs,
     getPersonalPronounSpecs
 } from "./stopword-highlights.js";
-import {
-    replacementClass,
-    createHeader,
-    createButton
-} from "./dom-construction.js";
+import { createHeader, createButton } from "./dom-construction.js";
+
+const ids = {
+    header: "dgtw-header",
+    dismiss: "dgtw-dismiss",
+    restore: "dgtw-restore",
+    toggle: "dgtw-toggle"
+};
+
+// Make a function to restore the original page content.
+// Expects to receive document.body.innerHTML.
+function makeRestorer(originalHTML) {
+    return function() {
+        document.body.innerHTML = originalHTML;
+    };
+}
+
+// Make a function to dismiss the header.
+function makeDismisser() {
+    return function() {
+        const header = document.querySelector("#" + ids.header);
+        header.style.display = "none";
+    };
+}
+
+// Make a function to toggle markup.
+// Expects the name of the thing to be toggled ("changes" or "highlights").
+function makeToggler(somethingToToggle) {
+    let showMarkup = false;
+    return function toggleShowMarkup() {
+        // Toggle the flag
+        showMarkup = !showMarkup;
+
+        // Toggle the style classes
+        document.querySelectorAll(".dgtw").forEach(function(node) {
+            node.classList.add(showMarkup ? "show" : "hide");
+            node.classList.remove(showMarkup ? "hide" : "show");
+        });
+
+        // Toggle the button text
+        const button = document.querySelector("#" + ids.toggle);
+        button.innerHTML = (showMarkup ? "Hide " : "Show ") + somethingToToggle;
+    };
+}
 
 // The core algorithm: If a text node contains one or more keywords,
 // create new nodes containing the substitute text and the surrounding text.
@@ -32,7 +71,7 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
     for (node of textNodes) {
         const originalText = node.nodeValue;
         if (needsReplacement(originalText) && !isEditable(node)) {
-            const newText = replaceFunction(originalText);
+            const newText = replaceFunction(originalText, true);
             const siblings = node.parentNode.childNodes;
             if (siblings.length === 1) {
                 node.parentNode.innerHTML = newText;
@@ -43,30 +82,13 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
             }
         }
     }
-
-    // Fix the width of all "replacement" spans so the text does not reflow
-    // when the node content is replaced.
-    // (This relies on the observation than "they/them/their" is longer than
-    // "he/him/his" or "she/her/her".)
-    const replacementNodes = document.getElementsByClassName(replacementClass);
-    for (node of replacementNodes) {
-        const width = node.offsetWidth + 3; // Find the node's width as rendered
-        node.style.width = width + "px"; // Set the width explicitly
-    }
 }
 
 // Called in content.js
 export function main() {
-    // Use a closure to capture the original content before ANY changes.
-    const restoreOriginalContent = (function() {
-        const originalContent = document.body.innerHTML;
-        return function() {
-            document.body.innerHTML = originalContent;
-        };
-    })();
-
-    const body = document.body.innerHTML;
+    const originalBodyHTML = document.body.innerHTML;
     let message = "<i>Degender the Web</i> ";
+    let somethingToToggle;
 
     if (inExcludedDomain(location.host)) {
         message +=
@@ -75,24 +97,27 @@ export function main() {
             " due to " +
             getWhyExcluded(location.host) +
             ".";
-    } else if (hasPersonalPronounSpec(body)) {
+    } else if (hasPersonalPronounSpec(originalBodyHTML)) {
         replaceWordsInBody(
             hasPersonalPronounSpec,
             highlightPersonalPronounSpecs
         );
         message += " did not rewrite gender pronouns because it ";
         message += " found personal pronoun specifiers on this page: ";
-        message += getPersonalPronounSpecs(body);
+        message += getPersonalPronounSpecs(originalBodyHTML);
+        somethingToToggle = "highlights";
     } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
         message += " did not rewrite gender pronouns because it ";
         message += " found this page discusses gender.";
+        somethingToToggle = "highlights";
     } else {
-        if (hasReplaceablePronouns(body)) {
+        if (hasReplaceablePronouns(originalBodyHTML)) {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
         }
-        if (document.body.innerHTML.includes(replacementClass)) {
+        if (document.body.innerHTML !== originalBodyHTML) {
             message += " has replaced gender pronouns on this page.";
+            somethingToToggle = "changes";
         } else {
             message +=
                 " found no gender pronouns in static content " +
@@ -101,22 +126,28 @@ export function main() {
     }
 
     // Create the header for Degender the Web, with the constructed message.
-    const header = createHeader(message);
-    const dismissHeader = (function(element) {
-        return function() {
-            element.style.display = "none";
-        };
-    })(header);
+    const header = createHeader(ids.header, message);
+
+    // Create the buttons.
+    header.appendChild(
+        createButton(ids.dismiss, "Dismiss this header", makeDismisser())
+    );
     header.appendChild(
         createButton(
-            "restore",
+            ids.restore,
             "Restore original content",
-            restoreOriginalContent
+            makeRestorer(originalBodyHTML)
         )
     );
-    header.appendChild(
-        createButton("dismiss", "Dismiss this header", dismissHeader)
-    );
+    if (somethingToToggle) {
+        header.appendChild(
+            createButton(
+                ids.toggle,
+                "Show " + somethingToToggle,
+                makeToggler(somethingToToggle)
+            )
+        );
+    }
 
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);

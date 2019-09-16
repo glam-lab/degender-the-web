@@ -1,20 +1,20 @@
 /*globals describe, it, chai */
 import {
-    createWordHighlight,
-    highlightClass
-} from "../../src/dom-construction.js";
-import {
-    createWordReplacement,
-    replacementClass
+    appStyleClass,
+    highlight,
+    ins,
+    del
 } from "../../src/dom-construction.js";
 
-function expectSpanElement(text) {
-    chai.expect(text).to.match(/^<span.*span>$/i);
+function expectElementType(text, type) {
+    chai.expect(text).to.match(
+        new RegExp("^<" + type + ".*>.*</" + type + ">$", "i")
+    );
 }
 
 function expectStyleClass(text, className) {
     chai.expect(text).to.match(
-        new RegExp("class=(\"|')" + className + "(\"|')", "i")
+        new RegExp("class=(\"|').*\\b" + className + "\\b.*(\"|')", "i")
     );
 }
 
@@ -23,38 +23,42 @@ function expectElementContents(text, contents) {
 }
 
 describe("dom-construction.js", function() {
-    describe("createWordHighlight", function() {
-        const result = createWordHighlight("spam");
-        it("should construct text representing a span element", function() {
-            expectSpanElement(result);
+    describe("ins", function() {
+        const result = ins("spam");
+        it("should construct text representing an ins element", function() {
+            expectElementType(result, "ins");
         });
-        it("should use the specified highlight class", function() {
-            expectStyleClass(result, highlightClass);
+        it("should use the application style class", function() {
+            expectStyleClass(result, appStyleClass);
         });
-        it("should contain the word to highlight", function() {
+        it("should contain the text to insert", function() {
             expectElementContents(result, "spam");
         });
     });
-    describe("createWordReplacement", function() {
-        const result = createWordReplacement("goodbye", "hello");
-        it("should construct text representing a span element", function() {
-            expectSpanElement(result);
+
+    describe("del", function() {
+        const result = del("spam");
+        it("should construct text representing a del element", function() {
+            expectElementType(result, "del");
         });
-        it("should use the specified replacement class", function() {
-            expectStyleClass(result, replacementClass);
+        it("should use the application style class", function() {
+            expectStyleClass(result, appStyleClass);
         });
-        it("should contain the new word", function() {
-            expectElementContents(result, "goodbye");
+        it("should contain the text to insert", function() {
+            expectElementContents(result, "spam");
         });
-        it("should specify a mouseover function", function() {
-            chai.expect(result).to.match(
-                /onmouseover="this.innerHTML='hello';"/i
-            );
+    });
+
+    describe("highlight", function() {
+        const result = highlight("spam");
+        it("should construct text representing a strong element", function() {
+            expectElementType(result, "strong");
         });
-        it("should specify a mouseout function", function() {
-            chai.expect(result).to.match(
-                /onmouseout="this.innerHTML='goodbye';"/i
-            );
+        it("should use the application style class", function() {
+            expectStyleClass(result, appStyleClass);
+        });
+        it("should contain the word to highlight", function() {
+            expectElementContents(result, "spam");
         });
     });
 });

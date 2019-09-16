@@ -1,13 +1,8 @@
+/*eslint no-unused-expressions: "off" */
 /*globals describe, it, chai */
-import { capitalize, replaceWords } from "../../src/word-replacement.js";
+import { replaceWords } from "../../src/word-replacement.js";
 
 describe("word-replacement.js", function() {
-    describe("capitalize", function() {
-        it("should capitalize the first letter of the given string", function() {
-            chai.expect(capitalize("hello")).to.equal("Hello");
-        });
-    });
-
     describe("replaceWords", function() {
         const words = ["hello", "foo"];
         const dictionary = {
@@ -62,7 +57,7 @@ describe("word-replacement.js", function() {
                 "Well. Goodbye world!"
             );
         });
-        it.skip("should replace a word preceded/followed by ?", function() {
+        it("should replace a word preceded/followed by ?", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("Hello? Hello world!")).to.equal(
                 "Goodbye? Goodbye world!"
@@ -83,7 +78,7 @@ describe("word-replacement.js", function() {
                 "Goodbye; goodbye world!"
             );
         });
-        it.skip("should replace a word preceded by -", function() {
+        it("should replace a word preceded by -", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("Well - hello world!")).to.equal(
                 "Well - goodbye world!"
@@ -94,13 +89,13 @@ describe("word-replacement.js", function() {
                 "Goodbye - world!"
             );
         });
-        it.skip("should replace a word preceded/followed by []", function() {
+        it("should replace a word preceded/followed by []", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("[hello foo]")).to.equal(
                 "[goodbye bar]"
             );
         });
-        it.skip("should replace a word preceded/followed by ()", function() {
+        it("should replace a word preceded/followed by ()", function() {
             // Pending improvements to compromise
             chai.expect(myReplaceWords("(hello foo)")).to.equal(
                 "(goodbye bar)"

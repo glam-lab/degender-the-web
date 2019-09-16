@@ -1,18 +1,24 @@
-module.exports.cases = {
+export const contractions = {
     Contractions: [
+        // Ideally, contractions would be retained where possible,
+        // rather than expanded. See #92.
         {
-            descr: "'s",
+            descr: "She's -> she is",
             in: "She's alone",
             out: "They are alone"
-            //pending: 8
         },
         {
-            descr: "'ll",
+            descr: "She's -> she has",
+            in: "She's written a book",
+            out: "They have written a book"
+        },
+        {
+            descr: "He'll",
             in: "He'll be back",
             out: "They will be back"
         },
         {
-            descr: "'d",
+            descr: "She'd",
             in: "She'd like to",
             out: "They would like to"
         },
@@ -20,6 +26,11 @@ module.exports.cases = {
             descr: "doesn't",
             in: "What if he doesn't answer?",
             out: "What if they do not answer?"
+        },
+        {
+            descr: "with a 'smart' apostrophe",
+            in: "He’s alone",
+            out: "They are alone"
         },
         {
             descr: "Posessives are not contractions! (easy)",

@@ -1,6 +1,6 @@
 {
     "name": "degender-the-web",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "description": "What if English had no gender pronouns?  Inspired by Farhad Manjoo's essay _It's Time for 'They'_,  _Degender the Web_ is a Chrome web browser extension that replaces gendered personal pronouns on most Web pages with 'they/them/their'.",
     "directories": {
         "src": "src",
