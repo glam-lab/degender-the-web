@@ -17,7 +17,7 @@ function restoreOriginalContent() {
 }
 
 document
-    .getElementById("restore")
+    .getElementById("dgtw-restore")
     .addEventListener("click", restoreOriginalContent);
 
 updateStatus();
