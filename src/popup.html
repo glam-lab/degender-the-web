@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="../degender-the-web.css">
     <style>
     body {
         min-width: 200px;
+    }
+    button {
+        cursor: pointer;
+        display: inline;
+        width: auto;
+        height: auto;
+        line-height: initial;
+        padding: 0.5ex;
+        margin: 1ex;
+        vertical-align: middle;
+        font: Arial;
+        font-family: "Arial", sans-serif;
+        font-size: small;
+        font-style: initial;
+        font-weight: initial;
+        font-variant: initial;
+        text-transform: none;
+        text-align: center;
+        text-shadow: none;
+        border: 1pt solid #cccccc;
+        border-radius: 3px;
+        color: blue;
+        background: rgba(222, 222, 222, 0.9);
     }
     </style>
   </head>
 
   <body>
     <div id="status"></div>
-    <button id="restore">
+    <button id="dgtw-restore">
         Restore original content
     </button>
     <script src="popup.js"></script>
