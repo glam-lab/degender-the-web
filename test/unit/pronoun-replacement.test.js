@@ -184,17 +184,36 @@ describe("pronoun-replacement.js", function() {
         });
     });
 
-    describe("spaceAfterPeriod", function() {
-        it("should add missing spaces", function() {
+    describe("fixPunctuation", function() {
+        it("should add missing spaces after periods", function() {
             chai.expect(spaceAfterPeriod("Hello.World.")).to.equal(
                 "Hello. World. "
             );
         });
 
-        it("should collapse extra spaces", function() {
+        it("should collapse extra spaces after periods", function() {
             chai.expect(spaceAfterPeriod("Hello.     World. ")).to.equal(
                 "Hello. World. "
             );
+        });
+
+        it("shouldn't delete a space after a period", function() {
+            const text = "He is here. She is here.";
+            const result = spaceAfterPeriod(text);
+            chai.expect(result).to.include(". ");
+        });
+
+        it("shouldn't add space between a period and a quotation mark", function() {
+            const text = 'He said, "She is here."';
+            const result = spaceAfterPeriod(text);
+            chai.expect(result).to.include('."');
+        });
+
+        it("shouldn't add space between a period and a smart quote", function() {
+            // See https://www.linkedin.com/pulse/breakfast-interns-topic-career-prep-im-learning-lot-george-anders/
+            const text = "Let’s linger on that word “classic.”";
+            const result = spaceAfterPeriod(text);
+            chai.expect(result).to.include(".”");
         });
     });
 
@@ -259,6 +278,7 @@ describe("pronoun-replacement.js", function() {
             const text = ". He's created numerous JavaScript projects";
             const result = replacePronouns(text);
             chai.expect(result).to.include("They have");
+            chai.expect(result).to.match(/^. /);
         });
 
         it("should mark up changes when requested", function() {

@@ -143,10 +143,15 @@ export function replacePossessiveAdjectives(doc) {
     return doc.all();
 }
 
-// Ensures there is a space after every period.
+// Ensures there is a space after every period,
+// unless there is a following quotation mark.
 // This has been a problem with Compromise output.
 export function spaceAfterPeriod(text) {
-    return text.replace(/\./g, ". ").replace(/ +/g, " ");
+    text = text.replace(/\./g, ". ");
+    text = text.replace(/ +/g, " ");
+    text = text.replace(/. "/g, '."');
+    text = text.replace(/. ”/g, ".”");
+    return text;
 }
 
 // Replace the pronouns in given text.
