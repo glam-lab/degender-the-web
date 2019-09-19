@@ -57,12 +57,13 @@
        https://www.w3.org/TR/CSS2/cascade.html#important-rules */
 
     strong.dgtw.show {
-        font-weight: inherit;
         background-color: #ffffcc; /* yellow */
+        font-weight: inherit;
     }
 
     strong.dgtw.hide {
         font-weight: inherit;
+        color: inherit;
     }
 
     ins.dgtw.show {
@@ -72,6 +73,7 @@
 
     ins.dgtw.hide {
         text-decoration: none;
+        color: inherit;
         background-color: inherit;
         display: inline !important;
     }
