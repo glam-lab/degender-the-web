@@ -281,6 +281,13 @@ describe("pronoun-replacement.js", function() {
             chai.expect(result).to.match(/^. /);
         });
 
+        it("shouldn't add space before a leading comma", function() {
+            // See https://www.linkedin.com/pulse/breakfast-interns-topic-career-prep-im-learning-lot-george-anders/
+            const text = ", a software-engineering intern. During his studies";
+            const result = replacePronouns(text, true);
+            chai.expect(result).to.match(/^, /);
+        });
+
         it("should mark up changes when requested", function() {
             const sentence = "I said she should go. ";
             const result = replacePronouns(sentence, true);

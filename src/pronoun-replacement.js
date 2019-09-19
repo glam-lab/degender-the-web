@@ -225,6 +225,10 @@ export function replacePronouns(text, showChanges) {
     // Step 7
     if (showChanges) {
         result = diffString(text, result);
+        if (result[0] === " " && text[0] !== " ") {
+            // if diffString introduced a leading space, remove it.
+            result = result.slice(1);
+        }
     }
 
     return result;
