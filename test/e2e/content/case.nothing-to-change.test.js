@@ -28,7 +28,7 @@ describe("When the page does not include any gender pronouns or stopwords, it", 
         expect(page.$$(selectors.del)).to.be.empty;
     });
 
-    it("should explain in the header", async function() {
+    it.skip("should explain in the header", async function() {
         const headerText = await page.$eval(selectors.header, e => e.innerText);
         expect(headerText).to.include("no gender pronouns");
     });

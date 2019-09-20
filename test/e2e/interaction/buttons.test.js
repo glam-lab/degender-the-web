@@ -11,22 +11,21 @@ function testButton(buttonName) {
             before(async function() {
                 page = await browser.newPage();
                 await page.goto(testURL + text);
-                await page.click(selectors[buttonName]);
+                // Disabled to be re-implemented for popup
+                //await page.click(selectors[buttonName]);
             });
 
             after(async function() {
                 await page.close();
             });
 
-            it("should dismiss the header", async function() {
-                page.waitForSelector(selectors.header, { hidden: true });
-            });
-
             const description =
                 "should " +
                 (restore ? "" : "not ") +
                 "restore the original page content";
-            it(description, async function() {
+
+            // Disabled to be re-implemented for popup
+            it.skip(description, async function() {
                 const contents = await page.$eval(
                     selectors.content,
                     e => e.innerText
