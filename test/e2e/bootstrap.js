@@ -9,9 +9,15 @@ const globalVariables = _.pick(global, [
     "selectors"
 ]);
 
+const extensionPath = "."; // Path of directory with manifest.json
+
 // puppeteer options
 const opts = {
-    headless: true
+    headless: false,
+    args: [
+        `--disable-extensions-except=${extensionPath}`,
+        `--load-extension=${extensionPath}`
+    ]
 };
 
 // expose variables
