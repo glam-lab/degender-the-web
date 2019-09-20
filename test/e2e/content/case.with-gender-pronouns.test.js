@@ -2,12 +2,14 @@
 /*globals describe, before, after, it, expect, browser, testURL, selectors */
 
 describe("When the page includes gender pronouns, it", function() {
+    this.timeout(20000);
     let page;
     const text = "She washed her motorcycle. He washed his car.";
 
     before(async function() {
         page = await browser.newPage();
         await page.goto(testURL + text);
+        await page.waitFor(2000); // Time for content script to load
     });
 
     after(async function() {

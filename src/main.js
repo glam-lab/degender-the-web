@@ -151,6 +151,8 @@ export function main() {
         );
     }
 
+    const restoreOriginalContent = makeRestorer(originalBodyHTML);
+
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
 
