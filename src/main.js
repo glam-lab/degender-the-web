@@ -152,6 +152,7 @@ export function main() {
     }
 
     const restoreOriginalContent = makeRestorer(originalBodyHTML);
+    const diffToggler = makeToggler(somethingToToggle);
 
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
@@ -166,6 +167,8 @@ export function main() {
             sendResponse({ statusText: message });
         } else if (request.type === "restoreOriginalContent") {
             restoreOriginalContent();
+        } else if (request.type === "diffToggle") {
+            diffToggler();
         } else {
             console.error(
                 "Content script received a request with unrecognized type " +
