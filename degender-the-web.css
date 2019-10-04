@@ -59,11 +59,13 @@
     strong.dgtw.show {
         background-color: #ffffcc; /* yellow */
         font-weight: inherit;
+        display: inline !important;
     }
 
     strong.dgtw.hide {
         font-weight: inherit;
         color: inherit;
+        display: inline !important;
     }
 
     ins.dgtw.show {
