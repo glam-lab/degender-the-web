@@ -21,8 +21,9 @@ import {
 import { createHeader, createButton } from "./dom-construction.js";
 
 const ids = {
-    header: "dgtw-header",
-    dismiss: "dgtw-dismiss",
+    header: "dgtw-header", // TODO Remove when removing header
+    dismiss: "dgtw-dismiss", // TODO Remove when removing header
+    status: "dgtw-status",
     restore: "dgtw-restore",
     toggle: "dgtw-toggle"
 };
