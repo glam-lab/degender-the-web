@@ -9,7 +9,7 @@ describe("When the page is in an excluded domain, it", function() {
     let originalContent;
 
     before(async function() {
-        this.timeout(8000); // Loading Facebook can take more than 7 seconds.
+        this.timeout(10000); // Loading Facebook can take more than 8 seconds.
         page = await browser.newPage();
         await page.goto(unsupportedURL);
 

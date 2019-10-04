@@ -153,28 +153,28 @@ export function main() {
     }
 
     const restoreOriginalContent = makeRestorer(originalBodyHTML);
-    const diffToggler = makeToggler(somethingToToggle);
+    const toggler = makeToggler(somethingToToggle);
+    let isToggled = false;
 
     // Display the header at the top of the page.
     document.body.insertBefore(header, document.body.childNodes[0]);
 
     // Respond to messages sent from the popup
-    chrome.runtime.onMessage.addListener(function(
-        request,
-        sender,
-        sendResponse
-    ) {
+    function handleMessage(request, sender, sendResponse) {
         if (request.type === "getStatus") {
-            sendResponse({ statusText: message });
+            sendResponse({ statusText: message, isToggled: isToggled });
         } else if (request.type === "restoreOriginalContent") {
             restoreOriginalContent();
-        } else if (request.type === "diffToggle") {
-            diffToggler();
+        } else if (request.type === "toggle") {
+            toggler();
+            isToggled = !isToggled;
         } else {
             console.error(
                 "Content script received a request with unrecognized type " +
                     request.type
             );
         }
-    });
+    }
+
+    chrome.runtime.onMessage.addListener(handleMessage);
 }

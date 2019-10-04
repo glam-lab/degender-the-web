@@ -57,12 +57,18 @@ describe("When the page includes gender pronouns, it", function() {
         await page.waitForSelector(selectors.del, { hidden: true });
     });
 
-    it("should have a button 'Show changes'", async function() {
-        const buttonText = await popup.$eval(
-            selectors.toggle,
+    it("should have a checkbox for 'Show changes' in the popup", async function() {
+        const toggleID = selectors.toggle.replace("#", "");
+        const labelText = await popup.$eval(
+            "[for=" + toggleID + "]",
             e => e.innerText
         );
-        expect(buttonText).to.equal("Show changes");
+        expect(labelText).to.equal("Show changes");
+
+        const checkbox = await popup.$$(
+            "input[type=checkbox]" + selectors.toggle
+        );
+        expect(checkbox).to.not.be.empty;
     });
 
     describe("When the user clicks 'Show changes', it", function() {
