@@ -5,6 +5,7 @@
 const ids = {
     header: "dgtw-header",
     dismiss: "dgtw-dismiss",
+    status: "dgtw-status",
     restore: "dgtw-restore",
     toggle: "dgtw-toggle"
 };
@@ -26,7 +27,8 @@ function sendMessageToContentScript(type, callback) {
 
 function updateStatus() {
     sendMessageToContentScript("getStatus", function(response) {
-        document.getElementById("dgtw-status").innerHTML = response.statusText;
+        document.getElementById(ids.status).innerHTML = response.statusText;
+        document.getElementById(ids.toggle).checked = response.isToggled;
     });
 }
 
@@ -46,15 +48,15 @@ function restoreOriginalContent() {
     sendMessageToContentScript("restoreOriginalContent");
 }
 
-function diffToggle() {
-    sendMessageToContentScript("diffToggle");
+function toggleSomething() {
+    sendMessageToContentScript("toggle");
 }
 
 document
     .getElementById(ids.restore)
     .addEventListener("click", restoreOriginalContent);
 
-document.getElementById(ids.toggle).addEventListener("click", diffToggle);
+document.getElementById(ids.toggle).addEventListener("click", toggleSomething);
 
 // Special parameter used for testing
 const isTest = getUrlParameter("test") === "true";
