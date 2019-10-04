@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../degender-the-web.css">
+    <!--TODO Put style in a new file -->
     <style>
     body {
         min-width: 200px;
@@ -37,9 +38,11 @@
     <button id="dgtw-restore">
         Restore original content
     </button>
-    <button id="dgtw-toggle">
-        Show changes
-    </button>
+    <div>
+        <!-- TODO Change ID to show-changes -->
+        <input type="checkbox" name="show-changes" id="dgtw-toggle">
+        <label for="dgtw-toggle">Show changes</label>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>
