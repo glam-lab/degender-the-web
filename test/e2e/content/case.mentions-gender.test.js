@@ -1,8 +1,9 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, selectors */
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the page includes the stopword 'gender', it", function() {
     let page;
+    let popup;
     const text =
         "This page is about gender pronouns. " +
         "Words like he and she should not be changed.";
@@ -10,10 +11,14 @@ describe("When the page includes the stopword 'gender', it", function() {
     before(async function() {
         page = await browser.newPage();
         await page.goto(testURL + text);
+
+        popup = await browser.newPage();
+        await popup.goto(popupURL);
     });
 
     after(async function() {
         await page.close();
+        await popup.close();
     });
 
     it("should still say 'he' and 'she'", async function() {
@@ -39,19 +44,26 @@ describe("When the page includes the stopword 'gender', it", function() {
         expect(await page.$$(selectors.highlight + ".show")).to.be.empty;
     });
 
-    it("should explain in the header", async function() {
-        const headerText = await page.$eval(selectors.header, e => e.innerText);
-        expect(headerText).to.include("gender");
+    it("should explain in the popup", async function() {
+        const statusText = await popup.$eval(
+            selectors.status,
+            e => e.innerText
+        );
+        expect(statusText).to.include("gender");
     });
 
-    it("should have a button to 'Show highlights'", async function() {
-        const buttonText = await page.$eval(selectors.toggle, e => e.innerText);
+    it.skip("should have a checkbox for 'Show highlights'", async function() {
+        // TODO Update this test when adding the checkbox
+        const buttonText = await popup.$eval(
+            selectors.toggle,
+            e => e.innerText
+        );
         expect(buttonText).to.equal("Show highlights");
     });
 
     describe("When the user clicks 'Show highlights'", function() {
         before(async function() {
-            await page.click(selectors.toggle);
+            await popup.click(selectors.toggle);
         });
         it("should show them all", async function() {
             expect(await page.$$(selectors.highlight + ".show")).not.to.be
@@ -69,7 +81,7 @@ describe("When the page includes the stopword 'gender', it", function() {
 
     describe("When the user clicks 'Hide highlights'", function() {
         before(async function() {
-            await page.click(selectors.toggle);
+            await popup.click(selectors.toggle);
         });
         it("should hide them all", async function() {
             expect(await page.$$(selectors.highlight + ".show")).to.be.empty;

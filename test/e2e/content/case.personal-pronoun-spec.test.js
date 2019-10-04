@@ -1,8 +1,9 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, selectors */
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the page includes personal pronoun specifiers, it", function() {
     let page;
+    let popup;
     const text =
         "This page discusses personal pronoun specifiers, " +
         "such as he/him, she/her, and they/them.";
@@ -11,10 +12,14 @@ describe("When the page includes personal pronoun specifiers, it", function() {
     before(async function() {
         page = await browser.newPage();
         await page.goto(testURL + text);
+
+        popup = await browser.newPage();
+        await popup.goto(popupURL);
     });
 
     after(async function() {
         await page.close();
+        await popup.close();
     });
 
     it("should still say 'he/him', 'she/her', and 'they/them'", async function() {
@@ -42,8 +47,11 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         expect(await page.$$(selectors.highlight + ".show")).to.be.empty;
     });
 
-    it("should explain in the header", async function() {
-        const headerText = await page.$eval(selectors.header, e => e.innerText);
+    it("should explain in the popup", async function() {
+        const headerText = await popup.$eval(
+            selectors.status,
+            e => e.innerText
+        );
         expect(headerText).to.include("personal pronoun");
     });
 

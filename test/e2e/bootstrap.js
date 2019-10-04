@@ -6,6 +6,8 @@ const globalVariables = _.pick(global, [
     "browser",
     "expect",
     "testURL",
+    "unsupportedURL",
+    "popupURL",
     "selectors"
 ]);
 
@@ -24,10 +26,15 @@ const opts = {
 before(function(done) {
     global.expect = expect;
     global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
+    global.unsupportedURL = "https://www.facebook.com";
+    global.popupURL =
+        "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
+    // TODO Does "dgtw" need to be specified for IDs in the popup?
     global.selectors = {
         content: "#text",
-        header: "#dgtw-header",
-        toggle: "#dgtw-toggle",
+        header: "#dgtw-header", // TODO Remove when removing header
+        toggle: "#dgtw-toggle", // TODO Remove when removing header
+        status: "#dgtw-status",
         restore: "#dgtw-restore",
         dismiss: "#dgtw-dismiss",
         ins: "ins.dgtw",
@@ -48,5 +55,7 @@ after(function() {
     global.browser = globalVariables.browser;
     global.expect = globalVariables.expect;
     global.testURL = globalVariables.testURL;
+    global.unsupportedURL = globalVariables.unsupportedURL;
+    global.popupURL = globalVariables.popupURL;
     global.selectors = globalVariables.selectors;
 });
