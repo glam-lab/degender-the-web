@@ -1,6 +1,7 @@
 /*global chrome */
 
-// TODO This is duplicated from main.js, make it more dry
+// TODO This is duplicated from main.js, make it more dry or remove it from
+// main.js when the header gets removed.
 const ids = {
     header: "dgtw-header",
     dismiss: "dgtw-dismiss",
@@ -15,8 +16,9 @@ function sendMessageToContentScript(type, callback) {
     const queryInfo = { active: !isTest, currentWindow: true };
 
     chrome.tabs.query(queryInfo, function(tabs) {
-        // Normally, this sends a message to the active tab.
-        // TODO Explain more
+        // Normally, only one tab matches the query.
+        // When testing, a blank tab might match the query. Using `length - 1`
+        // picks the correct target, the most recently opened background tab.
         const targetTab = tabs[tabs.length - 1].id;
         chrome.tabs.sendMessage(targetTab, { type: type }, callback);
     });
@@ -24,7 +26,7 @@ function sendMessageToContentScript(type, callback) {
 
 function updateStatus() {
     sendMessageToContentScript("getStatus", function(response) {
-        document.getElementById("status").innerHTML = response.statusText;
+        document.getElementById("dgtw-status").innerHTML = response.statusText;
     });
 }
 
@@ -54,6 +56,7 @@ document
 
 document.getElementById(ids.toggle).addEventListener("click", diffToggle);
 
+// Special parameter used for testing
 const isTest = getUrlParameter("test") === "true";
 
 // Display extension status when popup is opened

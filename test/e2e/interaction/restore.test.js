@@ -1,4 +1,4 @@
-/* globals describe, before, after, it, expect, browser, testURL, selectors */
+/* globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the user clicks on the restore button, it", function() {
     let popup;
@@ -7,10 +7,7 @@ describe("When the user clicks on the restore button, it", function() {
 
     before(async function() {
         popup = await browser.newPage();
-        // TODO Make this not hardcoded
-        await popup.goto(
-            "chrome-extension://ficejgipfhgebnbdlabicfgkkndjpaoo/src/popup.html"
-        );
+        await popup.goto(popupURL);
 
         page = await browser.newPage();
         await page.goto(testURL + text);

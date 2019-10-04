@@ -1,5 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, selectors */
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the page includes gender pronouns, it", function() {
     let page;
@@ -11,15 +11,12 @@ describe("When the page includes gender pronouns, it", function() {
         await page.goto(testURL + text);
 
         popup = await browser.newPage();
-        // TODO Make this not hardcoded
-        await popup.goto(
-            "chrome-extension://ficejgipfhgebnbdlabicfgkkndjpaoo/src/popup.html?test=true"
-        );
+        await popup.goto(popupURL);
     });
 
     after(async function() {
-        await popup.close();
         await page.close();
+        await popup.close();
     });
 
     it("should replace personal pronouns", async function() {
@@ -29,8 +26,11 @@ describe("When the page includes gender pronouns, it", function() {
         );
     });
 
-    it("should explain in the header", async function() {
-        const headerText = await page.$eval(selectors.header, e => e.innerText);
+    it("should explain in the popup", async function() {
+        const headerText = await popup.$eval(
+            selectors.status,
+            e => e.innerText
+        );
         expect(headerText).to.include("replaced gender pronouns");
     });
 
