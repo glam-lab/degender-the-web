@@ -14,7 +14,8 @@ describe("When the user clicks on the restore button, it", function() {
     });
 
     after(async function() {
-        await popup.close();
+        // For some reason, the popup is already closed.
+
         await page.close();
     });
 

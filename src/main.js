@@ -19,6 +19,7 @@ import {
     getPersonalPronounSpecs
 } from "./stopword-highlights.js";
 import { createHeader, createButton } from "./dom-construction.js";
+import { Status } from "./status.js";
 
 const ids = {
     header: "dgtw-header", // TODO Remove when removing header
@@ -91,6 +92,7 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
 export function main() {
     const originalBodyHTML = document.body.innerHTML;
     let message = "<i>Degender the Web</i> ";
+    let extensionStatus; // TODO Replace `message`
     let somethingToToggle;
 
     if (inExcludedDomain(location.host)) {
@@ -100,6 +102,7 @@ export function main() {
             " due to " +
             getWhyExcluded(location.host) +
             ".";
+        extensionStatus = Status.excludedDomain;
     } else if (hasPersonalPronounSpec(originalBodyHTML)) {
         replaceWordsInBody(
             hasPersonalPronounSpec,
@@ -108,11 +111,13 @@ export function main() {
         message += " did not rewrite gender pronouns because it ";
         message += " found personal pronoun specifiers on this page: ";
         message += getPersonalPronounSpecs(originalBodyHTML);
+        extensionStatus = Status.pronounSpecs;
         somethingToToggle = "highlights";
     } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
         message += " did not rewrite gender pronouns because it ";
         message += " found this page discusses gender.";
+        extensionStatus = Status.mentionsGender;
         somethingToToggle = "highlights";
     } else {
         if (hasReplaceablePronouns(originalBodyHTML)) {
@@ -120,11 +125,13 @@ export function main() {
         }
         if (document.body.innerHTML !== originalBodyHTML) {
             message += " has replaced gender pronouns on this page.";
+            extensionStatus = Status.replacedPronouns;
             somethingToToggle = "changes";
         } else {
             message +=
                 " found no gender pronouns in static content " +
                 " on this page.";
+            extensionStatus = Status.noGenderedPronouns;
         }
     }
 
@@ -162,7 +169,7 @@ export function main() {
     // Respond to messages sent from the popup
     function handleMessage(request, sender, sendResponse) {
         if (request.type === "getStatus") {
-            sendResponse({ statusText: message, isToggled: isToggled });
+            sendResponse({ status: extensionStatus, isToggled: isToggled });
         } else if (request.type === "restoreOriginalContent") {
             restoreOriginalContent();
         } else if (request.type === "toggle") {
