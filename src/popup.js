@@ -1,5 +1,16 @@
 /*global chrome */
 
+// TODO This import causes an error, since popup.js isn't a module.
+//import { Status } from "./status.js";
+// Here's the contents of status.js as a temporary solution.
+const Status = {
+    excludedDomain: "excludedDomain",
+    pronounSpecs: "pronounSpecs",
+    mentionsGender: "mentionsGender",
+    replacedPronouns: "replacedPronouns",
+    noGenderedPronouns: "noGenderedPronouns"
+};
+
 // TODO This is duplicated from main.js, make it more dry or remove it from
 // main.js when the header gets removed.
 const ids = {
@@ -25,10 +36,44 @@ function sendMessageToContentScript(type, callback) {
     });
 }
 
+function setStatusTo(newStatus) {
+    let statusText = "<i>Degender the web</i> ";
+    switch (newStatus) {
+        case Status.excludedDomain:
+            statusText += "does not run on this site due to ";
+            statusText += "technical incompatibility.";
+            break;
+        case Status.pronounSpecs:
+            statusText += "did not rewrite gender pronouns because it ";
+            statusText += "found personal pronoun specifiers on this page.";
+            break;
+        case Status.mentionsGender:
+            statusText += "did not rewrite gender pronouns because it ";
+            statusText += "found this page discusses gender.";
+            break;
+        case Status.replacedPronouns:
+            statusText += "has replaced gender pronouns on this page.";
+            break;
+        case Status.noGenderedPronouns:
+            statusText += "found no gender pronouns in static content ";
+            statusText += "on this page.";
+            break;
+        case Status.restoredOriginal:
+            statusText = "The original content has been restored.";
+            // TODO Show reload button to redo replacements.
+            break;
+    }
+    document.getElementById(ids.status).innerHTML = statusText;
+}
+
 function updateStatus() {
     sendMessageToContentScript("getStatus", function(response) {
-        document.getElementById(ids.status).innerHTML = response.statusText;
-        document.getElementById(ids.toggle).checked = response.isToggled;
+        if (response) {
+            setStatusTo(response.status);
+            document.getElementById(ids.toggle).checked = response.isToggled;
+        } else {
+            window.close();
+        }
     });
 }
 
