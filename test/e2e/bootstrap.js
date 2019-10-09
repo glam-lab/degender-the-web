@@ -33,10 +33,12 @@ before(function(done) {
     global.selectors = {
         content: "#text",
         header: "#dgtw-header", // TODO Remove when removing header
-        toggle: "#dgtw-toggle", // TODO Remove when removing header
         status: "#dgtw-status",
         restore: "#dgtw-restore",
-        dismiss: "#dgtw-dismiss",
+        showChanges: "#show-changes",
+        showChangesCheckbox: "#show-changes-checkbox",
+        showHighlights: "#show-highlights",
+        showHighlightsCheckbox: "#show-highlights-checkbox",
         ins: "ins.dgtw",
         del: "del.dgtw",
         highlight: "strong.dgtw"
