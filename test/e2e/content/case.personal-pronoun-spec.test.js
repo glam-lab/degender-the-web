@@ -55,8 +55,19 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         expect(headerText).to.include("personal pronoun");
     });
 
-    it("should have a 'Show highlights' button", async function() {
-        const buttonText = await page.$eval(selectors.toggle, e => e.innerText);
-        expect(buttonText).to.equal("Show highlights");
+    it("should have a visible 'Show highlights' checkbox", async function() {
+        // This gets the label associated with the checkbox
+        const highlightsID = selectors.showHighlightsCheckbox.replace("#", "");
+        const labelText = await popup.$eval(
+            "[for=" + highlightsID + "]",
+            e => e.innerText
+        );
+        expect(labelText).to.equal("Show highlights");
+
+        const isChecked = await popup.$eval(
+            "input[type=checkbox]" + selectors.showHighlightsCheckbox,
+            e => e.checked
+        );
+        expect(isChecked).to.be.false;
     });
 });

@@ -57,24 +57,36 @@ describe("When the page includes gender pronouns, it", function() {
         await page.waitForSelector(selectors.del, { hidden: true });
     });
 
-    it("should have a checkbox for 'Show changes' in the popup", async function() {
-        const toggleID = selectors.toggle.replace("#", "");
+    it("should have a visible 'Show changes' checkbox", async function() {
+        // This gets the label associated with the checkbox
+        const checkboxID = selectors.showChangesCheckbox.replace("#", "");
         const labelText = await popup.$eval(
-            "[for=" + toggleID + "]",
+            "[for=" + checkboxID + "]",
             e => e.innerText
         );
         expect(labelText).to.equal("Show changes");
 
-        const checkbox = await popup.$$(
-            "input[type=checkbox]" + selectors.toggle
+        const isChecked = await popup.$eval(
+            "input[type=checkbox]" + selectors.showChangesCheckbox,
+            e => e.checked
+        );
+        expect(isChecked).to.be.false;
+    });
+
+    it("should hide the 'Show highlights' checkbox", async function() {
+        const checkbox = await popup.waitForSelector(
+            selectors.showHighlightsCheckbox,
+            { visible: false }
         );
         expect(checkbox).to.not.be.empty;
     });
 
-    describe("When the user clicks 'Show changes', it", function() {
+    describe("When the user checks 'Show changes', it", function() {
         before(async function() {
-            await page.waitForSelector(selectors.toggle, { visible: true });
-            await popup.click(selectors.toggle);
+            await popup.waitForSelector(selectors.showChangesCheckbox, {
+                visible: true
+            });
+            await popup.click(selectors.showChangesCheckbox);
         });
 
         it("should show inserted and deleted text", async function() {
@@ -93,7 +105,7 @@ describe("When the page includes gender pronouns, it", function() {
 
     describe("When the user clicks 'Hide changes', it", function() {
         before(async function() {
-            await popup.click(selectors.toggle);
+            await popup.click(selectors.showChangesCheckbox);
         });
 
         it("should show only inserted text", async function() {
