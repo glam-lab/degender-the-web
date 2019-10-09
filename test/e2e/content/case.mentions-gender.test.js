@@ -52,48 +52,49 @@ describe("When the page includes the stopword 'gender', it", function() {
         expect(statusText).to.include("gender");
     });
 
-    it.skip("should have a checkbox for 'Show highlights'", async function() {
-        // TODO Update this test when adding the checkbox
-        const buttonText = await popup.$eval(
-            selectors.toggle,
+    it("should have a visible checkbox for 'Show highlights' in the popup", async function() {
+        // This gets the label associated with the checkbox
+        const checkboxID = selectors.showHighlightsCheckbox.replace("#", "");
+        const labelText = await popup.$eval(
+            "[for=" + checkboxID + "]",
             e => e.innerText
         );
-        expect(buttonText).to.equal("Show highlights");
+        expect(labelText).to.equal("Show highlights");
+
+        const isChecked = await popup.$eval(
+            "input[type=checkbox]" + selectors.showHighlightsCheckbox,
+            e => e.checked
+        );
+        expect(isChecked).to.be.false;
     });
 
-    describe("When the user clicks 'Show highlights'", function() {
+    it("should hide the 'Show changes' checkbox", async function() {
+        const checkbox = await popup.waitForSelector(
+            selectors.showChangesCheckbox,
+            { visible: false }
+        );
+        expect(checkbox).to.not.be.empty;
+    });
+
+    describe("When the user checks the 'Show highlights' box", function() {
         before(async function() {
-            await popup.click(selectors.toggle);
+            await popup.click(selectors.showHighlightsCheckbox);
         });
         it("should show them all", async function() {
             expect(await page.$$(selectors.highlight + ".show")).not.to.be
                 .empty;
             expect(await page.$$(selectors.highlight + ".hide")).to.be.empty;
         });
-        it("should change the button to 'Hide highlights'", async function() {
-            const buttonText = await page.$eval(
-                selectors.toggle,
-                e => e.innerText
-            );
-            expect(buttonText).to.equal("Hide highlights");
-        });
     });
 
-    describe("When the user clicks 'Hide highlights'", function() {
+    describe("When the user unchecks the 'Show highlights' box", function() {
         before(async function() {
-            await popup.click(selectors.toggle);
+            await popup.click(selectors.showHighlightsCheckbox);
         });
         it("should hide them all", async function() {
             expect(await page.$$(selectors.highlight + ".show")).to.be.empty;
             expect(await page.$$(selectors.highlight + ".hide")).not.to.be
                 .empty;
-        });
-        it("should change the button to 'Show highlights'", async function() {
-            const buttonText = await page.$eval(
-                selectors.toggle,
-                e => e.innerText
-            );
-            expect(buttonText).to.equal("Show highlights");
         });
     });
 });

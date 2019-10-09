@@ -9,7 +9,6 @@
     }
     button {
         cursor: pointer;
-        display: inline;
         width: auto;
         height: auto;
         line-height: initial;
@@ -30,18 +29,27 @@
         color: blue;
         background: rgba(222, 222, 222, 0.9);
     }
+    .show {
+        display: inline;
+    }
+    .hide {
+        display: none;
+    }
     </style>
   </head>
 
   <body>
     <div id="dgtw-status"></div>
-    <button id="dgtw-restore">
+    <button id="dgtw-restore" class="hide">
         Restore original content
     </button>
-    <div>
-        <!-- TODO Change ID to show-changes -->
-        <input type="checkbox" name="show-changes" id="dgtw-toggle">
-        <label for="dgtw-toggle">Show changes</label>
+    <div id="show-changes" class="hide">
+        <input type="checkbox" id="show-changes-checkbox">
+        <label for="show-changes-checkbox">Show changes</label>
+    </div>
+    <div id="show-highlights" class="hide">
+        <input type="checkbox" id="show-highlights-checkbox">
+        <label for="show-highlights-checkbox">Show highlights</label>
     </div>
     <script src="popup.js"></script>
   </body>
