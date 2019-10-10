@@ -1,4 +1,4 @@
-/*globals describe, before, after, it, expect, browser, testURL, selectors */
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 function testButton(buttonName) {
     describe(
@@ -7,12 +7,16 @@ function testButton(buttonName) {
             const text = "He washed his car.";
             const restore = buttonName === "restore";
             let page;
+            let popup;
 
             before(async function() {
                 page = await browser.newPage();
                 await page.goto(testURL + text);
-                // Disabled to be re-implemented for popup
-                //await page.click(selectors[buttonName]);
+
+                popup = await browser.newPage();
+                await popup.goto(popupURL);
+
+                await popup.click(selectors[buttonName]);
             });
 
             after(async function() {
@@ -24,8 +28,7 @@ function testButton(buttonName) {
                 (restore ? "" : "not ") +
                 "restore the original page content";
 
-            // Disabled to be re-implemented for popup
-            it.skip(description, async function() {
+            it(description, async function() {
                 const contents = await page.$eval(
                     selectors.content,
                     e => e.innerText
@@ -40,5 +43,4 @@ function testButton(buttonName) {
     );
 }
 
-testButton("dismiss");
 testButton("restore");
