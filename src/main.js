@@ -91,8 +91,9 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
 // Called in content.js
 export function main() {
     const originalBodyHTML = document.body.innerHTML;
+    // TODO Remove `message` when removing header
     let message = "<i>Degender the Web</i> ";
-    let extensionStatus; // TODO Replace `message`
+    let extensionStatus;
     let somethingToToggle;
 
     if (inExcludedDomain(location.host)) {
