@@ -1,0 +1,31 @@
+body {
+    min-width: 200px;
+}
+button {
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    line-height: initial;
+    padding: 0.5ex;
+    margin: 1ex;
+    vertical-align: middle;
+    font: Arial;
+    font-family: "Arial", sans-serif;
+    font-size: small;
+    font-style: initial;
+    font-weight: initial;
+    font-variant: initial;
+    text-transform: none;
+    text-align: center;
+    text-shadow: none;
+    border: 1pt solid #cccccc;
+    border-radius: 3px;
+    color: blue;
+    background: rgba(222, 222, 222, 0.9);
+}
+.show {
+    display: inline;
+}
+.hide {
+    display: none;
+}
