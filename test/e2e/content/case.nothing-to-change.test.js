@@ -41,8 +41,19 @@ describe("When the page does not include any gender pronouns or stopwords, it", 
         expect(statusText).to.include("no gender pronouns");
     });
 
-    it.skip("should not have a 'Show changes/highlights' button", async function() {
-        // TODO Currently, the button is always visible.
-        expect(await popup.$$(selectors.toggle)).to.be.empty;
+    it("should hide the 'Show changes' checkbox", async function() {
+        const checkbox = await popup.waitForSelector(
+            selectors.showChangesCheckbox,
+            { visible: false }
+        );
+        expect(checkbox).to.not.be.empty;
+    });
+
+    it("should hide the 'Show highlights' checkbox", async function() {
+        const checkbox = await popup.waitForSelector(
+            selectors.showHighlightsCheckbox,
+            { visible: false }
+        );
+        expect(checkbox).to.not.be.empty;
     });
 });

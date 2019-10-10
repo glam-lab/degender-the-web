@@ -68,7 +68,7 @@ function setStatusTo(newStatus) {
             // Show highlight checkbox
             hideElement(ids.showChanges);
             showElement(ids.showHighlights);
-            hideElement(ids.restore);
+            showElement(ids.restore);
             break;
 
         case Status.mentionsGender:
@@ -78,7 +78,7 @@ function setStatusTo(newStatus) {
             // Show highlight checkbox
             hideElement(ids.showChanges);
             showElement(ids.showHighlights);
-            hideElement(ids.restore);
+            showElement(ids.restore);
             break;
 
         case Status.replacedPronouns:
@@ -87,7 +87,7 @@ function setStatusTo(newStatus) {
             // Show "Show changes" checkbox
             showElement(ids.showChanges);
             hideElement(ids.showHighlights);
-            hideElement(ids.restore);
+            showElement(ids.restore);
             break;
 
         case Status.noGenderedPronouns:
@@ -101,6 +101,7 @@ function setStatusTo(newStatus) {
             break;
 
         case Status.restoredOriginal:
+            // TODO This is not yet used.
             statusText = "The original content has been restored.";
 
             // TODO Show reload button to redo replacements.

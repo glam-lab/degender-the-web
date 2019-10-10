@@ -93,17 +93,9 @@ describe("When the page includes gender pronouns, it", function() {
             await page.waitForSelector(selectors.ins, { visible: true });
             await page.waitForSelector(selectors.del, { visible: true });
         });
-
-        it.skip("should change the button to 'Hide changes'", async function() {
-            const buttonText = await popup.$eval(
-                selectors.toggle,
-                e => e.innerText
-            );
-            expect(buttonText).to.equal("Hide changes");
-        });
     });
 
-    describe("When the user clicks 'Hide changes', it", function() {
+    describe("When the user unchecks 'Show changes', it", function() {
         before(async function() {
             await popup.click(selectors.showChangesCheckbox);
         });
@@ -111,14 +103,6 @@ describe("When the page includes gender pronouns, it", function() {
         it("should show only inserted text", async function() {
             await page.waitForSelector(selectors.ins, { visible: true });
             await page.waitForSelector(selectors.del, { visible: false });
-        });
-
-        it.skip("should change the button to 'Show changes'", async function() {
-            const buttonText = await popup.$eval(
-                selectors.toggle,
-                e => e.innerText
-            );
-            expect(buttonText).to.equal("Show changes");
         });
     });
 });
