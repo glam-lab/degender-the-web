@@ -1,15 +1,6 @@
 /*global chrome */
 
-// TODO This import causes an error, since popup.js isn't a module.
-//import { Status } from "./status.js";
-// Here's the contents of status.js as a temporary solution.
-const Status = {
-    excludedDomain: "excludedDomain",
-    pronounSpecs: "pronounSpecs",
-    mentionsGender: "mentionsGender",
-    replacedPronouns: "replacedPronouns",
-    noGenderedPronouns: "noGenderedPronouns"
-};
+import { Status } from "./status.js";
 
 // TODO This is duplicated from main.js, make it more dry or remove it from
 // main.js when the header gets removed.
