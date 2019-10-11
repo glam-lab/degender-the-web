@@ -5,43 +5,21 @@ import {
     replacePronouns
 } from "./pronoun-replacement.js";
 import { textNodesUnder, isEditable } from "./dom-traversal.js";
-import {
-    inExcludedDomain,
-    getExcludedDomain,
-    getWhyExcluded
-} from "./excluded-domains.js";
+import { inExcludedDomain } from "./excluded-domains.js";
 import {
     mentionsGender,
     visiblyMentionsGender,
     highlightGender,
     hasPersonalPronounSpec,
-    highlightPersonalPronounSpecs,
-    getPersonalPronounSpecs
+    highlightPersonalPronounSpecs
 } from "./stopword-highlights.js";
-import { createHeader, createButton } from "./dom-construction.js";
 import { Status } from "./status.js";
-
-const ids = {
-    header: "dgtw-header", // TODO Remove when removing header
-    dismiss: "dgtw-dismiss", // TODO Remove when removing header
-    status: "dgtw-status",
-    restore: "dgtw-restore",
-    toggle: "dgtw-toggle"
-};
 
 // Make a function to restore the original page content.
 // Expects to receive document.body.innerHTML.
 function makeRestorer(originalHTML) {
     return function() {
         document.body.innerHTML = originalHTML;
-    };
-}
-
-// Make a function to dismiss the header.
-function makeDismisser() {
-    return function() {
-        const header = document.querySelector("#" + ids.header);
-        header.style.display = "none";
     };
 }
 
@@ -58,10 +36,6 @@ function makeToggler(somethingToToggle) {
             node.classList.add(showMarkup ? "show" : "hide");
             node.classList.remove(showMarkup ? "hide" : "show");
         });
-
-        // Toggle the button text
-        const button = document.querySelector("#" + ids.toggle);
-        button.innerHTML = (showMarkup ? "Hide " : "Show ") + somethingToToggle;
     };
 }
 
@@ -91,33 +65,20 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
 // Called in content.js
 export function main() {
     const originalBodyHTML = document.body.innerHTML;
-    // TODO Remove `message` when removing header
-    let message = "<i>Degender the Web</i> ";
     let extensionStatus;
     let somethingToToggle;
 
     if (inExcludedDomain(location.host)) {
-        message +=
-            " does not run on " +
-            getExcludedDomain(location.host) +
-            " due to " +
-            getWhyExcluded(location.host) +
-            ".";
         extensionStatus = Status.excludedDomain;
     } else if (hasPersonalPronounSpec(originalBodyHTML)) {
         replaceWordsInBody(
             hasPersonalPronounSpec,
             highlightPersonalPronounSpecs
         );
-        message += " did not rewrite gender pronouns because it ";
-        message += " found personal pronoun specifiers on this page: ";
-        message += getPersonalPronounSpecs(originalBodyHTML);
         extensionStatus = Status.pronounSpecs;
         somethingToToggle = "highlights";
     } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
-        message += " did not rewrite gender pronouns because it ";
-        message += " found this page discusses gender.";
         extensionStatus = Status.mentionsGender;
         somethingToToggle = "highlights";
     } else {
@@ -125,47 +86,16 @@ export function main() {
             replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
         }
         if (document.body.innerHTML !== originalBodyHTML) {
-            message += " has replaced gender pronouns on this page.";
             extensionStatus = Status.replacedPronouns;
             somethingToToggle = "changes";
         } else {
-            message +=
-                " found no gender pronouns in static content " +
-                " on this page.";
             extensionStatus = Status.noGenderedPronouns;
         }
-    }
-
-    // Create the header for Degender the Web, with the constructed message.
-    const header = createHeader(ids.header, message);
-
-    // Create the buttons.
-    header.appendChild(
-        createButton(ids.dismiss, "Dismiss this header", makeDismisser())
-    );
-    header.appendChild(
-        createButton(
-            ids.restore,
-            "Restore original content",
-            makeRestorer(originalBodyHTML)
-        )
-    );
-    if (somethingToToggle) {
-        header.appendChild(
-            createButton(
-                ids.toggle,
-                "Show " + somethingToToggle,
-                makeToggler(somethingToToggle)
-            )
-        );
     }
 
     const restoreOriginalContent = makeRestorer(originalBodyHTML);
     const toggler = makeToggler(somethingToToggle);
     let isToggled = false;
-
-    // Display the header at the top of the page.
-    document.body.insertBefore(header, document.body.childNodes[0]);
 
     // Respond to messages sent from the popup
     function handleMessage(request, sender, sendResponse) {
