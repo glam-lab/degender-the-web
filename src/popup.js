@@ -2,10 +2,7 @@
 
 import { Status } from "./status.js";
 
-// TODO This is duplicated from main.js, make it more dry or remove it from
-// main.js when the header gets removed.
 const ids = {
-    header: "dgtw-header",
     status: "dgtw-status",
     restore: "dgtw-restore",
     showChanges: "show-changes",
@@ -153,7 +150,7 @@ document
     .getElementById(ids.showHighlightsCheckbox)
     .addEventListener("click", toggleSomething);
 
-// Special parameter used for testing
+// Special URL parameter used for testing
 const isTest = getUrlParameter("test") === "true";
 
 // Display extension status when popup is opened
