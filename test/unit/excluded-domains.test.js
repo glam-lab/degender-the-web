@@ -3,7 +3,6 @@
 import { excludedDomains } from "../../data/excluded-domains.js";
 import {
     inExcludedDomain,
-    getExcludedDomain,
     getWhyExcluded
 } from "../../src/excluded-domains.js";
 
@@ -30,18 +29,6 @@ describe("excluded-domains.js", function() {
         });
         it("should be false if the domain is a superstring", function() {
             chai.expect(inExcludedDomain("www.my" + domains[0])).to.be.false;
-        });
-    });
-    describe("getExcludedDomain", function() {
-        it("should correctly identify any listed domain", function() {
-            domains.forEach(function(d) {
-                chai.expect(getExcludedDomain("www." + d)).to.equal(d);
-            });
-        });
-        it("should return null for hosts in unlisted domains", function() {
-            chai.expect(getExcludedDomain("localhost")).to.be.null;
-            chai.expect(getExcludedDomain("my.server.name.here")).to.be.null;
-            chai.expect(getExcludedDomain("www.my" + domains[0])).to.be.null;
         });
     });
     describe("getWhyExcluded", function() {

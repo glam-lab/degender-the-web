@@ -5,7 +5,7 @@ import {
     replacePronouns
 } from "./pronoun-replacement.js";
 import { textNodesUnder, isEditable } from "./dom-traversal.js";
-import { inExcludedDomain } from "./excluded-domains.js";
+import { inExcludedDomain, getWhyExcluded } from "./excluded-domains.js";
 import {
     mentionsGender,
     visiblyMentionsGender,
@@ -62,6 +62,14 @@ function replaceWordsInBody(needsReplacement, replaceFunction) {
     }
 }
 
+function ifExcludedWhy(host) {
+    if (inExcludedDomain(host)) {
+        return getWhyExcluded(host);
+    } else {
+        return null;
+    }
+}
+
 // Called in content.js
 export function main() {
     const originalBodyHTML = document.body.innerHTML;
@@ -100,7 +108,11 @@ export function main() {
     // Respond to messages sent from the popup
     function handleMessage(request, sender, sendResponse) {
         if (request.type === "getStatus") {
-            sendResponse({ status: extensionStatus, isToggled: isToggled });
+            sendResponse({
+                status: extensionStatus,
+                isToggled: isToggled,
+                whyExcluded: ifExcludedWhy(location.host)
+            });
         } else if (request.type === "restoreOriginalContent") {
             restoreOriginalContent();
         } else if (request.type === "toggle") {
