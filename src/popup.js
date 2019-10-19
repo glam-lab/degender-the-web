@@ -36,12 +36,12 @@ function hideElement(id) {
     document.getElementById(id).classList.add("hide");
 }
 
-function setStatusTo(newStatus) {
+function setStatusTo(newStatus, whyExcluded) {
     let statusText = "<i>Degender the web</i> ";
     switch (newStatus) {
         case Status.excludedDomain:
             statusText += "does not run on this site due to ";
-            statusText += "technical incompatibility.";
+            statusText += whyExcluded + ".";
 
             // Show no buttons
             hideElement(ids.showChanges);
@@ -104,7 +104,7 @@ function setStatusTo(newStatus) {
 function updateStatus() {
     sendMessageToContentScript("getStatus", function(response) {
         if (response) {
-            setStatusTo(response.status);
+            setStatusTo(response.status, response.whyExcluded);
 
             // Only one checkbox is shown at a time, but either can be
             // represented by `isToggled`
