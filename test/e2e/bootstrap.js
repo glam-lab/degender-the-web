@@ -29,12 +29,10 @@ before(function(done) {
     global.unsupportedURL = "https://www.facebook.com";
     global.popupURL =
         "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
-    // TODO Does "dgtw" need to be specified for IDs in the popup?
     global.selectors = {
         content: "#text",
-        header: "#dgtw-header", // TODO Remove when removing header
-        status: "#dgtw-status",
-        restore: "#dgtw-restore",
+        status: "#status",
+        restore: "#restore",
         showChanges: "#show-changes",
         showChangesCheckbox: "#show-changes-checkbox",
         showHighlights: "#show-highlights",
