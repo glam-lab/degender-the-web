@@ -27,11 +27,11 @@ describe("When the page includes gender pronouns, it", function() {
     });
 
     it("should explain in the popup", async function() {
-        const headerText = await popup.$eval(
+        const statusText = await popup.$eval(
             selectors.status,
             e => e.innerText
         );
-        expect(headerText).to.include("replaced gender pronouns");
+        expect(statusText).to.include("replaced gender pronouns");
     });
 
     it("should not have any changes", async function() {

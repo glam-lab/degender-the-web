@@ -115,6 +115,8 @@ export function main() {
             });
         } else if (request.type === "restoreOriginalContent") {
             restoreOriginalContent();
+            extensionStatus = Status.restoredOriginal;
+            sendResponse({ status: extensionStatus, isToggled: isToggled });
         } else if (request.type === "toggle") {
             toggler();
             isToggled = !isToggled;
