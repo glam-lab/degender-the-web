@@ -3,8 +3,8 @@
 import { Status } from "./status.js";
 
 const ids = {
-    status: "dgtw-status",
-    restore: "dgtw-restore",
+    status: "status",
+    restore: "restore",
     showChanges: "show-changes",
     showChangesCheckbox: "show-changes-checkbox",
     showHighlights: "show-highlights",
