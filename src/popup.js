@@ -89,7 +89,6 @@ function setStatusTo(newStatus, whyExcluded) {
             break;
 
         case Status.restoredOriginal:
-            // TODO This is not yet used.
             statusText = "The original content has been restored.";
 
             // TODO Show reload button to redo replacements.
@@ -102,21 +101,23 @@ function setStatusTo(newStatus, whyExcluded) {
 }
 
 function updateStatus() {
-    sendMessageToContentScript("getStatus", function(response) {
-        if (response) {
-            setStatusTo(response.status, response.whyExcluded);
+    sendMessageToContentScript("getStatus", updateStatusCallback);
+}
 
-            // Only one checkbox is shown at a time, but either can be
-            // represented by `isToggled`
-            document.getElementById(ids.showChangesCheckbox).checked =
-                response.isToggled;
-            document.getElementById(ids.showHighlightsCheckbox).checked =
-                response.isToggled;
-        } else {
-            // This is probably a system page and the popup shouldn't display.
-            window.close();
-        }
-    });
+function updateStatusCallback(response) {
+    if (response) {
+        setStatusTo(response.status, response.whyExcluded);
+
+        // Only one checkbox is shown at a time, but either can be
+        // represented by `isToggled`
+        document.getElementById(ids.showChangesCheckbox).checked =
+            response.isToggled;
+        document.getElementById(ids.showHighlightsCheckbox).checked =
+            response.isToggled;
+    } else {
+        // This is probably a system page and the popup shouldn't display.
+        window.close();
+    }
 }
 
 // From https://stackoverflow.com/a/29998214
@@ -132,7 +133,7 @@ function getUrlParameter(sParam) {
 }
 
 function restoreOriginalContent() {
-    sendMessageToContentScript("restoreOriginalContent");
+    sendMessageToContentScript("restoreOriginalContent", updateStatusCallback);
 }
 
 function toggleSomething() {
