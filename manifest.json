@@ -3,7 +3,7 @@
     "name": "Degender the Web",
     "short_name": "DGtW",
     "description": "'Degender the Web' replaces gendered pronouns on most Web pages with 'they/them/their'.",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn0jV5ygxtziT5VJp49Lp3MlkJ7gwVBcHQnKlXYcl8galOK0ZNWAYT97FjnmlubfX6jdHmP7XlBwGbDcHUNFL5yqvA/Yksd5bjcPPTiikBZ0ECBprecSqdxrLRcm+fxLe37TOcWQi3VcnNIMByEGbFJ13zm5Dk7qOoFzz9P0qqRl0ZrL/5IKheE21B97K4cQiLo8FU9LAYcHOn0i21ndIAvhMdwiqtPcScfEJwiebAzHndlhyJ6/UYoz+Eukcchrtko0QKbXqLGVawfTunFOudYnfil7/MAzlmr7oTm7Bs7/tbdz9oS0R33nOLO3hrZ2hMWc2E/GKsSoKnS82r5fOaQIDAQAB",
     "browser_action": {
         "default_title": "Degender the Web",
