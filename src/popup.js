@@ -91,7 +91,7 @@ function setStatusTo(newStatus, whyExcluded) {
         case Status.restoredOriginal:
             statusText = "The original content has been restored.";
 
-            // TODO Show reload button to redo replacements.
+            // Show no buttons.
             hideElement(ids.showChanges);
             hideElement(ids.showHighlights);
             hideElement(ids.restore);
