@@ -3,6 +3,7 @@ const Status = {
     pronounSpecs: "pronounSpecs",
     mentionsGender: "mentionsGender",
     replacedPronouns: "replacedPronouns",
-    noGenderedPronouns: "noGenderedPronouns"
+    noGenderedPronouns: "noGenderedPronouns",
+    restoredOriginal: "restoredOriginal"
 };
 export { Status };
