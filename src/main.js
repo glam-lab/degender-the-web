@@ -120,6 +120,8 @@ export function main() {
         } else if (request.type === "toggle") {
             toggler();
             isToggled = !isToggled;
+        } else if (request.type === "reloadPage") {
+            window.location.reload();
         } else {
             console.error(
                 "Content script received a request with unrecognized type " +

@@ -5,6 +5,7 @@ import { Status } from "./status.js";
 const ids = {
     status: "status",
     restore: "restore",
+    reloadPage: "reload-page",
     showChanges: "show-changes",
     showChangesCheckbox: "show-changes-checkbox",
     showHighlights: "show-highlights",
@@ -47,6 +48,7 @@ function setStatusTo(newStatus, whyExcluded) {
             hideElement(ids.showChanges);
             hideElement(ids.showHighlights);
             hideElement(ids.restore);
+            hideElement(ids.reloadPage);
             break;
 
         case Status.pronounSpecs:
@@ -57,6 +59,7 @@ function setStatusTo(newStatus, whyExcluded) {
             hideElement(ids.showChanges);
             showElement(ids.showHighlights);
             showElement(ids.restore);
+            hideElement(ids.reloadPage);
             break;
 
         case Status.mentionsGender:
@@ -67,6 +70,7 @@ function setStatusTo(newStatus, whyExcluded) {
             hideElement(ids.showChanges);
             showElement(ids.showHighlights);
             showElement(ids.restore);
+            hideElement(ids.reloadPage);
             break;
 
         case Status.replacedPronouns:
@@ -76,16 +80,18 @@ function setStatusTo(newStatus, whyExcluded) {
             showElement(ids.showChanges);
             hideElement(ids.showHighlights);
             showElement(ids.restore);
+            hideElement(ids.reloadPage);
             break;
 
         case Status.noGenderedPronouns:
             statusText += "found no gender pronouns in static content ";
             statusText += "on this page.";
 
-            // Show no buttons.
+            // Show only the reload button
             hideElement(ids.showChanges);
             hideElement(ids.showHighlights);
             hideElement(ids.restore);
+            hideElement(ids.reloadPage);
             break;
 
         case Status.restoredOriginal:
@@ -95,6 +101,7 @@ function setStatusTo(newStatus, whyExcluded) {
             hideElement(ids.showChanges);
             hideElement(ids.showHighlights);
             hideElement(ids.restore);
+            showElement(ids.reloadPage);
             break;
     }
     document.getElementById(ids.status).innerHTML = statusText;
@@ -140,9 +147,16 @@ function toggleSomething() {
     sendMessageToContentScript("toggle");
 }
 
+function reloadPage() {
+    sendMessageToContentScript("reloadPage");
+    window.close();
+}
+
 document
     .getElementById(ids.restore)
     .addEventListener("click", restoreOriginalContent);
+
+document.getElementById(ids.reloadPage).addEventListener("click", reloadPage);
 
 document
     .getElementById(ids.showChangesCheckbox)
