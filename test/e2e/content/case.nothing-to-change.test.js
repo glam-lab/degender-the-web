@@ -41,19 +41,27 @@ describe("When the page does not include any gender pronouns or stopwords, it", 
         expect(statusText).to.include("no gender pronouns");
     });
 
-    it("should hide the 'Show changes' checkbox", async function() {
-        const checkbox = await popup.waitForSelector(
-            selectors.showChangesCheckbox,
-            { visible: false }
-        );
-        expect(checkbox).to.not.be.empty;
+    it("should not show the 'Show changes' checkbox", async function() {
+        await popup.waitForSelector(selectors.showChangesCheckbox, {
+            hidden: true
+        });
     });
 
-    it("should hide the 'Show highlights' checkbox", async function() {
-        const checkbox = await popup.waitForSelector(
-            selectors.showHighlightsCheckbox,
-            { visible: false }
-        );
-        expect(checkbox).to.not.be.empty;
+    it("should not show the 'Show highlights' checkbox", async function() {
+        await popup.waitForSelector(selectors.showHighlightsCheckbox, {
+            hidden: true
+        });
+    });
+
+    it("should not show the 'Restore original content' button", async function() {
+        await page.waitForSelector(selectors.restore, {
+            hidden: true
+        });
+    });
+
+    it("should not show the 'Reload page' button", async function() {
+        await page.waitForSelector(selectors.reloadPage, {
+            hidden: true
+        });
     });
 });

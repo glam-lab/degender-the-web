@@ -55,7 +55,7 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         expect(headerText).to.include("personal pronoun");
     });
 
-    it("should have a visible 'Show highlights' checkbox", async function() {
+    it("should show the 'Show highlights' checkbox", async function() {
         // This gets the label associated with the checkbox
         const highlightsID = selectors.showHighlightsCheckbox.replace("#", "");
         const labelText = await popup.$eval(
@@ -64,10 +64,39 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         );
         expect(labelText).to.equal("Show highlights");
 
+        await popup.waitForSelector(
+            "input[type=checkbox]" + selectors.showHighlightsCheckbox,
+            { visible: true }
+        );
+
         const isChecked = await popup.$eval(
             "input[type=checkbox]" + selectors.showHighlightsCheckbox,
             e => e.checked
         );
         expect(isChecked).to.be.false;
+    });
+
+    it("should not show the 'Show changes' checkbox", async function() {
+        await page.waitForSelector(selectors.showChanges, {
+            hidden: true
+        });
+    });
+
+    it("should show the 'Restore original content' button", async function() {
+        // Make sure the button is visible
+        await popup.waitForSelector(selectors.restore, { visible: true });
+
+        // Make sure the button is correctly labelled
+        const buttonText = await popup.$eval(
+            selectors.restore,
+            e => e.innerText
+        );
+        expect(buttonText).to.equal("Restore original content");
+    });
+
+    it("should not show the 'Reload page' button", async function() {
+        await page.waitForSelector(selectors.reloadPage, {
+            hidden: true
+        });
     });
 });

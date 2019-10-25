@@ -41,9 +41,19 @@ describe("When the user clicks on the restore button, it", function() {
         await page.waitForSelector(selectors.showHighlights, { hidden: true });
     });
 
-    it("should not show the 'Restore' button", async function() {
-        await page.waitForSelector(selectors.restoreOriginalContent, {
+    it("should not show the 'Restore original content' button", async function() {
+        await page.waitForSelector(selectors.restore, {
             hidden: true
         });
+    });
+
+    it("should show the 'Reload page' button", async function() {
+        const buttonText = await popup.$eval(
+            selectors.reloadPage,
+            e => e.innerText
+        );
+        expect(buttonText).to.equal("Reload page");
+
+        await popup.waitForSelector(selectors.reloadPage, { visible: true });
     });
 });
