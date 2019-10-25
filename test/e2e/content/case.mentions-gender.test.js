@@ -52,7 +52,7 @@ describe("When the page includes the stopword 'gender', it", function() {
         expect(statusText).to.include("gender");
     });
 
-    it("should have a visible checkbox for 'Show highlights' in the popup", async function() {
+    it("should show the 'Show highlights' checkbox", async function() {
         // This gets the label associated with the checkbox
         const checkboxID = selectors.showHighlightsCheckbox.replace("#", "");
         const labelText = await popup.$eval(
@@ -61,6 +61,11 @@ describe("When the page includes the stopword 'gender', it", function() {
         );
         expect(labelText).to.equal("Show highlights");
 
+        await popup.waitForSelector(
+            "input[type=checkbox]" + selectors.showHighlightsCheckbox,
+            { visible: true }
+        );
+
         const isChecked = await popup.$eval(
             "input[type=checkbox]" + selectors.showHighlightsCheckbox,
             e => e.checked
@@ -68,12 +73,24 @@ describe("When the page includes the stopword 'gender', it", function() {
         expect(isChecked).to.be.false;
     });
 
-    it("should hide the 'Show changes' checkbox", async function() {
+    it("should not show the 'Show changes' checkbox", async function() {
         const checkbox = await popup.waitForSelector(
             selectors.showChangesCheckbox,
             { visible: false }
         );
         expect(checkbox).to.not.be.empty;
+    });
+
+    it("should not show the 'Reload page' button", async function() {
+        await page.waitForSelector(selectors.reloadPage, {
+            hidden: true
+        });
+    });
+
+    it("should not show the 'Restore original content' button", async function() {
+        await page.waitForSelector(selectors.restore, {
+            hidden: true
+        });
     });
 
     describe("When the user checks the 'Show highlights' box", function() {

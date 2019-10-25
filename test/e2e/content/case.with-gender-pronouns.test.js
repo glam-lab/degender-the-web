@@ -57,7 +57,7 @@ describe("When the page includes gender pronouns, it", function() {
         await page.waitForSelector(selectors.del, { hidden: true });
     });
 
-    it("should have a visible 'Show changes' checkbox", async function() {
+    it("should show the 'Show changes' checkbox", async function() {
         // This gets the label associated with the checkbox
         const checkboxID = selectors.showChangesCheckbox.replace("#", "");
         const labelText = await popup.$eval(
@@ -66,6 +66,11 @@ describe("When the page includes gender pronouns, it", function() {
         );
         expect(labelText).to.equal("Show changes");
 
+        await popup.waitForSelector(
+            "input[type=checkbox]" + selectors.showChangesCheckbox,
+            { visible: true }
+        );
+
         const isChecked = await popup.$eval(
             "input[type=checkbox]" + selectors.showChangesCheckbox,
             e => e.checked
@@ -73,12 +78,18 @@ describe("When the page includes gender pronouns, it", function() {
         expect(isChecked).to.be.false;
     });
 
-    it("should hide the 'Show highlights' checkbox", async function() {
-        const checkbox = await popup.waitForSelector(
-            selectors.showHighlightsCheckbox,
-            { visible: false }
-        );
-        expect(checkbox).to.not.be.empty;
+    it("should not show the 'Show highlights' checkbox", async function() {
+        await popup.waitForSelector(selectors.showHighlightsCheckbox, {
+            visible: false
+        });
+    });
+
+    it("should not show the 'Restore original content' button", async function() {
+        await page.waitForSelector(selectors.restore, { hidden: true });
+    });
+
+    it("should not show the 'Reload page' button", async function() {
+        await popup.waitForSelector(selectors.reloadPage, { hidden: true });
     });
 
     describe("When the user checks 'Show changes', it", function() {

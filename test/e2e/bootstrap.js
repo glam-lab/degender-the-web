@@ -33,6 +33,7 @@ before(function(done) {
         content: "#text",
         status: "#status",
         restore: "#restore",
+        reloadPage: "#reload-page",
         showChanges: "#show-changes",
         showChangesCheckbox: "#show-changes-checkbox",
         showHighlights: "#show-highlights",

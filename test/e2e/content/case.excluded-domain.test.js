@@ -39,7 +39,27 @@ describe("When the page is in an excluded domain, it", function() {
         expect(statusText).to.include("does not run on");
     });
 
-    it("the popup should not have a 'Show changes/highlights' button", async function() {
-        expect(page.$(selectors.toggle)).to.be.empty;
+    it("should not show the 'Show changes' checkbox", async function() {
+        await page.waitForSelector(selectors.showChanges, {
+            hidden: true
+        });
+    });
+
+    it("should not show the 'Show highlights' checkbox", async function() {
+        await page.waitForSelector(selectors.showHighlights, {
+            hidden: true
+        });
+    });
+
+    it("should not show the 'Restore original content' button", async function() {
+        await page.waitForSelector(selectors.restore, {
+            hidden: true
+        });
+    });
+
+    it("should not show the 'Reload page' button", async function() {
+        await page.waitForSelector(selectors.reloadPage, {
+            hidden: true
+        });
     });
 });
