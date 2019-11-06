@@ -14,11 +14,18 @@
  * Reports page views and events to Google Analytics.
  * toSend should be an object with hitType, eventCategory, and eventAction
  * fields.
+ * Does nothing if the user has disabled analytics.
  *
  * More info:
  * https://developers.google.com/analytics/devguides/collection/analyticsjs/events
  */
 export function sendAnalytics(toSend) {
+    if (!chrome.storage.sync.get(["allowAnalytics"])) {
+        // Do nothing, as the user has disabled analytics
+        return;
+    }
+
+    // Otherwise, the user has left analytics enabled
     (function(i, s, o, g, r, a, m) {
         i["GoogleAnalyticsObject"] = r;
         (i[r] =
