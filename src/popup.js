@@ -1,6 +1,7 @@
 /*global chrome */
 
 import { Status } from "./status.js";
+import { sendAnalytics } from "./analytics.js";
 
 const ids = {
     status: "status",
@@ -141,15 +142,31 @@ function getUrlParameter(sParam) {
 
 function restoreOriginalContent() {
     sendMessageToContentScript("restoreOriginalContent", updateStatusCallback);
+    sendAnalytics({
+        hitType: "event",
+        eventCategory: "Popup",
+        eventAction: "restoreOriginalContent"
+    });
 }
 
 function toggleSomething() {
     sendMessageToContentScript("toggle");
+    sendAnalytics({
+        hitType: "event",
+        eventCategory: "Popup",
+        eventAction: "toggle"
+    });
 }
 
 function reloadPage() {
     sendMessageToContentScript("reloadPage");
     window.close();
+
+    sendAnalytics({
+        hitType: "event",
+        eventCategory: "Popup",
+        eventAction: "reloadPage"
+    });
 }
 
 document
@@ -170,3 +187,9 @@ const isTest = getUrlParameter("test") === "true";
 
 // Display extension status when popup is opened
 updateStatus();
+
+sendAnalytics({
+    hitType: "event",
+    eventCategory: "Popup",
+    eventAction: "open"
+});
