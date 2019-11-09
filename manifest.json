@@ -9,6 +9,10 @@
         "default_title": "Degender the Web",
         "default_popup": "src/popup.html"
     },
+    "background": {
+        "scripts": ["src/background.js"],
+        "persistent": false
+    },
     "content_scripts": [
         {
             "matches": ["file://*", "*://*/*"],
@@ -19,7 +23,7 @@
     ],
     "web_accessible_resources": ["data/*.js", "src/*.js"],
     "icons": {
-        "16": "img/icon16.png",
+        "16": "img/icon16-disabled.png",
         "48": "img/icon48.png",
         "128": "img/icon128.png"
     }
