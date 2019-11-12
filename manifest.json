@@ -17,6 +17,10 @@
             "run_at": "document_idle"
         }
     ],
+    "background": {
+        "scripts": ["src/background.js"],
+        "persistent": false
+    },
     "permissions": ["https://www.google-analytics.com/", "storage"],
     "content_security_policy": "script-src 'self' https://www.google-analytics.com; img-src *; object-src 'self'",
     "web_accessible_resources": ["data/*.js", "src/*.js"],
