@@ -161,12 +161,7 @@ function toggleSomething() {
 function reloadPage() {
     sendMessageToContentScript("reloadPage");
     window.close();
-
-    sendAnalytics({
-        hitType: "event",
-        eventCategory: "Popup",
-        eventAction: "reloadPage"
-    });
+    // Google Analytics isn't tracking page reloads, reason unknown
 }
 
 document
