@@ -6,7 +6,7 @@ Please read our privacy policy carefully to get a clear understanding of how we 
 
 ## What information do we collect from the people who use this app?
 
-This app collects anonymous usage information with Google Analytics to help developers understand which features are used most.
+This app collects anonymous usage information with Google Analytics to count the number of active users.
 It does not collect any PII and does not collect data about the websites you visit.
 
 ## What other information may be transmitted by this app?
