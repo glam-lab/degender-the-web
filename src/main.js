@@ -86,7 +86,7 @@ export function main() {
     sendAnalytics({
         hitType: "event",
         eventCategory: "Content",
-        eventAction: "countUser"
+        eventAction: "applyScript"
     });
     const originalBodyHTML = document.body.innerHTML;
     let extensionStatus;
