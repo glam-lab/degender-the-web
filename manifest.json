@@ -7,7 +7,12 @@
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn0jV5ygxtziT5VJp49Lp3MlkJ7gwVBcHQnKlXYcl8galOK0ZNWAYT97FjnmlubfX6jdHmP7XlBwGbDcHUNFL5yqvA/Yksd5bjcPPTiikBZ0ECBprecSqdxrLRcm+fxLe37TOcWQi3VcnNIMByEGbFJ13zm5Dk7qOoFzz9P0qqRl0ZrL/5IKheE21B97K4cQiLo8FU9LAYcHOn0i21ndIAvhMdwiqtPcScfEJwiebAzHndlhyJ6/UYoz+Eukcchrtko0QKbXqLGVawfTunFOudYnfil7/MAzlmr7oTm7Bs7/tbdz9oS0R33nOLO3hrZ2hMWc2E/GKsSoKnS82r5fOaQIDAQAB",
     "browser_action": {
         "default_title": "Degender the Web",
-        "default_popup": "src/popup.html"
+        "default_popup": "src/popup.html",
+        "default_icon": {
+            "16": "img/icon16-disabled.png",
+            "48": "img/icon48-disabled.png",
+            "128": "img/icon128-disabled.png"
+        }
     },
     "background": {
         "scripts": ["src/background.js"],
@@ -23,7 +28,7 @@
     ],
     "web_accessible_resources": ["data/*.js", "src/*.js"],
     "icons": {
-        "16": "img/icon16-disabled.png",
+        "16": "img/icon16.png",
         "48": "img/icon48.png",
         "128": "img/icon128.png"
     }
