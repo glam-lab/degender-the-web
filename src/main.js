@@ -44,7 +44,6 @@ function makeToggler(somethingToToggle) {
  * toSend should be an object with hitType, eventCategory, and eventAction
  * fields.
  * Does nothing if the user has disabled analytics.
- * Unlike the function in analytics.js, this one uses the background script.
  */
 function sendAnalytics(toSend) {
     chrome.runtime.sendMessage(toSend);
