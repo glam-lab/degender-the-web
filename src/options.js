@@ -1,12 +1,10 @@
 /*global chrome */
 // Saves options to chrome.storage
 function save_options() {
-    const color = document.getElementById("color").value;
-    const likesColor = document.getElementById("like").checked;
+    const blacklist = document.getElementById("blacklist").value.split("\n");
     chrome.storage.sync.set(
         {
-            favoriteColor: color,
-            likesColor: likesColor
+            blacklist: blacklist
         },
         function() {
             // Update status to let user know options were saved.
@@ -22,15 +20,13 @@ function save_options() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-    // Use default value color = 'red' and likesColor = true.
     chrome.storage.sync.get(
         {
-            favoriteColor: "red",
-            likesColor: true
+            blacklist: []
         },
         function(items) {
-            document.getElementById("color").value = items.favoriteColor;
-            document.getElementById("like").checked = items.likesColor;
+            const blacklistText = items.blacklist.join("\n");
+            document.getElementById("blacklist").value = blacklistText;
         }
     );
 }

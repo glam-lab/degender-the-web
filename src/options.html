@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head><title>My Test Extension Options</title></head>
-<body>
+  <head>
+    <title>Degender the Web Options</title>
+  </head>
+  <body>
+    <label for="blacklist">Disable <i>Degender the Web</i> on these pages:</label>
+    <textarea id="blacklist" rows="4" cols="60"></textarea>
+    <hr />
 
-Favorite color:
-<select id="color">
- <option value="red">red</option>
- <option value="green">green</option>
- <option value="blue">blue</option>
- <option value="yellow">yellow</option>
-</select>
+    <div id="status"></div>
+    <button id="save">Save</button>
 
-<label>
-  <input type="checkbox" id="like">
-  I like colors.
-</label>
-
-<div id="status"></div>
-<button id="save">Save</button>
-
-<script src="options.js"></script>
-</body>
+    <script src="options.js"></script>
+  </body>
 </html>

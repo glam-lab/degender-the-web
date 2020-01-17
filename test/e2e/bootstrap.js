@@ -7,6 +7,7 @@ const globalVariables = _.pick(global, [
     "expect",
     "testURL",
     "unsupportedURL",
+    "blacklistedURL",
     "popupURL",
     "selectors"
 ]);
@@ -24,9 +25,11 @@ const opts = {
 
 // expose variables
 before(function(done) {
+    this.timeout(4000); // Chromium can take more than 3 seconds to start
     global.expect = expect;
     global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
     global.unsupportedURL = "https://www.facebook.com";
+    global.blacklistedURL = "https://www.w3schools.com/jsref/jsref_join.asp";
     global.popupURL =
         "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
     global.selectors = {

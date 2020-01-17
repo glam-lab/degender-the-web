@@ -6,6 +6,7 @@ import {
 } from "./pronoun-replacement.js";
 import { textNodesUnder, isEditable } from "./dom-traversal.js";
 import { inExcludedDomain, getWhyExcluded } from "./excluded-domains.js";
+import { inUserBlacklist } from "./blacklisted-domains.js";
 import {
     mentionsGender,
     visiblyMentionsGender,
@@ -72,63 +73,66 @@ function ifExcludedWhy(host) {
 
 // Called in content.js
 export function main() {
-    const originalBodyHTML = document.body.innerHTML;
-    let extensionStatus;
-    let somethingToToggle;
+    // If DGtW isn't blacklisted on this host, perform text replacements.
+    inUserBlacklist(location.host, function() {
+        const originalBodyHTML = document.body.innerHTML;
+        let extensionStatus;
+        let somethingToToggle;
 
-    if (inExcludedDomain(location.host)) {
-        extensionStatus = Status.excludedDomain;
-    } else if (hasPersonalPronounSpec(originalBodyHTML)) {
-        replaceWordsInBody(
-            hasPersonalPronounSpec,
-            highlightPersonalPronounSpecs
-        );
-        extensionStatus = Status.pronounSpecs;
-        somethingToToggle = "highlights";
-    } else if (visiblyMentionsGender(document.body)) {
-        replaceWordsInBody(mentionsGender, highlightGender);
-        extensionStatus = Status.mentionsGender;
-        somethingToToggle = "highlights";
-    } else {
-        if (hasReplaceablePronouns(originalBodyHTML)) {
-            replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
-        }
-        if (document.body.innerHTML !== originalBodyHTML) {
-            extensionStatus = Status.replacedPronouns;
-            somethingToToggle = "changes";
-        } else {
-            extensionStatus = Status.noGenderedPronouns;
-        }
-    }
-
-    const restoreOriginalContent = makeRestorer(originalBodyHTML);
-    const toggler = makeToggler(somethingToToggle);
-    let isToggled = false;
-
-    // Respond to messages sent from the popup
-    function handleMessage(request, sender, sendResponse) {
-        if (request.type === "getStatus") {
-            sendResponse({
-                status: extensionStatus,
-                isToggled: isToggled,
-                whyExcluded: ifExcludedWhy(location.host)
-            });
-        } else if (request.type === "restoreOriginalContent") {
-            restoreOriginalContent();
-            extensionStatus = Status.restoredOriginal;
-            sendResponse({ status: extensionStatus, isToggled: isToggled });
-        } else if (request.type === "toggle") {
-            toggler();
-            isToggled = !isToggled;
-        } else if (request.type === "reloadPage") {
-            window.location.reload();
-        } else {
-            console.error(
-                "Content script received a request with unrecognized type " +
-                    request.type
+        if (inExcludedDomain(location.host)) {
+            extensionStatus = Status.excludedDomain;
+        } else if (hasPersonalPronounSpec(originalBodyHTML)) {
+            replaceWordsInBody(
+                hasPersonalPronounSpec,
+                highlightPersonalPronounSpecs
             );
+            extensionStatus = Status.pronounSpecs;
+            somethingToToggle = "highlights";
+        } else if (visiblyMentionsGender(document.body)) {
+            replaceWordsInBody(mentionsGender, highlightGender);
+            extensionStatus = Status.mentionsGender;
+            somethingToToggle = "highlights";
+        } else {
+            if (hasReplaceablePronouns(originalBodyHTML)) {
+                replaceWordsInBody(hasReplaceablePronouns, replacePronouns);
+            }
+            if (document.body.innerHTML !== originalBodyHTML) {
+                extensionStatus = Status.replacedPronouns;
+                somethingToToggle = "changes";
+            } else {
+                extensionStatus = Status.noGenderedPronouns;
+            }
         }
-    }
 
-    chrome.runtime.onMessage.addListener(handleMessage);
+        const restoreOriginalContent = makeRestorer(originalBodyHTML);
+        const toggler = makeToggler(somethingToToggle);
+        let isToggled = false;
+
+        // Respond to messages sent from the popup
+        function handleMessage(request, sender, sendResponse) {
+            if (request.type === "getStatus") {
+                sendResponse({
+                    status: extensionStatus,
+                    isToggled: isToggled,
+                    whyExcluded: ifExcludedWhy(location.host)
+                });
+            } else if (request.type === "restoreOriginalContent") {
+                restoreOriginalContent();
+                extensionStatus = Status.restoredOriginal;
+                sendResponse({ status: extensionStatus, isToggled: isToggled });
+            } else if (request.type === "toggle") {
+                toggler();
+                isToggled = !isToggled;
+            } else if (request.type === "reloadPage") {
+                window.location.reload();
+            } else {
+                console.error(
+                    "Content script received a request with unrecognized type " +
+                        request.type
+                );
+            }
+        }
+
+        chrome.runtime.onMessage.addListener(handleMessage);
+    });
 }
