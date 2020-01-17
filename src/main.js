@@ -39,6 +39,16 @@ function makeToggler(somethingToToggle) {
     };
 }
 
+/**
+ * Reports page views and events to Google Analytics.
+ * toSend should be an object with hitType, eventCategory, and eventAction
+ * fields.
+ * Does nothing if the user has disabled analytics.
+ */
+function sendAnalytics(toSend) {
+    chrome.runtime.sendMessage(toSend);
+}
+
 // The core algorithm: If a text node contains one or more keywords,
 // create new nodes containing the substitute text and the surrounding text.
 function replaceWordsInBody(needsReplacement, replaceFunction) {
@@ -72,6 +82,11 @@ function ifExcludedWhy(host) {
 
 // Called in content.js
 export function main() {
+    sendAnalytics({
+        hitType: "event",
+        eventCategory: "Content",
+        eventAction: "applyScript"
+    });
     const originalBodyHTML = document.body.innerHTML;
     let extensionStatus;
     let somethingToToggle;
