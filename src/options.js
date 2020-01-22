@@ -1,7 +1,9 @@
 /*global chrome */
 // Saves options to chrome.storage
 function save_options() {
-    const blacklist = document.getElementById("blacklist").value.split("\n");
+    let blacklist = document.getElementById("blacklist").value.split("\n");
+    blacklist = blacklist.filter(Boolean); // Remove empty strings
+
     chrome.storage.sync.set(
         {
             blacklist: blacklist
