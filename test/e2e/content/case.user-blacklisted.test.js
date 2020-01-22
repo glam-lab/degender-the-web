@@ -1,17 +1,20 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL */
+/*globals describe, before, after, it, expect, browser, blacklistedURL */
 
-describe("When the user has disabled the extension on this page, the page", function() {
+describe("When the user has disabled the extension on this host, the page", function() {
     let page;
     // TODO Add popup message tests
     //let popup;
-    let originalContent;
+    //let originalContent;
 
     before(async function() {
-        page = await browser.newPage();
-        await page.goto(testURL);
+        // The blacklisted page isn't local and can take a bit longer to load.
+        this.timeout(3000);
 
-        originalContent = await page.$eval("body", e => e.innerText);
+        page = await browser.newPage();
+        await page.goto(blacklistedURL);
+
+        //originalContent = await page.$eval("body", e => e.innerText);
     });
 
     after(async function() {
@@ -19,10 +22,12 @@ describe("When the user has disabled the extension on this page, the page", func
         //await popup.close();
     });
 
-    it.only("should not change the text", async function() {
-        const content = await page.$eval("body", e => e.innerText);
-        expect(content).to.equal(originalContent);
+    it("should still say 'he'", async function() {
+        const bodyText = await page.$eval("body", e => e.innerText);
+        expect(bodyText).to.include(" he ");
     });
+
+    it("should not have any insertions or deletions");
 
     it("should explain in the popup");
 

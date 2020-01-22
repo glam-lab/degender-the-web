@@ -29,7 +29,10 @@ before(function(done) {
     global.expect = expect;
     global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
     global.unsupportedURL = "https://www.facebook.com";
-    global.blacklistedURL = "https://www.w3schools.com/jsref/jsref_join.asp";
+
+    // This page should load quickly, and it's more normal than localhost.
+    global.blacklistedURL = "https://johnresig.com/about/";
+
     global.popupURL =
         "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
     global.selectors = {
@@ -60,6 +63,7 @@ after(function() {
     global.expect = globalVariables.expect;
     global.testURL = globalVariables.testURL;
     global.unsupportedURL = globalVariables.unsupportedURL;
+    global.blacklistedURL = globalVariables.blacklistedURL;
     global.popupURL = globalVariables.popupURL;
     global.selectors = globalVariables.selectors;
 });
