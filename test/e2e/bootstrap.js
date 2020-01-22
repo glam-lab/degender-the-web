@@ -17,8 +17,8 @@ const extensionPath = "."; // Path of directory with manifest.json
 const opts = {
     headless: false,
     args: [
-        `--disable-extensions-except=${extensionPath}`,
-        `--load-extension=${extensionPath}`
+        `--disable-extensions-except=${extensionPath}`
+        //`--load-extension=${extensionPath}`
     ]
 };
 

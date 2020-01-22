@@ -27,7 +27,7 @@ describe("When the page includes the stopword 'gender', it", function() {
         expect(bodyText).to.include(" she ");
     });
 
-    it("should not have any insertions or deletions", async function() {
+    it.only("should not have any insertions or deletions", async function() {
         expect(await page.$$(selectors.ins)).to.be.empty;
         expect(await page.$$(selectors.del)).to.be.empty;
     });
