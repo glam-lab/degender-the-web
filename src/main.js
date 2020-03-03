@@ -78,16 +78,19 @@ export function main() {
 
     if (inExcludedDomain(location.host)) {
         extensionStatus = Status.excludedDomain;
+        chrome.runtime.sendMessage({ colorIcon: false });
     } else if (hasPersonalPronounSpec(originalBodyHTML)) {
         replaceWordsInBody(
             hasPersonalPronounSpec,
             highlightPersonalPronounSpecs
         );
         extensionStatus = Status.pronounSpecs;
+        chrome.runtime.sendMessage({ colorIcon: true });
         somethingToToggle = "highlights";
     } else if (visiblyMentionsGender(document.body)) {
         replaceWordsInBody(mentionsGender, highlightGender);
         extensionStatus = Status.mentionsGender;
+        chrome.runtime.sendMessage({ colorIcon: true });
         somethingToToggle = "highlights";
     } else {
         if (hasReplaceablePronouns(originalBodyHTML)) {
@@ -99,6 +102,7 @@ export function main() {
         } else {
             extensionStatus = Status.noGenderedPronouns;
         }
+        chrome.runtime.sendMessage({ colorIcon: true });
     }
 
     const restoreOriginalContent = makeRestorer(originalBodyHTML);
@@ -116,6 +120,7 @@ export function main() {
         } else if (request.type === "restoreOriginalContent") {
             restoreOriginalContent();
             extensionStatus = Status.restoredOriginal;
+            chrome.runtime.sendMessage({ colorIcon: false });
             sendResponse({ status: extensionStatus, isToggled: isToggled });
         } else if (request.type === "toggle") {
             toggler();
