@@ -7,8 +7,9 @@ const globalVariables = _.pick(global, [
     "expect",
     "testURL",
     "unsupportedURL",
-    "blacklistedURL",
+    "testHost",
     "popupURL",
+    "optionsURL",
     "selectors"
 ]);
 
@@ -31,10 +32,12 @@ before(function(done) {
     global.unsupportedURL = "https://www.facebook.com";
 
     // This page should load quickly, and it's more normal than localhost.
-    global.blacklistedURL = "https://johnresig.com/about/";
+    global.testHost = "localhost:8080";
 
     global.popupURL =
         "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
+    global.optionsURL =
+        "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/options.html";
     global.selectors = {
         content: "#text",
         status: "#status",
@@ -46,7 +49,9 @@ before(function(done) {
         showHighlightsCheckbox: "#show-highlights-checkbox",
         ins: "ins.dgtw",
         del: "del.dgtw",
-        highlight: "strong.dgtw"
+        highlight: "strong.dgtw",
+        denyList: "#denyList",
+        saveDenyList: "#save"
     };
 
     puppeteer.launch(opts).then(function(browser) {
@@ -63,7 +68,8 @@ after(function() {
     global.expect = globalVariables.expect;
     global.testURL = globalVariables.testURL;
     global.unsupportedURL = globalVariables.unsupportedURL;
-    global.blacklistedURL = globalVariables.blacklistedURL;
+    global.testHost = globalVariables.testHost;
     global.popupURL = globalVariables.popupURL;
+    global.optionsURL = globalVariables.optionsURL;
     global.selectors = globalVariables.selectors;
 });

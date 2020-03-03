@@ -1,19 +1,21 @@
 /*global chrome */
 // Saves options to chrome.storage
 function save_options() {
-    let blacklist = document.getElementById("blacklist").value.split("\n");
-    blacklist = blacklist.filter(Boolean); // Remove empty strings
+    let denyList = document.getElementById("denyList").value.split("\n");
+    denyList = denyList.filter(Boolean); // Remove empty strings
 
     chrome.storage.sync.set(
         {
-            blacklist: blacklist
+            denyList: denyList
         },
         function() {
             // Update status to let user know options were saved.
             const status = document.getElementById("status");
-            status.textContent = "Options saved.";
+            status.classList.remove("hide");
+            status.classList.add("show");
             setTimeout(function() {
-                status.textContent = "";
+                status.classList.add("show");
+                status.classList.remove("hide");
             }, 750);
         }
     );
@@ -24,11 +26,11 @@ function save_options() {
 function restore_options() {
     chrome.storage.sync.get(
         {
-            blacklist: []
+            denyList: []
         },
         function(items) {
-            const blacklistText = items.blacklist.join("\n");
-            document.getElementById("blacklist").value = blacklistText;
+            const denyListText = items.denyList.join("\n");
+            document.getElementById("denyList").value = denyListText;
         }
     );
 }

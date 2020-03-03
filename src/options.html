@@ -2,13 +2,14 @@
 <html>
   <head>
     <title>Degender the Web Options</title>
+    <link rel="stylesheet" type="text/css" href="options.css">
   </head>
   <body>
-    <label for="blacklist">Disable <i>Degender the Web</i> on these pages:</label>
-    <textarea id="blacklist" rows="4" cols="60"></textarea>
+    <label for="denyList">Disable <i>Degender the Web</i> on these pages:</label>
+    <textarea id="denyList" rows="4" cols="60"></textarea>
     <hr />
 
-    <div id="status"></div>
+    <div id="status" class="hide">Options saved.</div>
     <button id="save">Save</button>
 
     <script src="options.js"></script>

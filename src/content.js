@@ -8,16 +8,13 @@
     // Check if the user has disabled DGtW for this host.
     chrome.storage.sync.get(
         {
-            blacklist: []
+            denyList: []
         },
         function(items) {
-            // If DGtW isn't blacklisted on this host, run the content script.
+            // If DGtW is allowed to access this host, run the content script.
             if (
-                // Check if it matches one of the items in the blacklist.
-                !items.blacklist.some(
-                    String.prototype.startsWith,
-                    location.host
-                )
+                // Check if it matches one of the items in the denyList.
+                !items.denyList.some(String.prototype.startsWith, location.host)
             ) {
                 contentScript.main();
             }

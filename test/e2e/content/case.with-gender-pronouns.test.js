@@ -2,6 +2,7 @@
 /*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the page includes gender pronouns, it", function() {
+    this.timeout(10000);
     let page;
     let popup;
     const text = "She washed her motorcycle. He washed his car.";
@@ -34,6 +35,7 @@ describe("When the page includes gender pronouns, it", function() {
         expect(statusText).to.include("replaced gender pronouns");
     });
 
+    // TODO Should be "should not have any highlights", and rename `changes`
     it("should not have any changes", async function() {
         const changes = await page.$$(selectors.highlight);
         expect(changes).to.be.empty;
