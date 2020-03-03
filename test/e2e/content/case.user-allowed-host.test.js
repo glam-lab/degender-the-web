@@ -20,7 +20,6 @@ describe("When the user has re-enabled the extension on this host, the page", fu
         await popup.goto(popupURL);
     });
 
-    // TODO This is a pretty shallow test, but I think it's adequate?
     it("should replace personal pronouns", async function() {
         const contents = await page.$eval(selectors.content, e => e.innerText);
         expect(contents).to.equal(

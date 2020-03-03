@@ -26,8 +26,6 @@ describe("When the user has disabled the extension on this host, the page", func
         await options.close();
     });
 
-    // TODO Nor should it change the site in any other way.
-    //      See facebook tests for reference.
     it("should not change the text", async function() {
         const content = await page.$eval("body", e => e.innerText);
         expect(content).to.equal(originalContent);
