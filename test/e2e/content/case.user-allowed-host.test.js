@@ -1,21 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, popupURL, optionsURL, selectors */
-
-// TODO Combine the two instances of this function in bootstrap.js
-//      or move it entirely into the `before` block
-async function setDenyList(options, text) {
-    await options.$eval(
-        selectors.denyList,
-        (e, host) => (e.value = host),
-        text
-    );
-    await options.click(selectors.saveDenyList);
-
-    // Now wait for the "Options saved" message
-    await options.waitForSelector(selectors.status, {
-        visible: true
-    });
-}
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, optionsURL, selectors, setDenyList */
 
 describe("When the user has re-enabled the extension on this host, the page", function() {
     let options;

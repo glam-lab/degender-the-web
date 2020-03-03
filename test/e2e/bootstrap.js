@@ -10,7 +10,8 @@ const globalVariables = _.pick(global, [
     "testHost",
     "popupURL",
     "optionsURL",
-    "selectors"
+    "selectors",
+    "setDenyList"
 ]);
 
 const extensionPath = "."; // Path of directory with manifest.json
@@ -51,6 +52,20 @@ before(function(done) {
         saveDenyList: "#save"
     };
 
+    global.setDenyList = async function(options, text) {
+        await options.$eval(
+            global.selectors.denyList,
+            (e, host) => (e.value = host),
+            text
+        );
+        await options.click(global.selectors.saveDenyList);
+
+        // Now wait for the "Options saved" message
+        await options.waitForSelector(global.selectors.status, {
+            visible: true
+        });
+    };
+
     puppeteer.launch(opts).then(function(browser) {
         global.browser = browser;
         done();
@@ -69,4 +84,5 @@ after(function() {
     global.popupURL = globalVariables.popupURL;
     global.optionsURL = globalVariables.optionsURL;
     global.selectors = globalVariables.selectors;
+    global.setDenyList = globalVariables.setDenyList;
 });

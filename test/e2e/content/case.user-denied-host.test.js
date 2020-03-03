@@ -1,17 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, testHost, optionsURL, selectors */
-
-async function setDenyList(options, text) {
-    await options.$eval(
-        selectors.denyList,
-        (e, host) => (e.value = host),
-        text
-    );
-    await options.click(selectors.saveDenyList);
-
-    // Now wait for the "Options saved" message
-    await options.waitForSelector("#status.show");
-}
+/*globals describe, before, after, it, expect, browser, testURL, testHost, optionsURL, setDenyList */
 
 describe("When the user has disabled the extension on this host, the page", function() {
     this.timeout(6000);
