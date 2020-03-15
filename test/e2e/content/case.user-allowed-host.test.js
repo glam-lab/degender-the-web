@@ -8,7 +8,6 @@ describe("When the user has re-enabled the extension on this host, the page", fu
     const text = "She washed her motorcycle. He washed his car.";
 
     before(async function() {
-        this.timeout(10000);
         options = await browser.newPage();
         await options.goto(optionsURL);
         await setDenyList(options, "");

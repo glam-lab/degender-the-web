@@ -31,7 +31,7 @@ before(function(done) {
     global.expect = expect;
     global.testURL = "http://localhost:8080/test/e2e/helper.html?text=";
     global.unsupportedURL = "https://www.facebook.com";
-    global.testHost = "localhost:8080";
+    global.testHost = "http://localhost:8080";
     global.popupURL =
         "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
     global.optionsURL =

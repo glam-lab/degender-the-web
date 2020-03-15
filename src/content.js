@@ -14,7 +14,7 @@
             // If DGtW is allowed to access this host, run the content script.
             if (
                 // Check if it matches one of the items in the denyList.
-                !items.denyList.some(String.prototype.startsWith, location.host)
+                !items.denyList.some(String.prototype.startsWith, location.href)
             ) {
                 contentScript.main();
             }

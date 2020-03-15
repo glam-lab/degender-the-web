@@ -4,6 +4,8 @@ const Status = {
     mentionsGender: "mentionsGender",
     replacedPronouns: "replacedPronouns",
     noGenderedPronouns: "noGenderedPronouns",
-    restoredOriginal: "restoredOriginal"
+    restoredOriginal: "restoredOriginal",
+    userDeniedHost: "userDeniedHost",
+    userDeniedHostReload: "userDeniedHostReload"
 };
 export { Status };

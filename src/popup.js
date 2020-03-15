@@ -12,18 +12,23 @@ const ids = {
     showHighlightsCheckbox: "show-highlights-checkbox"
 };
 
-// Controls the DGtW content script on the current page
-function sendMessageToContentScript(type, callback) {
-    // If this is a test, the popup is opened in a tab. This steals focus from
-    // the tab in which the content script is running.
+function callOnTargetTab(callback) {
     const queryInfo = { active: !isTest, currentWindow: true };
-
     chrome.tabs.query(queryInfo, function(tabs) {
         // Normally, only one tab matches the query.
         // When testing, a blank tab might match the query. Using `length - 1`
         // picks the correct target, the most recently opened background tab.
-        const targetTab = tabs[tabs.length - 1].id;
-        chrome.tabs.sendMessage(targetTab, { type: type }, callback);
+        const tab = tabs[tabs.length - 1];
+        callback(tab);
+    });
+}
+
+// Controls the DGtW content script on the current page
+function sendMessageToContentScript(type, callback) {
+    // If this is a test, the popup is opened in a tab. This steals focus from
+    // the tab in which the content script is running.
+    callOnTargetTab(function(tab) {
+        chrome.tabs.sendMessage(tab.id, { type: type }, callback);
     });
 }
 
@@ -43,6 +48,7 @@ function setStatusTo(newStatus, whyExcluded) {
         case Status.excludedDomain:
             statusText += "does not run on this site due to ";
             statusText += whyExcluded + ".";
+            document.getElementById(ids.status).innerHTML = statusText;
 
             // Show no buttons
             hideElement(ids.showChanges);
@@ -54,6 +60,7 @@ function setStatusTo(newStatus, whyExcluded) {
         case Status.pronounSpecs:
             statusText += "did not rewrite gender pronouns because it ";
             statusText += "found personal pronoun specifiers on this page.";
+            document.getElementById(ids.status).innerHTML = statusText;
 
             // Show highlight checkbox
             hideElement(ids.showChanges);
@@ -65,6 +72,7 @@ function setStatusTo(newStatus, whyExcluded) {
         case Status.mentionsGender:
             statusText += "did not rewrite gender pronouns because it ";
             statusText += "found this page discusses gender.";
+            document.getElementById(ids.status).innerHTML = statusText;
 
             // Show highlight checkbox
             hideElement(ids.showChanges);
@@ -75,6 +83,7 @@ function setStatusTo(newStatus, whyExcluded) {
 
         case Status.replacedPronouns:
             statusText += "has replaced gender pronouns on this page.";
+            document.getElementById(ids.status).innerHTML = statusText;
 
             // Show "Show changes" checkbox
             showElement(ids.showChanges);
@@ -86,6 +95,7 @@ function setStatusTo(newStatus, whyExcluded) {
         case Status.noGenderedPronouns:
             statusText += "found no gender pronouns in static content ";
             statusText += "on this page.";
+            document.getElementById(ids.status).innerHTML = statusText;
 
             // Show only the reload button
             hideElement(ids.showChanges);
@@ -96,8 +106,34 @@ function setStatusTo(newStatus, whyExcluded) {
 
         case Status.restoredOriginal:
             statusText = "The original content has been restored.";
+            document.getElementById(ids.status).innerHTML = statusText;
 
-            // Show no buttons.
+            // Show no buttons
+            hideElement(ids.showChanges);
+            hideElement(ids.showHighlights);
+            hideElement(ids.restore);
+            showElement(ids.reloadPage);
+            break;
+
+        case Status.userDeniedHost:
+            statusText =
+                "You've turned off <i>Degender the Web</i> for this page.";
+            document.getElementById(ids.status).innerHTML = statusText;
+
+            // Show no buttons
+            hideElement(ids.showChanges);
+            hideElement(ids.showHighlights);
+            hideElement(ids.restore);
+            hideElement(ids.reloadPage);
+            break;
+
+        case Status.userDeniedHostReload:
+            statusText =
+                "You've turned off <i>Degender the Web</i> for " +
+                "this page. Reload the page to revert pronoun replacements.";
+            document.getElementById(ids.status).innerHTML = statusText;
+
+            // Show only the reload button
             hideElement(ids.showChanges);
             hideElement(ids.showHighlights);
             hideElement(ids.restore);
@@ -113,17 +149,42 @@ function updateStatus() {
 
 function updateStatusCallback(response) {
     if (response) {
-        setStatusTo(response.status, response.whyExcluded);
+        chrome.storage.sync.get({ denyList: [] }, function(items) {
+            callOnTargetTab(function(tab) {
+                if (items.denyList.some(String.prototype.startsWith, tab.url)) {
+                    // DGtW is turned off for this page,
+                    // but the page hasn't been reloaded.
+                    setStatusTo(Status.userDeniedHostReload);
+                } else {
+                    setStatusTo(response.status, response.whyExcluded);
+                    // Only one checkbox is shown at a time, but either can be
+                    // represented by `isToggled`
+                    document.getElementById(ids.showChangesCheckbox).checked =
+                        response.isToggled;
+                    document.getElementById(
+                        ids.showHighlightsCheckbox
+                    ).checked = response.isToggled;
+                }
+            });
+        });
+    }
 
-        // Only one checkbox is shown at a time, but either can be
-        // represented by `isToggled`
-        document.getElementById(ids.showChangesCheckbox).checked =
-            response.isToggled;
-        document.getElementById(ids.showHighlightsCheckbox).checked =
-            response.isToggled;
-    } else {
-        // This is probably a system page and the popup shouldn't display.
-        window.close();
+    // Special handling for non-responsive content script.
+    if (
+        chrome.runtime.lastError &&
+        chrome.runtime.lastError.message ===
+            "Could not establish connection. Receiving end does not exist."
+    ) {
+        chrome.storage.sync.get({ denyList: [] }, function(items) {
+            callOnTargetTab(function(tab) {
+                if (items.denyList.some(String.prototype.startsWith, tab.url)) {
+                    setStatusTo(Status.userDeniedHost);
+                } else {
+                    // This is probably a system page.
+                    window.close();
+                }
+            });
+        });
     }
 }
 

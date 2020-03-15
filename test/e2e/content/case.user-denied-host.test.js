@@ -2,14 +2,12 @@
 /*globals describe, before, after, it, expect, browser, testURL, testHost, optionsURL, setDenyList */
 
 describe("When the user has disabled the extension on this host, the page", function() {
-    this.timeout(6000);
     let options;
     let page;
     let originalContent;
     const text = "She washed her motorcycle. He washed his car.";
 
     before(async function() {
-        this.timeout(10000);
         options = await browser.newPage();
         await options.goto(optionsURL);
         await setDenyList(options, testHost);
