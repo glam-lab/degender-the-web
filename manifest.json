@@ -26,7 +26,7 @@
             "run_at": "document_idle"
         }
     ],
-    "permissions": ["storage", "activeTab"],
+    "permissions": ["storage", "tabs"],
     "web_accessible_resources": ["data/*.js", "src/*.js"],
     "icons": {
         "16": "img/icon16.png",

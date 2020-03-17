@@ -2,7 +2,6 @@
 /*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the page includes gender pronouns, it", function() {
-    this.timeout(10000);
     let page;
     let popup;
     const text = "She washed her motorcycle. He washed his car.";

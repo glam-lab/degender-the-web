@@ -53,6 +53,8 @@ before(function(done) {
     };
 
     global.setDenyList = async function(options, text) {
+        // Options tab must be selected to receive clicks
+        options.bringToFront();
         await options.$eval(
             global.selectors.denyList,
             (e, host) => (e.value = host),
