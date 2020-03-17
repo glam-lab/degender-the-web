@@ -9,9 +9,8 @@ const globalVariables = _.pick(global, [
     "unsupportedURL",
     "testHost",
     "popupURL",
-    "optionsURL",
     "selectors",
-    "setDenyList"
+    "setDoNotReplaceList"
 ]);
 
 const extensionPath = "."; // Path of directory with manifest.json
@@ -34,8 +33,6 @@ before(function(done) {
     global.testHost = "http://localhost:8080";
     global.popupURL =
         "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/popup.html?test=true";
-    global.optionsURL =
-        "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/options.html";
     global.selectors = {
         content: "#text",
         status: "#status",
@@ -48,24 +45,28 @@ before(function(done) {
         ins: "ins.dgtw",
         del: "del.dgtw",
         highlight: "strong.dgtw",
-        denyList: "#denyList",
-        saveDenyList: "#save"
+        doNotReplaceList: "#doNotReplaceList",
+        saveDoNotReplaceList: "#save"
     };
 
-    global.setDenyList = async function(options, text) {
-        // Options tab must be selected to receive clicks
-        options.bringToFront();
+    global.setDoNotReplaceList = async function(text) {
+        const optionsURL =
+            "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/options.html";
+        const options = await browser.newPage();
+        await options.goto(optionsURL);
         await options.$eval(
-            global.selectors.denyList,
+            global.selectors.doNotReplaceList,
             (e, host) => (e.value = host),
             text
         );
-        await options.click(global.selectors.saveDenyList);
+        await options.click(global.selectors.saveDoNotReplaceList);
 
         // Now wait for the "Options saved" message
         await options.waitForSelector(global.selectors.status, {
             visible: true
         });
+
+        options.close();
     };
 
     puppeteer.launch(opts).then(function(browser) {
@@ -84,7 +85,6 @@ after(function() {
     global.unsupportedURL = globalVariables.unsupportedURL;
     global.testHost = globalVariables.testHost;
     global.popupURL = globalVariables.popupURL;
-    global.optionsURL = globalVariables.optionsURL;
     global.selectors = globalVariables.selectors;
-    global.setDenyList = globalVariables.setDenyList;
+    global.setDoNotReplaceList = globalVariables.setDoNotReplaceList;
 });

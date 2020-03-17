@@ -149,9 +149,14 @@ function updateStatus() {
 
 function updateStatusCallback(response) {
     if (response) {
-        chrome.storage.sync.get({ denyList: [] }, function(items) {
+        chrome.storage.sync.get({ doNotReplaceList: [] }, function(items) {
             callOnTargetTab(function(tab) {
-                if (items.denyList.some(String.prototype.startsWith, tab.url)) {
+                if (
+                    items.doNotReplaceList.some(
+                        String.prototype.startsWith,
+                        tab.url
+                    )
+                ) {
                     // DGtW is turned off for this page,
                     // but the page hasn't been reloaded.
                     setStatusTo(Status.userDeniedHostReload);
@@ -175,9 +180,14 @@ function updateStatusCallback(response) {
         chrome.runtime.lastError.message ===
             "Could not establish connection. Receiving end does not exist."
     ) {
-        chrome.storage.sync.get({ denyList: [] }, function(items) {
+        chrome.storage.sync.get({ doNotReplaceList: [] }, function(items) {
             callOnTargetTab(function(tab) {
-                if (items.denyList.some(String.prototype.startsWith, tab.url)) {
+                if (
+                    items.doNotReplaceList.some(
+                        String.prototype.startsWith,
+                        tab.url
+                    )
+                ) {
                     setStatusTo(Status.userDeniedHost);
                 } else {
                     // This is probably a system page.

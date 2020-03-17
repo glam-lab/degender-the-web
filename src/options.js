@@ -1,12 +1,14 @@
 /*global chrome */
 // Saves options to chrome.storage
 function save_options() {
-    let denyList = document.getElementById("denyList").value.split("\n");
-    denyList = denyList.filter(Boolean); // Remove empty strings
+    let doNotReplaceList = document
+        .getElementById("doNotReplaceList")
+        .value.split("\n");
+    doNotReplaceList = doNotReplaceList.filter(Boolean); // Remove empty strings
 
     chrome.storage.sync.set(
         {
-            denyList: denyList
+            doNotReplaceList: doNotReplaceList
         },
         function() {
             // Update status to let user know options were saved.
@@ -26,11 +28,13 @@ function save_options() {
 function restore_options() {
     chrome.storage.sync.get(
         {
-            denyList: []
+            doNotReplaceList: []
         },
         function(items) {
-            const denyListText = items.denyList.join("\n");
-            document.getElementById("denyList").value = denyListText;
+            const doNotReplaceListText = items.doNotReplaceList.join("\n");
+            document.getElementById(
+                "doNotReplaceList"
+            ).value = doNotReplaceListText;
         }
     );
 }

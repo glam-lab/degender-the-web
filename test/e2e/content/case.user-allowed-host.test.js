@@ -1,16 +1,13 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, popupURL, optionsURL, selectors, setDenyList */
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors, setDoNotReplaceList */
 
 describe("When the user has re-enabled the extension on this host, the page", function() {
-    let options;
     let page;
     let popup;
     const text = "She washed her motorcycle. He washed his car.";
 
     before(async function() {
-        options = await browser.newPage();
-        await options.goto(optionsURL);
-        await setDenyList(options, "");
+        await setDoNotReplaceList("");
 
         page = await browser.newPage();
         await page.goto(testURL + text);
@@ -27,7 +24,6 @@ describe("When the user has re-enabled the extension on this host, the page", fu
     });
 
     after(async function() {
-        await options.close();
         await page.close();
         await popup.close();
     });

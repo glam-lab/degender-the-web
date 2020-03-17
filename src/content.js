@@ -8,13 +8,16 @@
     // Check if the user has disabled DGtW for this host.
     chrome.storage.sync.get(
         {
-            denyList: []
+            doNotReplaceList: []
         },
         function(items) {
             // If DGtW is allowed to access this host, run the content script.
             if (
-                // Check if it matches one of the items in the denyList.
-                !items.denyList.some(String.prototype.startsWith, location.href)
+                // Check if it matches one of the items in the doNotReplaceList.
+                !items.doNotReplaceList.some(
+                    String.prototype.startsWith,
+                    location.href
+                )
             ) {
                 contentScript.main();
             }
