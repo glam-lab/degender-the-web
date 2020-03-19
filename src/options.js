@@ -1,54 +1,61 @@
 /*global chrome */
 function restore_options() {
+    loadDoNotReplaceList(function(doNotReplaceList) {
+        displayDoNotReplaceList(doNotReplaceList);
+    });
+}
+
+function loadDoNotReplaceList(callback) {
     chrome.storage.sync.get(
         {
             doNotReplaceList: []
         },
         function(items) {
-            displayDoNotReplaceList(items.doNotReplaceList);
+            if (callback) {
+                callback(items.doNotReplaceList);
+            }
         }
     );
+}
+
+function saveDoNotReplaceList(doNotReplaceList, callback) {
+    const items = { doNotReplaceList: doNotReplaceList };
+    chrome.storage.sync.set(items, function(items) {
+        if (callback) {
+            callback();
+        }
+    });
 }
 
 function addItem() {
     const newEntry = document.getElementById("newEntry").value;
-    chrome.storage.sync.get(
-        {
-            doNotReplaceList: []
-        },
-        function(items) {
-            items.doNotReplaceList.push(newEntry);
-            items.doNotReplaceList.sort();
-            chrome.storage.sync.set(items);
+    loadDoNotReplaceList(function(doNotReplaceList) {
+        doNotReplaceList.push(newEntry);
+        doNotReplaceList.sort();
+        saveDoNotReplaceList(doNotReplaceList);
 
-            // Update the displayed list
-            displayDoNotReplaceList(items.doNotReplaceList);
-        }
-    );
+        // Update the displayed list
+        displayDoNotReplaceList(doNotReplaceList);
+    });
 }
 
 function removeItem(urlToRemove) {
-    chrome.storage.sync.get(
-        {
-            doNotReplaceList: []
-        },
-        function(items) {
-            items.doNotReplaceList.sort();
-            const index = items.doNotReplaceList.findIndex(function(s) {
-                return s === urlToRemove;
-            });
+    loadDoNotReplaceList(function(doNotReplaceList) {
+        doNotReplaceList.sort();
+        const index = doNotReplaceList.findIndex(function(s) {
+            return s === urlToRemove;
+        });
 
-            // If the item hasn't already been removed from the list,
-            if (index !== -1) {
-                items.doNotReplaceList.splice(index, 1);
-            }
-
-            chrome.storage.sync.set(items);
-
-            // Update the displayed list
-            displayDoNotReplaceList(items.doNotReplaceList);
+        // If the item hasn't already been removed from the list,
+        if (index !== -1) {
+            doNotReplaceList.splice(index, 1);
         }
-    );
+
+        saveDoNotReplaceList(doNotReplaceList);
+
+        // Update the displayed list
+        displayDoNotReplaceList(doNotReplaceList);
+    });
 }
 
 function displayDoNotReplaceList(doNotReplaceList) {
