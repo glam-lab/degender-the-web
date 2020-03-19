@@ -4,3 +4,11 @@
 .hide {
     display: none;
 }
+ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 10px;
+}
+.li-delete-button {
+    float: right;
+}

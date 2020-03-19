@@ -69,8 +69,8 @@ function displayDoNotReplaceList(doNotReplaceList) {
     for (const url of doNotReplaceList) {
         const div = document.createElement("li");
         const deleteButton = document.createElement("span");
-        deleteButton.classList.add("delete");
-        deleteButton.appendChild(document.createTextNode("x"));
+        deleteButton.classList.add("li-delete-button");
+        deleteButton.appendChild(document.createTextNode("[x]"));
         deleteButton.addEventListener("click", function() {
             removeItem(
                 this.parentElement.querySelector(".url-li-label").innerText
