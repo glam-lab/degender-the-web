@@ -28,9 +28,11 @@ function saveDoNotReplaceList(doNotReplaceList, callback) {
 }
 
 function addItem() {
-    const newEntry = document.getElementById("newEntry").value;
+    const newEntryField = document.getElementById("newEntry");
+    const newEntryText = newEntryField.value;
+    newEntryField.value = "";
     loadDoNotReplaceList(function(doNotReplaceList) {
-        doNotReplaceList.push(newEntry);
+        doNotReplaceList.push(newEntryText);
         doNotReplaceList.sort();
         saveDoNotReplaceList(doNotReplaceList);
 
@@ -87,3 +89,8 @@ function displayDoNotReplaceList(doNotReplaceList) {
 
 document.addEventListener("DOMContentLoaded", restore_options);
 document.getElementById("add").addEventListener("click", addItem);
+document.getElementById("newEntry").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        addItem();
+    }
+});
