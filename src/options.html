@@ -5,12 +5,13 @@
     <link rel="stylesheet" type="text/css" href="options.css">
   </head>
   <body>
-    <label for="doNotReplaceList">Disable <i>Degender the Web</i> on these pages:</label>
-    <textarea id="doNotReplaceList" rows="4" cols="60"></textarea>
-    <hr />
+    <div>
+        <input type="text" id="newEntry" name="newEntry">
+    </div>
+    <button id="add">Add</button>
 
-    <div id="status" class="hide">Options saved.</div>
-    <button id="save">Save</button>
+    <div><i>Degender the Web</i> is disabled on these pages:</div>
+    <ul id="doNotReplaceList"></ul>
 
     <script src="options.js"></script>
   </body>
