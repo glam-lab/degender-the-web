@@ -6,14 +6,17 @@
   </head>
   <body>
     <div>
-        <input type="text" id="newEntry" name="newEntry">
+      <div>
+        <label for="newEntry">Turn off DGtW for a new page or host:</label>
+      </div>
+      <input type="text" name="newEntry" id="newEntry">
     </div>
     <div>
-        <button id="add">Add</button>
+      <button id="add">Add</button>
     </div>
 
     <div id="turned-off-label" class="hide">
-        <i>Degender the Web</i> is turned off on these pages:
+      <i>Degender the Web</i> is turned off for these pages:
     </div>
     <ul id="doNotReplaceList"></ul>
 

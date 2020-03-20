@@ -151,10 +151,14 @@ function updateStatusCallback(response) {
     if (response) {
         chrome.storage.sync.get({ doNotReplaceList: [] }, function(items) {
             callOnTargetTab(function(tab) {
+                const url = tab.url
+                    .split("://")
+                    .slice(1)
+                    .join("://");
                 if (
                     items.doNotReplaceList.some(
                         String.prototype.startsWith,
-                        tab.url
+                        url
                     )
                 ) {
                     // DGtW is turned off for this page,
@@ -182,10 +186,14 @@ function updateStatusCallback(response) {
     ) {
         chrome.storage.sync.get({ doNotReplaceList: [] }, function(items) {
             callOnTargetTab(function(tab) {
+                const url = tab.url
+                    .split("://")
+                    .slice(1)
+                    .join("://");
                 if (
                     items.doNotReplaceList.some(
                         String.prototype.startsWith,
-                        tab.url
+                        url
                     )
                 ) {
                     setStatusTo(Status.userDeniedHost);

@@ -29,10 +29,17 @@ function saveDoNotReplaceList(doNotReplaceList, callback) {
 
 function addItem() {
     const newEntryField = document.getElementById("newEntry");
-    const newEntryText = newEntryField.value;
+    let url = newEntryField.value;
+    if (url.includes("://")) {
+        // Strip off the 'http://' using the first instance of '://'
+        url = url
+            .split("://")
+            .slice(1)
+            .join("://");
+    }
     newEntryField.value = "";
     loadDoNotReplaceList(function(doNotReplaceList) {
-        doNotReplaceList.push(newEntryText);
+        doNotReplaceList.push(url);
         doNotReplaceList.sort();
         saveDoNotReplaceList(doNotReplaceList);
 
