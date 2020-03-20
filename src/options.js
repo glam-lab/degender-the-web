@@ -66,6 +66,15 @@ function displayDoNotReplaceList(doNotReplaceList) {
     // Clear listed children
     ul.innerHTML = "";
 
+    const label = document.getElementById("turned-off-label");
+    if (doNotReplaceList.length) {
+        label.classList.remove("hide");
+        label.classList.add("show");
+    } else {
+        label.classList.remove("show");
+        label.classList.add("hide");
+    }
+
     for (const url of doNotReplaceList) {
         const div = document.createElement("li");
         const deleteButton = document.createElement("span");
