@@ -32,14 +32,27 @@ function sendMessageToContentScript(type, callback) {
     });
 }
 
-function showElement(id) {
-    document.getElementById(id).classList.remove("hide");
-    document.getElementById(id).classList.add("show");
-}
+function showElements(elementsToShow) {
+    // If elementsToShow is not provided, hide everything except status.
+    elementsToShow = elementsToShow || [];
 
-function hideElement(id) {
-    document.getElementById(id).classList.remove("show");
-    document.getElementById(id).classList.add("hide");
+    const allElements = [
+        ids.restore,
+        ids.reloadPage,
+        ids.showChanges,
+        ids.showHighlights
+    ];
+
+    // Show only the elements specified, hide all others.
+    for (const id of allElements) {
+        if (elementsToShow.includes(id)) {
+            document.getElementById(id).classList.remove("hide");
+            document.getElementById(id).classList.add("show");
+        } else {
+            document.getElementById(id).classList.remove("show");
+            document.getElementById(id).classList.add("hide");
+        }
+    }
 }
 
 function setStatusTo(newStatus, whyExcluded) {
@@ -51,10 +64,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show no buttons
-            hideElement(ids.showChanges);
-            hideElement(ids.showHighlights);
-            hideElement(ids.restore);
-            hideElement(ids.reloadPage);
+            showElements();
             break;
 
         case Status.pronounSpecs:
@@ -63,10 +73,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show highlight checkbox
-            hideElement(ids.showChanges);
-            showElement(ids.showHighlights);
-            showElement(ids.restore);
-            hideElement(ids.reloadPage);
+            showElements([ids.showHighlights, ids.restore]);
             break;
 
         case Status.mentionsGender:
@@ -75,10 +82,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show highlight checkbox
-            hideElement(ids.showChanges);
-            showElement(ids.showHighlights);
-            showElement(ids.restore);
-            hideElement(ids.reloadPage);
+            showElements([ids.showHighlights, ids.restore]);
             break;
 
         case Status.replacedPronouns:
@@ -86,10 +90,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show "Show changes" checkbox
-            showElement(ids.showChanges);
-            hideElement(ids.showHighlights);
-            showElement(ids.restore);
-            hideElement(ids.reloadPage);
+            showElements([ids.showChanges, ids.restore]);
             break;
 
         case Status.noGenderedPronouns:
@@ -97,22 +98,16 @@ function setStatusTo(newStatus, whyExcluded) {
             statusText += "on this page.";
             document.getElementById(ids.status).innerHTML = statusText;
 
-            // Show only the reload button
-            hideElement(ids.showChanges);
-            hideElement(ids.showHighlights);
-            hideElement(ids.restore);
-            hideElement(ids.reloadPage);
+            // Show no buttons
+            showElements();
             break;
 
         case Status.restoredOriginal:
             statusText = "The original content has been restored.";
             document.getElementById(ids.status).innerHTML = statusText;
 
-            // Show no buttons
-            hideElement(ids.showChanges);
-            hideElement(ids.showHighlights);
-            hideElement(ids.restore);
-            showElement(ids.reloadPage);
+            // Show reload button
+            showElements([ids.reloadPage]);
             break;
 
         case Status.userDeniedHost:
@@ -121,10 +116,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show no buttons
-            hideElement(ids.showChanges);
-            hideElement(ids.showHighlights);
-            hideElement(ids.restore);
-            hideElement(ids.reloadPage);
+            showElements();
             break;
 
         case Status.userDeniedHostReload:
@@ -134,13 +126,9 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show only the reload button
-            hideElement(ids.showChanges);
-            hideElement(ids.showHighlights);
-            hideElement(ids.restore);
-            showElement(ids.reloadPage);
+            showElements([ids.reloadPage]);
             break;
     }
-    document.getElementById(ids.status).innerHTML = statusText;
 }
 
 function updateStatus() {
