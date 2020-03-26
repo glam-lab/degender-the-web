@@ -29,17 +29,10 @@ function saveDoNotReplaceList(doNotReplaceList, callback) {
 
 function addItem() {
     const newEntryField = document.getElementById("newEntry");
-    let url = newEntryField.value;
-    if (url.includes("://")) {
-        // Strip off the 'http://' using the first instance of '://'
-        url = url
-            .split("://")
-            .slice(1)
-            .join("://");
-    }
+    const url = new URL(newEntryField.value);
     newEntryField.value = "";
     loadDoNotReplaceList(function(doNotReplaceList) {
-        doNotReplaceList.push(url);
+        doNotReplaceList.push(url.host);
         doNotReplaceList.sort();
         saveDoNotReplaceList(doNotReplaceList);
 
@@ -58,6 +51,8 @@ function removeItem(urlToRemove) {
         // If the item hasn't already been removed from the list,
         if (index !== -1) {
             doNotReplaceList.splice(index, 1);
+        } else {
+            console.log(urlToRemove + " was not found in `doNotReplaceList`");
         }
 
         saveDoNotReplaceList(doNotReplaceList);

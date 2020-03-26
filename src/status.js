@@ -6,6 +6,9 @@ const Status = {
     noGenderedPronouns: "noGenderedPronouns",
     restoredOriginal: "restoredOriginal",
     userDeniedHost: "userDeniedHost",
-    userDeniedHostReload: "userDeniedHostReload"
+    userDeniedHostReload: "userDeniedHostReload",
+    userAllowedHostReload: "userAllowedHostReload",
+    systemPage: "systemPage",
+    genericReload: "genericReload"
 };
 export { Status };

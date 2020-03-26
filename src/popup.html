@@ -6,24 +6,41 @@
 
   <body>
     <p id="status"></p>
+
     <div id="show-changes" class="hide">
       <input type="checkbox" id="show-changes-checkbox">
       <label for="show-changes-checkbox">Show changes</label>
     </div>
+
     <div id="show-highlights" class="hide">
       <input type="checkbox" id="show-highlights-checkbox">
       <label for="show-highlights-checkbox">Show highlights</label>
     </div>
-    <div>
-      <button id="restore" class="hide">
-        Restore original content
-      </button>
+
+    <br> <?-- TODO something better -->
+
+    <div id="turn-on-for-host" class="hide">
+      <input type="checkbox" id="turn-on-for-host-checkbox">
+      <label for="turn-on-for-host-checkbox">
+        Replace pronouns on this host
+      </label>
     </div>
+
+    <p id="reload-message"></p>
+
     <div>
       <button id="reload-page" class="hide">
         Reload page
       </button>
     </div>
+
+
+    <div>
+      <button id="restore" class="hide">
+        Restore original content
+      </button>
+    </div>
+
     <script type="module" src="popup.js"></script>
   </body>
 </html>

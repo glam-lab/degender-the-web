@@ -2,14 +2,20 @@
 
 import { Status } from "./status.js";
 
+const CONNECTION_ERROR =
+    "Could not establish connection. Receiving end does not exist.";
+
 const ids = {
     status: "status",
     restore: "restore",
     reloadPage: "reload-page",
+    reloadMessage: "reload-message",
     showChanges: "show-changes",
     showChangesCheckbox: "show-changes-checkbox",
     showHighlights: "show-highlights",
-    showHighlightsCheckbox: "show-highlights-checkbox"
+    showHighlightsCheckbox: "show-highlights-checkbox",
+    turnOnForHost: "turn-on-for-host",
+    turnOnForHostCheckbox: "turn-on-for-host-checkbox"
 };
 
 function callOnTargetTab(callback) {
@@ -32,6 +38,16 @@ function sendMessageToContentScript(type, callback) {
     });
 }
 
+function showElement(id) {
+    document.getElementById(id).classList.remove("hide");
+    document.getElementById(id).classList.add("show");
+}
+
+function hideElement(id) {
+    document.getElementById(id).classList.remove("show");
+    document.getElementById(id).classList.add("hide");
+}
+
 function showElements(elementsToShow) {
     // If elementsToShow is not provided, hide everything except status.
     elementsToShow = elementsToShow || [];
@@ -40,23 +56,22 @@ function showElements(elementsToShow) {
         ids.restore,
         ids.reloadPage,
         ids.showChanges,
-        ids.showHighlights
+        ids.showHighlights,
+        ids.turnOnForHost
     ];
 
     // Show only the elements specified, hide all others.
     for (const id of allElements) {
         if (elementsToShow.includes(id)) {
-            document.getElementById(id).classList.remove("hide");
-            document.getElementById(id).classList.add("show");
+            showElement(id);
         } else {
-            document.getElementById(id).classList.remove("show");
-            document.getElementById(id).classList.add("hide");
+            hideElement(id);
         }
     }
 }
 
 function setStatusTo(newStatus, whyExcluded) {
-    let statusText = "<i>Degender the web</i> ";
+    let statusText = "<i>Degender the Web</i> ";
     switch (newStatus) {
         case Status.excludedDomain:
             statusText += "does not run on this site due to ";
@@ -90,7 +105,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show "Show changes" checkbox
-            showElements([ids.showChanges, ids.restore]);
+            showElements([ids.showChanges, ids.restore, ids.turnOnForHost]);
             break;
 
         case Status.noGenderedPronouns:
@@ -115,17 +130,23 @@ function setStatusTo(newStatus, whyExcluded) {
                 "You've turned off <i>Degender the Web</i> for this page.";
             document.getElementById(ids.status).innerHTML = statusText;
 
+            // Show the (unchecked) host checkbox
+            showElements([ids.turnOnForHost]);
+            break;
+
+        case Status.systemPage:
+            statusText += "cannot run on system pages or the Chrome Web Store.";
+            document.getElementById(ids.status).innerHTML = statusText;
+
             // Show no buttons
             showElements();
             break;
 
-        case Status.userDeniedHostReload:
-            statusText =
-                "You've turned off <i>Degender the Web</i> for " +
-                "this page. Reload the page to revert pronoun replacements.";
+        case Status.genericReload:
+            statusText = "";
             document.getElementById(ids.status).innerHTML = statusText;
+            setReloadMessage("Reload the page to replace pronouns.");
 
-            // Show only the reload button
             showElements([ids.reloadPage]);
             break;
     }
@@ -135,63 +156,77 @@ function updateStatus() {
     sendMessageToContentScript("getStatus", updateStatusCallback);
 }
 
-function updateStatusCallback(response) {
-    if (response) {
-        chrome.storage.sync.get({ doNotReplaceList: [] }, function(items) {
-            callOnTargetTab(function(tab) {
-                const url = tab.url
-                    .split("://")
-                    .slice(1)
-                    .join("://");
-                if (
-                    items.doNotReplaceList.some(
-                        String.prototype.startsWith,
-                        url
-                    )
-                ) {
-                    // DGtW is turned off for this page,
-                    // but the page hasn't been reloaded.
-                    setStatusTo(Status.userDeniedHostReload);
-                } else {
-                    setStatusTo(response.status, response.whyExcluded);
-                    // Only one checkbox is shown at a time, but either can be
-                    // represented by `isToggled`
-                    document.getElementById(ids.showChangesCheckbox).checked =
-                        response.isToggled;
-                    document.getElementById(
-                        ids.showHighlightsCheckbox
-                    ).checked = response.isToggled;
-                }
-            });
-        });
-    }
+function loadDoNotReplaceList(callback) {
+    chrome.storage.sync.get(
+        {
+            doNotReplaceList: []
+        },
+        function(items) {
+            if (callback) {
+                callback(items.doNotReplaceList);
+            }
+        }
+    );
+}
 
-    // Special handling for non-responsive content script.
+function saveDoNotReplaceList(doNotReplaceList, callback) {
+    const items = { doNotReplaceList: doNotReplaceList };
+    chrome.storage.sync.set(items, function(items) {
+        if (callback) {
+            callback();
+        }
+    });
+}
+
+function updateStatusCallback(response) {
     if (
         chrome.runtime.lastError &&
-        chrome.runtime.lastError.message ===
-            "Could not establish connection. Receiving end does not exist."
+        chrome.runtime.lastError.message === CONNECTION_ERROR
     ) {
-        chrome.storage.sync.get({ doNotReplaceList: [] }, function(items) {
-            callOnTargetTab(function(tab) {
-                const url = tab.url
-                    .split("://")
-                    .slice(1)
-                    .join("://");
-                if (
-                    items.doNotReplaceList.some(
-                        String.prototype.startsWith,
-                        url
-                    )
-                ) {
-                    setStatusTo(Status.userDeniedHost);
-                } else {
-                    // This is probably a system page.
-                    window.close();
-                }
-            });
-        });
+        response = null;
     }
+    loadDoNotReplaceList(function(doNotReplaceList) {
+        callOnTargetTab(function(tab) {
+            const url = new URL(tab.url);
+
+            if (response) {
+                // Successfully messaged content script
+                // Handler for host checkbox when replacements have been made
+                document
+                    .getElementById(ids.turnOnForHostCheckbox)
+                    .addEventListener("click", toggleHostWithScript);
+
+                setStatusTo(response.status, response.whyExcluded);
+
+                // Only one checkbox is shown at a time, but either can be
+                // represented by `isToggled`
+                document.getElementById(ids.showChangesCheckbox).checked =
+                    response.isToggled;
+                document.getElementById(ids.showHighlightsCheckbox).checked =
+                    response.isToggled;
+                const hostCheckbox = document.getElementById(
+                    ids.turnOnForHostCheckbox
+                );
+                hostCheckbox.checked = !doNotReplaceList.includes(url.host);
+                toggleHostWithScript();
+            } else {
+                // Handler for host checkbox when the page hasn't been modified
+                document
+                    .getElementById(ids.turnOnForHostCheckbox)
+                    .addEventListener("click", toggleHostWithoutScript);
+
+                if (doNotReplaceList.includes(url.host)) {
+                    setStatusTo(Status.userDeniedHost);
+                } else if (url.protocol === "chrome:") {
+                    setStatusTo(Status.systemPage);
+                } else {
+                    // It's hard to tell how we got to this state when we can't
+                    // communicate with the content script. Prompt to reload.
+                    setStatusTo(Status.genericReload);
+                }
+            }
+        });
+    });
 }
 
 // From https://stackoverflow.com/a/29998214
@@ -215,8 +250,68 @@ function toggleSomething() {
 }
 
 function reloadPage() {
-    sendMessageToContentScript("reloadPage");
-    window.close();
+    callOnTargetTab(function(tab) {
+        chrome.tabs.reload(tab.id);
+        window.close();
+    });
+}
+
+function setReloadMessage(message) {
+    document.getElementById(ids.reloadMessage).innerHTML = message;
+}
+
+function toggleHostWithoutScript() {
+    const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
+
+    callOnTargetTab(function(tab) {
+        const url = new URL(tab.url);
+        loadDoNotReplaceList(function(doNotReplaceList) {
+            if (checked) {
+                setReloadMessage("Reload the page to replace pronouns.");
+                showElement(ids.reloadPage);
+                showElement(ids.reloadMessage);
+
+                doNotReplaceList = doNotReplaceList.filter(function(s) {
+                    return s !== url.host;
+                });
+            } else {
+                // The box was probably checked, then unchecked.
+                // Hide the reload message, since reloading will do nothing.
+                hideElement(ids.reloadPage);
+                hideElement(ids.reloadMessage);
+                doNotReplaceList.push(url.host);
+            }
+            saveDoNotReplaceList(doNotReplaceList);
+        });
+    });
+}
+
+function toggleHostWithScript() {
+    const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
+
+    callOnTargetTab(function(tab) {
+        const url = new URL(tab.url);
+        loadDoNotReplaceList(function(doNotReplaceList) {
+            if (checked) {
+                // The box was probably unchecked, then re-checked.
+                // Hide the reload message, since reloading will do nothing.
+                hideElement(ids.reloadPage);
+                hideElement(ids.reloadMessage);
+
+                doNotReplaceList = doNotReplaceList.filter(function(s) {
+                    return s !== url.host;
+                });
+            } else {
+                setReloadMessage(
+                    "Reload the page to revert pronoun replacements."
+                );
+                showElement(ids.reloadPage);
+                showElement(ids.reloadMessage);
+                doNotReplaceList.push(url.host);
+            }
+            saveDoNotReplaceList(doNotReplaceList);
+        });
+    });
 }
 
 document
