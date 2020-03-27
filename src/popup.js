@@ -38,14 +38,14 @@ function sendMessageToContentScript(type, callback) {
     });
 }
 
-function showElement(id) {
-    document.getElementById(id).classList.remove("hide");
-    document.getElementById(id).classList.add("show");
-}
-
-function hideElement(id) {
-    document.getElementById(id).classList.remove("show");
-    document.getElementById(id).classList.add("hide");
+function setVisibility(id, visibility) {
+    if (visibility) {
+        document.getElementById(id).classList.remove("hide");
+        document.getElementById(id).classList.add("show");
+    } else {
+        document.getElementById(id).classList.remove("show");
+        document.getElementById(id).classList.add("hide");
+    }
 }
 
 function showElements(elementsToShow) {
@@ -62,11 +62,7 @@ function showElements(elementsToShow) {
 
     // Show only the elements specified, hide all others.
     for (const id of allElements) {
-        if (elementsToShow.includes(id)) {
-            showElement(id);
-        } else {
-            hideElement(id);
-        }
+        setVisibility(id, elementsToShow.includes(id));
     }
 }
 
@@ -147,6 +143,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
             setReloadMessage("Reload the page to replace pronouns.");
 
+            // Show reload button
             showElements([ids.reloadPage]);
             break;
     }
@@ -263,13 +260,18 @@ function setReloadMessage(message) {
 function toggleHostWithoutScript() {
     const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
 
+    // If a status has made the reload button visible, we can't hide it here
+    const reloadVisibility = document
+        .getElementById(ids.reloadPage)
+        .classList.contains("show");
+
     callOnTargetTab(function(tab) {
         const url = new URL(tab.url);
         loadDoNotReplaceList(function(doNotReplaceList) {
             if (checked) {
                 setReloadMessage("Reload the page to replace pronouns.");
-                showElement(ids.reloadPage);
-                showElement(ids.reloadMessage);
+                setVisibility(ids.reloadPage, true);
+                setVisibility(ids.reloadMessage, true);
 
                 doNotReplaceList = doNotReplaceList.filter(function(s) {
                     return s !== url.host;
@@ -277,8 +279,8 @@ function toggleHostWithoutScript() {
             } else {
                 // The box was probably checked, then unchecked.
                 // Hide the reload message, since reloading will do nothing.
-                hideElement(ids.reloadPage);
-                hideElement(ids.reloadMessage);
+                setVisibility(ids.reloadPage, reloadVisibility);
+                setVisibility(ids.reloadMessage, false);
                 doNotReplaceList.push(url.host);
             }
             saveDoNotReplaceList(doNotReplaceList);
@@ -289,14 +291,19 @@ function toggleHostWithoutScript() {
 function toggleHostWithScript() {
     const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
 
+    // If a status has made the reload button visible, we can't hide it here
+    const reloadVisibility = document
+        .getElementById(ids.reloadPage)
+        .classList.contains("show");
+
     callOnTargetTab(function(tab) {
         const url = new URL(tab.url);
         loadDoNotReplaceList(function(doNotReplaceList) {
             if (checked) {
                 // The box was probably unchecked, then re-checked.
                 // Hide the reload message, since reloading will do nothing.
-                hideElement(ids.reloadPage);
-                hideElement(ids.reloadMessage);
+                setVisibility(ids.reloadPage, reloadVisibility);
+                setVisibility(ids.reloadMessage, false);
 
                 doNotReplaceList = doNotReplaceList.filter(function(s) {
                     return s !== url.host;
@@ -305,8 +312,8 @@ function toggleHostWithScript() {
                 setReloadMessage(
                     "Reload the page to revert pronoun replacements."
                 );
-                showElement(ids.reloadPage);
-                showElement(ids.reloadMessage);
+                setVisibility(ids.reloadPage, true);
+                setVisibility(ids.reloadMessage, true);
                 doNotReplaceList.push(url.host);
             }
             saveDoNotReplaceList(doNotReplaceList);
