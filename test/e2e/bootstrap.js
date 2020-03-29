@@ -38,35 +38,16 @@ before(function(done) {
         status: "#status",
         restore: "#restore",
         reloadPage: "#reload-page",
+        reloadMessage: "#reload-message",
         showChanges: "#show-changes",
         showChangesCheckbox: "#show-changes-checkbox",
         showHighlights: "#show-highlights",
         showHighlightsCheckbox: "#show-highlights-checkbox",
+        turnOnForHost: "#turn-on-for-host",
+        turnOnForHostCheckbox: "#turn-on-for-host-checkbox",
         ins: "ins.dgtw",
         del: "del.dgtw",
-        highlight: "strong.dgtw",
-        doNotReplaceList: "#doNotReplaceList",
-        saveDoNotReplaceList: "#save"
-    };
-
-    global.setDoNotReplaceList = async function(text) {
-        const optionsURL =
-            "chrome-extension://kgeehecadkggegiegoamiabpdjpgjkhg/src/options.html";
-        const options = await browser.newPage();
-        await options.goto(optionsURL);
-        await options.$eval(
-            global.selectors.doNotReplaceList,
-            (e, host) => (e.value = host),
-            text
-        );
-        await options.click(global.selectors.saveDoNotReplaceList);
-
-        // Now wait for the "Options saved" message
-        await options.waitForSelector(global.selectors.status, {
-            visible: true
-        });
-
-        options.close();
+        highlight: "strong.dgtw"
     };
 
     puppeteer.launch(opts).then(function(browser) {
@@ -83,7 +64,6 @@ after(function() {
     global.expect = globalVariables.expect;
     global.testURL = globalVariables.testURL;
     global.unsupportedURL = globalVariables.unsupportedURL;
-    global.testHost = globalVariables.testHost;
     global.popupURL = globalVariables.popupURL;
     global.selectors = globalVariables.selectors;
     global.setDoNotReplaceList = globalVariables.setDoNotReplaceList;

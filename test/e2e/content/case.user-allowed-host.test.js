@@ -1,5 +1,5 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors, setDoNotReplaceList */
+/*globals describe, before, after, it, expect, browser, testURL, popupURL, selectors */
 
 describe("When the user has re-enabled the extension on this host, the page", function() {
     let page;
@@ -7,8 +7,6 @@ describe("When the user has re-enabled the extension on this host, the page", fu
     const text = "She washed her motorcycle. He washed his car.";
 
     before(async function() {
-        await setDoNotReplaceList("");
-
         page = await browser.newPage();
         await page.goto(testURL + text);
 
