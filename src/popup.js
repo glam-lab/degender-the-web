@@ -7,7 +7,6 @@ const CONNECTION_ERROR =
 
 const ids = {
     status: "status",
-    restore: "restore",
     reloadPage: "reload-page",
     reloadMessage: "reload-message",
     showChanges: "show-changes",
@@ -53,7 +52,6 @@ function showElements(elementsToShow) {
     elementsToShow = elementsToShow || [];
 
     const allElements = [
-        ids.restore,
         ids.reloadPage,
         ids.showChanges,
         ids.showHighlights,
@@ -84,7 +82,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show highlight checkbox
-            showElements([ids.showHighlights, ids.restore]);
+            showElements([ids.showHighlights]);
             break;
 
         case Status.mentionsGender:
@@ -93,7 +91,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show highlight checkbox
-            showElements([ids.showHighlights, ids.restore]);
+            showElements([ids.showHighlights]);
             break;
 
         case Status.replacedPronouns:
@@ -101,7 +99,7 @@ function setStatusTo(newStatus, whyExcluded) {
             document.getElementById(ids.status).innerHTML = statusText;
 
             // Show "Show changes" checkbox
-            showElements([ids.showChanges, ids.restore, ids.turnOnForHost]);
+            showElements([ids.showChanges, ids.turnOnForHost]);
             break;
 
         case Status.noGenderedPronouns:
@@ -111,14 +109,6 @@ function setStatusTo(newStatus, whyExcluded) {
 
             // Show no buttons
             showElements();
-            break;
-
-        case Status.restoredOriginal:
-            statusText = "The original content has been restored.";
-            document.getElementById(ids.status).innerHTML = statusText;
-
-            // Show reload button
-            showElements([ids.reloadPage]);
             break;
 
         case Status.userDeniedHost:
@@ -168,7 +158,7 @@ function loadDoNotReplaceList(callback) {
 
 function saveDoNotReplaceList(doNotReplaceList, callback) {
     const items = { doNotReplaceList: doNotReplaceList };
-    chrome.storage.sync.set(items, function(items) {
+    chrome.storage.sync.set(items, function() {
         if (callback) {
             callback();
         }
@@ -238,10 +228,6 @@ function getUrlParameter(sParam) {
     }
 }
 
-function restoreOriginalContent() {
-    sendMessageToContentScript("restoreOriginalContent", updateStatusCallback);
-}
-
 function toggleSomething() {
     sendMessageToContentScript("toggle");
 }
@@ -292,17 +278,15 @@ function toggleHostWithScript() {
     const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
 
     // If a status has made the reload button visible, we can't hide it here
-    const reloadVisibility = document
-        .getElementById(ids.reloadPage)
-        .classList.contains("show");
-
+    // FIXME This gets the checkedness *on click*, not when the popup is opened
+    //       This variable is no longer being used, since it doesn't work right
     callOnTargetTab(function(tab) {
         const url = new URL(tab.url);
         loadDoNotReplaceList(function(doNotReplaceList) {
             if (checked) {
                 // The box was probably unchecked, then re-checked.
                 // Hide the reload message, since reloading will do nothing.
-                setVisibility(ids.reloadPage, reloadVisibility);
+                setVisibility(ids.reloadPage, false);
                 setVisibility(ids.reloadMessage, false);
 
                 doNotReplaceList = doNotReplaceList.filter(function(s) {
@@ -321,10 +305,6 @@ function toggleHostWithScript() {
     });
 }
 
-document
-    .getElementById(ids.restore)
-    .addEventListener("click", restoreOriginalContent);
-
 document.getElementById(ids.reloadPage).addEventListener("click", reloadPage);
 
 document
@@ -338,4 +318,7 @@ document
 const isTest = getUrlParameter("test") === "true";
 
 // Display extension status when popup is opened
+// FIXME Since this is async, the popup is supposedly loaded before its status.
+//       Fixing this should make tests simpler and require less waiting for
+//       element visibility.
 updateStatus();

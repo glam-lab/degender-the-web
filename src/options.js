@@ -29,10 +29,22 @@ function saveDoNotReplaceList(doNotReplaceList, callback) {
 
 function addItem() {
     const newEntryField = document.getElementById("newEntry");
-    const url = new URL(newEntryField.value);
+
+    let url = newEntryField.value;
+
+    if (url.includes("://")) {
+        // Strip off the protocol using the first instance of '://'
+        url = url
+            .split("://")
+            .slice(1)
+            .join("://");
+    }
+
+    url = url.split("/")[0];
+
     newEntryField.value = "";
     loadDoNotReplaceList(function(doNotReplaceList) {
-        doNotReplaceList.push(url.host);
+        doNotReplaceList.push(url);
         doNotReplaceList.sort();
         saveDoNotReplaceList(doNotReplaceList);
 
@@ -89,7 +101,7 @@ function displayDoNotReplaceList(doNotReplaceList) {
         });
 
         const text = document.createElement("span");
-        text.classList.add("url-li-label");
+        text.classList.add("host-label");
         text.appendChild(document.createTextNode(url));
 
         div.appendChild(text);

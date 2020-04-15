@@ -1,34 +1,38 @@
 /*eslint no-unused-expressions: "off" */
-/*globals describe, before, after, it, expect, browser, selectors, testURL, popupURL */
+/*globals describe, before, after, it, expect, browser, storage, selectors, testURL, popupURL, optionsURL */
 
-describe("When the user has disabled the extension on this host, the page", function() {
+describe("When the user has turned off the extension for this host, the page", function() {
     let page;
     let popup;
+    let options;
     const text =
         "On the driveway, she washed her motorcycle while he washed his car.";
 
     describe("When the user has not yet reloaded the page, it", function() {
         before(async function() {
-            // The page is loaded, the content script performs replacements
+            options = await browser.newPage();
+            await options.goto(optionsURL);
             page = await browser.newPage();
             await page.goto(testURL + text);
-
-            // Now replacements are turned off for this host
             popup = await browser.newPage();
+
+            // Turn off replacements on this host only
+            console.log("setting storage");
+            await storage.set(options, {
+                doNotReplaceList: [new URL(testURL).host]
+            });
+            console.log("done setting storage");
+
+            // Open the popup, but don't yet reload the page
             await popup.goto(popupURL);
-
-            // Clear the doNotReplaceList
-            await popup.evaluate("chrome.storage.sync.clear()");
-            await popup.reload();
-
-            await popup.click(selectors.turnOnForHostCheckbox);
         });
 
         after(async function() {
-            await popup.evaluate("chrome.storage.sync.clear()");
+            await storage.clear(options);
 
             await popup.close();
             await page.close();
+            await options.close();
         });
 
         it("should not yet change the status message", async function() {
@@ -54,6 +58,7 @@ describe("When the user has disabled the extension on this host, the page", func
             );
         });
 
+        // TODO Change to "should show"
         it("should not show the 'Show changes' checkbox", async function() {
             await popup.waitForSelector(selectors.showChangesCheckbox, {
                 visible: false
@@ -66,10 +71,6 @@ describe("When the user has disabled the extension on this host, the page", func
             });
         });
 
-        it("should not show the 'Restore original content' button", async function() {
-            await page.waitForSelector(selectors.restore, { hidden: true });
-        });
-
         it("should show the 'Reload page' button", async function() {
             await popup.waitForSelector(selectors.reloadPage, {
                 hidden: false
@@ -79,28 +80,28 @@ describe("When the user has disabled the extension on this host, the page", func
 
     describe("When the user opens or reloads the page, it", function() {
         before(async function() {
-            // Load the page
+            // Open page and popup just so we can access the doNotReplaceList
+            options = await browser.newPage();
+            await options.goto(optionsURL);
             page = await browser.newPage();
             await page.goto(testURL + text);
-
             popup = await browser.newPage();
             await popup.goto(popupURL);
 
-            // Clear the doNotReplaceList
-            await popup.evaluate("chrome.storage.sync.clear()");
-            await popup.reload();
-
             // Turn off replacements, reload popup to simulate re-opening it
-            await popup.click(selectors.turnOnForHostCheckbox);
+            await storage.set(options, {
+                doNotReplaceList: [new URL(testURL).host]
+            });
             await page.reload();
             await popup.reload();
         });
 
         after(async function() {
-            await popup.evaluate("chrome.storage.sync.clear()");
+            await storage.clear(popup);
 
             await popup.close();
             await page.close();
+            await options.close();
         });
 
         it("should still say 'he' and 'she'", async function() {
@@ -134,10 +135,6 @@ describe("When the user has disabled the extension on this host, the page", func
             await popup.waitForSelector(selectors.showHighlightsCheckbox, {
                 visible: false
             });
-        });
-
-        it("should not show the 'Restore original content' button", async function() {
-            await page.waitForSelector(selectors.restore, { hidden: true });
         });
 
         it("should not show the 'Reload page' button", async function() {

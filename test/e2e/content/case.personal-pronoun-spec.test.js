@@ -82,18 +82,6 @@ describe("When the page includes personal pronoun specifiers, it", function() {
         });
     });
 
-    it("should show the 'Restore original content' button", async function() {
-        // Make sure the button is visible
-        await popup.waitForSelector(selectors.restore, { visible: true });
-
-        // Make sure the button is correctly labelled
-        const buttonText = await popup.$eval(
-            selectors.restore,
-            e => e.innerText
-        );
-        expect(buttonText).to.equal("Restore original content");
-    });
-
     it("should not show the 'Reload page' button", async function() {
         await page.waitForSelector(selectors.reloadPage, {
             hidden: true
