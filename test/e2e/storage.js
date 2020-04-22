@@ -1,44 +1,39 @@
 /*globals chrome */
-function get(page, defaults) {
+// _pageBindings solution from https://stackoverflow.com/a/59138297/9158894
+
+// It's not worth it to DRY this any longer
+function awaitCallback(page, f) {
     return new Promise(function(resolve) {
-        // Let the page execute resolution function in Puppeteer context
         page._pageBindings.delete("resolve");
-        page.exposeFunction("resolve", resolve).then(function() {
-            // Resolve the Promise only once storage is cleared
-            page.evaluate(function(defaults) {
-                chrome.storage.sync.get(defaults, function(items) {
-                    resolve(items);
-                });
-            }, defaults);
-        });
+        page.exposeFunction("resolve", resolve).then(f);
+    });
+}
+
+function get(page, defaults) {
+    return awaitCallback(page, function(resolve) {
+        page.evaluate(function(defaults) {
+            chrome.storage.sync.get(defaults, function(items) {
+                resolve(items);
+            });
+        }, defaults);
     });
 }
 
 function set(page, items) {
-    return new Promise(function(resolve) {
-        // Let the page execute resolution function in Puppeteer context
-        page._pageBindings.delete("resolve");
-        page.exposeFunction("resolve", resolve).then(function() {
-            // Resolve the Promise only once storage is cleared
-            page.evaluate(function(items) {
-                chrome.storage.sync.set(items, function() {
-                    resolve();
-                });
-            }, items);
-        });
+    return awaitCallback(page, function(resolve) {
+        page.evaluate(function(items) {
+            chrome.storage.sync.set(items, function() {
+                resolve();
+            });
+        }, items);
     });
 }
 
 function clear(page) {
-    return new Promise(function(resolve) {
-        // Let the page execute resolution function in Puppeteer context
-        page._pageBindings.delete("resolve");
-        page.exposeFunction("resolve", resolve).then(function() {
-            // Resolve the Promise only once storage is cleared
-            page.evaluate(function() {
-                chrome.storage.sync.clear(function() {
-                    resolve();
-                });
+    return awaitCallback(page, function(resolve) {
+        page.evaluate(function() {
+            chrome.storage.sync.clear(function() {
+                resolve();
             });
         });
     });
