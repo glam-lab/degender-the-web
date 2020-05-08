@@ -56,8 +56,7 @@ describe("When the user has turned off the extension for this host, the page", f
             );
         });
 
-        // TODO Change to "should show"
-        it("should not show the 'Show changes' checkbox", async function() {
+        it("should show the 'Show changes' checkbox", async function() {
             await popup.waitForSelector(selectors.showChangesCheckbox, {
                 visible: false
             });

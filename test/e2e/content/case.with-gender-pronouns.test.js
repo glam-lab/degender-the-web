@@ -34,10 +34,9 @@ describe("When the page includes gender pronouns, it", function() {
         expect(statusText).to.include("replaced gender pronouns");
     });
 
-    // TODO Should be "should not have any highlights", and rename `changes`
-    it("should not have any changes", async function() {
-        const changes = await page.$$(selectors.highlight);
-        expect(changes).to.be.empty;
+    it("should not have any highlights", async function() {
+        const highlights = await page.$$(selectors.highlight);
+        expect(highlights).to.be.empty;
     });
 
     it("should have insertions", async function() {
