@@ -4,8 +4,16 @@
 // It's not worth it to DRY this any longer
 function awaitCallback(page, f) {
     return new Promise(function(resolve) {
+        const resolveWrapper = function(result) {
+            if (result) {
+                resolve(JSON.parse(result).args[0]);
+            } else {
+                resolve();
+            }
+        };
+
         page._pageBindings.delete("resolve");
-        page.exposeFunction("resolve", resolve).then(f);
+        page.exposeFunction("resolve", resolveWrapper).then(f);
     });
 }
 

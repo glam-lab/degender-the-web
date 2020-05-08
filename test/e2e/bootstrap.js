@@ -52,7 +52,9 @@ before(function(done) {
         ins: "ins.dgtw",
         del: "del.dgtw",
         highlight: "strong.dgtw",
-        hostLabel: ".host-label"
+        hostLi: "#doNotReplaceList > li",
+        hostLabel: ".host-label",
+        deleteButton: ".li-delete-button"
     };
 
     puppeteer.launch(opts).then(function(browser) {

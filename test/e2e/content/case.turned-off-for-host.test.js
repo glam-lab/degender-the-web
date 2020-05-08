@@ -17,11 +17,9 @@ describe("When the user has turned off the extension for this host, the page", f
             popup = await browser.newPage();
 
             // Turn off replacements on this host only
-            console.log("setting storage");
             await storage.set(options, {
                 doNotReplaceList: [new URL(testURL).host]
             });
-            console.log("done setting storage");
 
             // Open the popup, but don't yet reload the page
             await popup.goto(popupURL);

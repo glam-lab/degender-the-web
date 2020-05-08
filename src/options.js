@@ -96,7 +96,7 @@ function displayDoNotReplaceList(doNotReplaceList) {
         deleteButton.appendChild(document.createTextNode("[x]"));
         deleteButton.addEventListener("click", function() {
             removeItem(
-                this.parentElement.querySelector(".url-li-label").innerText
+                this.parentElement.querySelector(".host-label").innerText
             );
         });
 
