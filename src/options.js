@@ -30,6 +30,7 @@ function saveDoNotReplaceList(doNotReplaceList, callback) {
 function addItem() {
     const newEntryField = document.getElementById("newEntry");
 
+    // We can't use the URL API here, as it requires a protocol
     let url = newEntryField.value;
 
     if (url.includes("://")) {
@@ -39,7 +40,6 @@ function addItem() {
             .slice(1)
             .join("://");
     }
-
     url = url.split("/")[0];
 
     newEntryField.value = "";
@@ -60,7 +60,7 @@ function removeItem(urlToRemove) {
             return s === urlToRemove;
         });
 
-        // If the item hasn't already been removed from the list,
+        // If the item hasn't already been removed from the list, remove it
         if (index !== -1) {
             doNotReplaceList.splice(index, 1);
         } else {

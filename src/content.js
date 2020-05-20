@@ -17,7 +17,7 @@
         function(items) {
             // If DGtW is allowed to access this page, run the content script.
             if (
-                // Check if the URL matches one of the items in the list.
+                // Check if the URL matches none of the items in the list.
                 !items.doNotReplaceList.some(String.prototype.startsWith, url)
             ) {
                 contentScript.main();

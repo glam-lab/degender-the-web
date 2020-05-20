@@ -37,8 +37,8 @@ function sendMessageToContentScript(type, callback) {
     });
 }
 
-function setVisibility(id, visibility) {
-    if (visibility) {
+function setVisibility(id, shouldBeVisible) {
+    if (shouldBeVisible) {
         document.getElementById(id).classList.remove("hide");
         document.getElementById(id).classList.add("show");
     } else {
@@ -200,7 +200,7 @@ function updateStatusCallback(response) {
                 // Handler for host checkbox when the page hasn't been modified
                 document
                     .getElementById(ids.turnOnForHostCheckbox)
-                    .addEventListener("click", toggleHostWithoutScript);
+                    .addEventListener("click", toggleHostWithoutScriptHandler);
 
                 if (doNotReplaceList.includes(url.host)) {
                     setStatusTo(Status.userDeniedHost);
@@ -243,7 +243,10 @@ function setReloadMessage(message) {
     document.getElementById(ids.reloadMessage).innerHTML = message;
 }
 
-function toggleHostWithoutScript() {
+/**
+ * Handler for host checkbox when the page hasn't been modified
+ */
+function toggleHostWithoutScriptHandler() {
     const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
 
     // If a status has made the reload button visible, we can't hide it here
@@ -275,15 +278,14 @@ function toggleHostWithoutScript() {
 }
 
 function toggleHostWithScript() {
-    const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
+    // The checkbox indicates whether replacements are allowed on this host
+    const isChecked = document.getElementById(ids.turnOnForHostCheckbox)
+        .checked;
 
-    // If a status has made the reload button visible, we can't hide it here
-    // FIXME This gets the checkedness *on click*, not when the popup is opened
-    //       This variable is no longer being used, since it doesn't work right
     callOnTargetTab(function(tab) {
         const url = new URL(tab.url);
         loadDoNotReplaceList(function(doNotReplaceList) {
-            if (checked) {
+            if (isChecked) {
                 // The box was probably unchecked, then re-checked.
                 // Hide the reload message, since reloading will do nothing.
                 setVisibility(ids.reloadPage, false);

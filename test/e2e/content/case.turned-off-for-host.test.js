@@ -77,7 +77,6 @@ describe("When the user has turned off the extension for this host, the page", f
 
     describe("When the user opens or reloads the page, it", function() {
         before(async function() {
-            // Open page and popup just so we can access the doNotReplaceList
             options = await browser.newPage();
             await options.goto(optionsURL);
             page = await browser.newPage();
