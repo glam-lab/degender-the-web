@@ -93,13 +93,13 @@ describe("On the options page,", function() {
             await storage.clear(options);
         });
 
-        it.only("should add the URL to the list", async function() {
+        it("should add the URL to the list", async function() {
             const hosts = await getListedHosts(options);
             expect(hosts).to.have.lengthOf(4);
             expect(hosts).to.include("test.edu");
         });
 
-        it.only("should clear the input field", async function() {
+        it("should clear the input field", async function() {
             expect(await options.$eval("#newEntry", e => e.value)).to.equal("");
         });
     });
@@ -120,7 +120,7 @@ describe("On the options page,", function() {
             await storage.clear(options);
         });
 
-        it.only("should strip the protocol", async function() {
+        it("should strip the protocol", async function() {
             const hosts = await getListedHosts(options);
             expect(hosts).to.have.lengthOf(4);
             expect(hosts).to.include("www.test.edu");

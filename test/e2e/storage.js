@@ -1,49 +1,48 @@
 /*globals chrome */
-// _pageBindings solution from https://stackoverflow.com/a/59138297/9158894
 
-// It's not worth it to DRY this any longer
-function awaitCallback(page, f) {
-    return new Promise(function(resolve) {
-        const resolveWrapper = function(result) {
-            if (result) {
-                resolve(JSON.parse(result).args[0]);
-            } else {
-                resolve();
-            }
-        };
-
-        page._pageBindings.delete("resolve");
-        page.exposeFunction("resolve", resolveWrapper).then(f);
-    });
-}
+/**
+ * This module gives us access to the Chrome extension storage API when running
+ * tests with Puppeteer.
+ *
+ * While the extension itself can access the storage module at
+ * `chrome.storage`, the Puppeteer context doesn't have the same access to the
+ * storage module. The functions below correspond to the `get`, `set`, and
+ * `clear` methods of `chrome.storage.sync`. These functions have a few big
+ * differences from those in the storage API:
+ * - they are asyncronous and can be awaited to get the result that would
+ *   otherwise be passed into the storage callback function
+ * - they require an extension page as their first argument, such as the
+ *   options page or the popup
+ * - not counting the first argument, arguments and return values must be
+ *   JSON-serializable
+ *
+ * More information on the storage API can be found here:
+ * https://developer.chrome.com/extensions/storage
+ */
 
 function get(page, defaults) {
-    return awaitCallback(page, function(resolve) {
-        page.evaluate(function(defaults) {
-            chrome.storage.sync.get(defaults, function(items) {
-                resolve(items);
+    return page
+        .evaluate(function(jsonDefaults) {
+            return new Promise(function(resolve) {
+                chrome.storage.sync.get(JSON.parse(jsonDefaults), items =>
+                    resolve(JSON.stringify(items))
+                );
             });
-        }, defaults);
-    });
+        }, JSON.stringify(defaults))
+        .then(jsonItems => JSON.parse(jsonItems));
 }
 
 function set(page, items) {
-    return awaitCallback(page, function(resolve) {
-        page.evaluate(function(items) {
-            chrome.storage.sync.set(items, function() {
-                resolve();
-            });
-        }, items);
-    });
+    return page.evaluate(function(jsonItems) {
+        return new Promise(function(resolve) {
+            chrome.storage.sync.set(JSON.parse(jsonItems), resolve);
+        });
+    }, JSON.stringify(items));
 }
 
 function clear(page) {
-    return awaitCallback(page, function(resolve) {
-        page.evaluate(function() {
-            chrome.storage.sync.clear(function() {
-                resolve();
-            });
-        });
+    return page.evaluate(function() {
+        return new Promise(chrome.storage.sync.clear);
     });
 }
 
