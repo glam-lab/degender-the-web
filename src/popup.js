@@ -67,7 +67,6 @@ function showElements(elementsToShow) {
 
 function setStatusTo(newStatus, whyExcluded) {
     let statusText = "<i>Degender the Web</i> ";
-    console.log("status: " + newStatus);
     switch (newStatus) {
         case Status.excludedDomain:
             statusText += "does not run on this site due to ";
