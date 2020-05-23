@@ -1,7 +1,7 @@
 /*eslint no-unused-expressions: "off" */
 /*globals describe, before, after, it, expect, browser, storage, selectors, testURL, popupURL, optionsURL */
 
-describe("When the user has turned off the extension for this host, the page", function() {
+describe("When the extension is turned off for this host, the page", function() {
     let page;
     let popup;
     let options;
@@ -46,6 +46,10 @@ describe("When the user has turned off the extension for this host, the page", f
         });
 
         it("should prompt the user to reload", async function() {
+            await popup.waitForSelector(selectors.reloadMessage, {
+                visible: true
+            });
+
             const reloadText = await popup.$eval(
                 selectors.reloadMessage,
                 e => e.innerText
@@ -56,9 +60,15 @@ describe("When the user has turned off the extension for this host, the page", f
             );
         });
 
-        it("should show the 'Show changes' checkbox", async function() {
+        it("should show the 'Replace pronouns' checkbox", async function() {
+            await popup.waitForSelector(selectors.turnOnForHost, {
+                visible: true
+            });
+        });
+
+        it("should not show the 'Show changes' checkbox", async function() {
             await popup.waitForSelector(selectors.showChangesCheckbox, {
-                visible: false
+                visible: true
             });
         });
 
@@ -70,7 +80,7 @@ describe("When the user has turned off the extension for this host, the page", f
 
         it("should show the 'Reload page' button", async function() {
             await popup.waitForSelector(selectors.reloadPage, {
-                hidden: false
+                visible: true
             });
         });
     });
@@ -93,7 +103,7 @@ describe("When the user has turned off the extension for this host, the page", f
         });
 
         after(async function() {
-            await storage.clear(popup);
+            await storage.clear(options);
 
             await popup.close();
             await page.close();
@@ -134,7 +144,9 @@ describe("When the user has turned off the extension for this host, the page", f
         });
 
         it("should not show the 'Reload page' button", async function() {
-            await popup.waitForSelector(selectors.reloadPage, { hidden: true });
+            await popup.waitForSelector(selectors.reloadPage, {
+                visible: false
+            });
         });
     });
 });

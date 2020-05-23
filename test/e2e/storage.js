@@ -42,7 +42,7 @@ function set(page, items) {
 
 function clear(page) {
     return page.evaluate(function() {
-        return new Promise(chrome.storage.sync.clear);
+        return new Promise(resolve => chrome.storage.sync.clear(resolve));
     });
 }
 
