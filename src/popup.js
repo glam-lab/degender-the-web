@@ -328,8 +328,4 @@ document
 // Special URL parameter used for testing
 const isTest = getUrlParameter("test") === "true";
 
-// Display extension status when popup is opened
-// FIXME Since this is async, the popup is supposedly loaded before its status.
-//       Fixing this should make tests simpler and require less waiting for
-//       element visibility.
 updateStatus();
