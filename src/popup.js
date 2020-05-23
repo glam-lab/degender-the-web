@@ -53,6 +53,7 @@ function showElements(elementsToShow) {
 
     const allElements = [
         ids.reloadPage,
+        ids.reloadMessage,
         ids.showChanges,
         ids.showHighlights,
         ids.turnOnForHost
@@ -66,6 +67,7 @@ function showElements(elementsToShow) {
 
 function setStatusTo(newStatus, whyExcluded) {
     let statusText = "<i>Degender the Web</i> ";
+    console.log("status: " + newStatus);
     switch (newStatus) {
         case Status.excludedDomain:
             statusText += "does not run on this site due to ";
@@ -134,7 +136,11 @@ function setStatusTo(newStatus, whyExcluded) {
             setReloadMessage("Reload the page to replace pronouns.");
 
             // Show reload button
-            showElements([ids.reloadPage]);
+            showElements([
+                ids.turnOnForHost,
+                ids.reloadPage,
+                ids.reloadMessage
+            ]);
             break;
     }
 }
@@ -204,7 +210,10 @@ function updateStatusCallback(response) {
 
                 if (doNotReplaceList.includes(url.host)) {
                     setStatusTo(Status.userDeniedHost);
-                } else if (url.protocol === "chrome:") {
+                } else if (
+                    url.protocol === "chrome:" ||
+                    url.hostname === "chrome.google.com"
+                ) {
                     setStatusTo(Status.systemPage);
                 } else {
                     // It's hard to tell how we got to this state when we can't
