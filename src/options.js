@@ -64,7 +64,7 @@ function removeItem(urlToRemove) {
         if (index !== -1) {
             doNotReplaceList.splice(index, 1);
         } else {
-            console.log(urlToRemove + " was not found in `doNotReplaceList`");
+            console.warn(urlToRemove + " was not found in `doNotReplaceList`");
         }
 
         saveDoNotReplaceList(doNotReplaceList);
