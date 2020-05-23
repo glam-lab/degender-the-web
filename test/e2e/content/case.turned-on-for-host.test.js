@@ -63,6 +63,15 @@ describe("When the extension is re-enabled on this host, the page", function() {
             });
         });
 
+        it("the 'Replace pronouns' checkbox should be checked", async function() {
+            const isChecked = await popup.$eval(
+                selectors.turnOnForHostCheckbox,
+                e => e.checked
+            );
+            //await page.waitFor(100000);
+            expect(isChecked).to.be.true;
+        });
+
         it("should show the 'Show changes' checkbox", async function() {
             await popup.waitForSelector(selectors.showChangesCheckbox, {
                 visible: false
@@ -142,9 +151,9 @@ describe("When the extension is re-enabled on this host, the page", function() {
             });
         });
 
-        it("should show the 'Reload page' button", async function() {
+        it("should not show the 'Reload page' button", async function() {
             await popup.waitForSelector(selectors.reloadPage, {
-                visible: true
+                visible: false
             });
         });
     });

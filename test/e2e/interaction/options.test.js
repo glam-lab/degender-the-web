@@ -95,8 +95,12 @@ describe("On the options page,", function() {
 
         it("should add the URL to the list", async function() {
             const hosts = await getListedHosts(options);
-            expect(hosts).to.have.lengthOf(4);
             expect(hosts).to.include("test.edu");
+        });
+
+        it("should only add one URL to the list", async function() {
+            const hosts = await getListedHosts(options);
+            expect(hosts).to.have.lengthOf(4);
         });
 
         it("should clear the input field", async function() {

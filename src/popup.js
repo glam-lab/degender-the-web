@@ -181,12 +181,16 @@ function updateStatusCallback(response) {
         callOnTargetTab(function(tab) {
             const url = new URL(tab.url);
 
+            const hostCheckbox = document.getElementById(
+                ids.turnOnForHostCheckbox
+            );
+
             if (response) {
                 // Successfully messaged content script
                 // Handler for host checkbox when replacements have been made
                 document
                     .getElementById(ids.turnOnForHostCheckbox)
-                    .addEventListener("click", toggleHostWithScript);
+                    .addEventListener("click", toggleHostWithScriptHandler);
 
                 setStatusTo(response.status, response.whyExcluded);
 
@@ -196,11 +200,8 @@ function updateStatusCallback(response) {
                     response.isToggled;
                 document.getElementById(ids.showHighlightsCheckbox).checked =
                     response.isToggled;
-                const hostCheckbox = document.getElementById(
-                    ids.turnOnForHostCheckbox
-                );
                 hostCheckbox.checked = !doNotReplaceList.includes(url.host);
-                toggleHostWithScript();
+                toggleHostWithScriptHandler();
             } else {
                 // Handler for host checkbox when the page hasn't been modified
                 document
@@ -209,6 +210,7 @@ function updateStatusCallback(response) {
 
                 if (doNotReplaceList.includes(url.host)) {
                     setStatusTo(Status.userDeniedHost);
+                    hostCheckbox.checked = false;
                 } else if (
                     url.protocol === "chrome:" ||
                     url.hostname === "chrome.google.com"
@@ -217,6 +219,7 @@ function updateStatusCallback(response) {
                 } else {
                     // It's hard to tell how we got to this state when we can't
                     // communicate with the content script. Prompt to reload.
+                    hostCheckbox.checked = true;
                     setStatusTo(Status.genericReload);
                 }
             }
@@ -252,20 +255,27 @@ function setReloadMessage(message) {
 }
 
 /**
- * Handler for host checkbox when the page hasn't been modified
+ * Handler for host checkbox when the page hasn't been modified.
+ *
+ * No running content script means that either the extension was just
+ * installed or the page was not in the doNotReplaceList when the user
+ * navigated to it. This informs the content and presence of our reloadMessage
+ * to explain to the user if and why they should click the "Reload page"
+ * button.
  */
 function toggleHostWithoutScriptHandler() {
-    const checked = document.getElementById(ids.turnOnForHostCheckbox).checked;
+    const isChecked = document.getElementById(ids.turnOnForHostCheckbox)
+        .checked;
 
     // If a status has made the reload button visible, we can't hide it here
-    const reloadVisibility = document
+    const doShowReloadButton = document
         .getElementById(ids.reloadPage)
         .classList.contains("show");
 
     callOnTargetTab(function(tab) {
         const url = new URL(tab.url);
         loadDoNotReplaceList(function(doNotReplaceList) {
-            if (checked) {
+            if (isChecked) {
                 setReloadMessage("Reload the page to replace pronouns.");
                 setVisibility(ids.reloadPage, true);
                 setVisibility(ids.reloadMessage, true);
@@ -276,7 +286,7 @@ function toggleHostWithoutScriptHandler() {
             } else {
                 // The box was probably checked, then unchecked.
                 // Hide the reload message, since reloading will do nothing.
-                setVisibility(ids.reloadPage, reloadVisibility);
+                setVisibility(ids.reloadPage, doShowReloadButton);
                 setVisibility(ids.reloadMessage, false);
                 doNotReplaceList.push(url.host);
             }
@@ -285,7 +295,15 @@ function toggleHostWithoutScriptHandler() {
     });
 }
 
-function toggleHostWithScript() {
+/**
+ * Handler for host checkbox when the content script is running on the page.
+ *
+ * A running content script indicates that the page was not in the
+ * doNotReplaceList when the user navigated to it. This informs the content and
+ * presence of our reloadMessage to explain to the user if and why they should
+ * click the "Reload page" button.
+ */
+function toggleHostWithScriptHandler() {
     // The checkbox indicates whether replacements are allowed on this host
     const isChecked = document.getElementById(ids.turnOnForHostCheckbox)
         .checked;

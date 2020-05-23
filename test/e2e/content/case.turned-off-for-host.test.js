@@ -66,7 +66,15 @@ describe("When the extension is turned off for this host, the page", function() 
             });
         });
 
-        it("should not show the 'Show changes' checkbox", async function() {
+        it("the 'Replace pronouns' checkbox should be unchecked", async function() {
+            const isChecked = await popup.$eval(
+                selectors.turnOnForHostCheckbox,
+                e => e.checked
+            );
+            expect(isChecked).to.be.false;
+        });
+
+        it("should show the 'Show changes' checkbox", async function() {
             await popup.waitForSelector(selectors.showChangesCheckbox, {
                 visible: true
             });
@@ -93,6 +101,12 @@ describe("When the extension is turned off for this host, the page", function() 
             await page.goto(testURL + text);
             popup = await browser.newPage();
             await popup.goto(popupURL);
+
+            // FIXME The extension is still running asynchronously when the
+            // storage gets cleared; then the extension finishes, finding that
+            // the host is not in the doNotReplaceList and performing
+            // replacements. Running with `slowMo` or waiting "fixes" it.
+            await page.waitFor(100);
 
             // Turn off replacements, reload popup to simulate re-opening it
             await storage.set(options, {

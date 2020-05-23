@@ -63,11 +63,10 @@ function removeItem(urlToRemove) {
         // If the item hasn't already been removed from the list, remove it
         if (index !== -1) {
             doNotReplaceList.splice(index, 1);
+            saveDoNotReplaceList(doNotReplaceList);
         } else {
             console.warn(urlToRemove + " was not found in `doNotReplaceList`");
         }
-
-        saveDoNotReplaceList(doNotReplaceList);
 
         // Update the displayed list
         displayDoNotReplaceList(doNotReplaceList);
