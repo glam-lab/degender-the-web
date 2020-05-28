@@ -142,6 +142,7 @@ function setStatusTo(newStatus, whyExcluded) {
             ]);
             break;
     }
+    setVisibility(ids.status, true);
 }
 
 function updateStatus() {

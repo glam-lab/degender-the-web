@@ -34,6 +34,10 @@ describe("When the extension is turned off for this host, the page", function() 
         });
 
         it("should not yet change the status message", async function() {
+            await popup.waitForSelector(selectors.status, {
+                visible: true
+            });
+
             const statusText = await popup.$eval(
                 selectors.status,
                 e => e.innerText
