@@ -15,14 +15,6 @@ import {
 } from "./stopword-highlights.js";
 import { Status } from "./status.js";
 
-// Make a function to restore the original page content.
-// Expects to receive document.body.innerHTML.
-function makeRestorer(originalHTML) {
-    return function() {
-        document.body.innerHTML = originalHTML;
-    };
-}
-
 // Make a function to toggle markup.
 // Expects the name of the thing to be toggled ("changes" or "highlights").
 function makeToggler(somethingToToggle) {
@@ -105,7 +97,6 @@ export function main() {
         chrome.runtime.sendMessage({ colorIcon: true });
     }
 
-    const restoreOriginalContent = makeRestorer(originalBodyHTML);
     const toggler = makeToggler(somethingToToggle);
     let isToggled = false;
 
@@ -117,11 +108,6 @@ export function main() {
                 isToggled: isToggled,
                 whyExcluded: ifExcludedWhy(location.host)
             });
-        } else if (request.type === "restoreOriginalContent") {
-            restoreOriginalContent();
-            extensionStatus = Status.restoredOriginal;
-            chrome.runtime.sendMessage({ colorIcon: false });
-            sendResponse({ status: extensionStatus, isToggled: isToggled });
         } else if (request.type === "toggle") {
             toggler();
             isToggled = !isToggled;
