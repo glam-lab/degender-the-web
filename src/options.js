@@ -30,7 +30,8 @@ function saveDoNotReplaceList(doNotReplaceList, callback) {
 function addItem() {
     const newEntryField = document.getElementById("newEntry");
 
-    // We can't use the URL API here, as it requires a protocol
+    // We can't use the URL API here, as it requires a protocol and the user
+    // may not provide one
     let url = newEntryField.value;
 
     if (url.includes("://")) {
