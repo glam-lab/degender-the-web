@@ -16,10 +16,6 @@ describe("When the extension is turned off for this host, the page", function() 
             await page.goto(testURL + text);
             popup = await browser.newPage();
 
-            // This helps determine whether there's a race condition here.
-            // 1000ms is generous, just to make sure.
-            //page.waitFor(1000);
-
             // Turn off replacements on this host only
             await storage.set(options, {
                 doNotReplaceList: [new URL(testURL).host]
@@ -42,6 +38,7 @@ describe("When the extension is turned off for this host, the page", function() 
                 visible: true
             });
 
+            // Wait for the status message to appear
             const statusText = await popup.$eval(
                 selectors.status,
                 e => e.innerText
