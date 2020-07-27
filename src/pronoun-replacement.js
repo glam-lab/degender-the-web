@@ -149,8 +149,8 @@ export function replacePossessiveAdjectives(doc) {
 export function spaceAfterPeriod(text) {
     text = text.replace(/\./g, ". ");
     text = text.replace(/ +/g, " ");
-    text = text.replace(/. "/g, '."');
-    text = text.replace(/. ”/g, ".”");
+    text = text.replace(/\. "/g, '."');
+    text = text.replace(/\. ”/g, ".”");
     return text;
 }
 
